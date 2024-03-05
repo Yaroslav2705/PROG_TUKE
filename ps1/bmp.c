@@ -90,7 +90,7 @@ char* vigenere_decrypt(const char* key, const char* text) {
     return decrypted_text;
 }
 
-char* bmp_encrypt(const char* key, const char* text) {
+unsigned char* bmp_encrypt(const char* key, const char* text) {
     char* reversed_text = reverse(text);
     char* encrypted_text = vigenere_encrypt(key, reversed_text);
     free(reversed_text);
