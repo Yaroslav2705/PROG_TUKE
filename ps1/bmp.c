@@ -12,13 +12,13 @@
 
 char* reverse(const char* text) {
     size_t length = strlen(text);
-    char* reversed_text = (char*)calloc(length + 1, sizeof(char)); // Выделение памяти для результата
+    char* reversed_text = (char*)calloc(length + 1, sizeof(char)); //    
     if (reversed_text == NULL) {
-        return NULL; // Обработка ошибки выделения памяти
+        return NULL; //    
     }
 
     for (size_t i = 0; i < length; ++i) {
-        reversed_text[i] = toupper(text[length - i - 1]); // Копирование символов в обратном порядке
+        reversed_text[i] = toupper(text[length - i - 1]); //     
     }
 
     return reversed_text;

@@ -26,9 +26,9 @@ void split_into_pairs(char* str, char* pairs) {
     for (int i = 0; str[i] != '\0'; i += 2) {
         pairs[pair_index++] = str[i];
         pairs[pair_index++] = str[i + 1];
-        pairs[pair_index++] = ' '; // добавляем пробел между парами
+        pairs[pair_index++] = ' '; //    
     }
-    pairs[pair_index] = '\0'; // добавляем завершающий нуль-символ
+    pairs[pair_index] = '\0'; //   -
 }
 
 // Function for Playfair encryption
@@ -241,7 +241,7 @@ int main() {
     
     // Encryption
     char* encrypted_text = playfair_encrypt(key, text);
-    printf("%s\n", encrypted_text); // Вывод зашифрованного текста
+    printf("%s\n", encrypted_text); //   
 	
 		// Decryption
     //const char* encrypted_text_to_decrypt = "IS JZ JQ XN TK JC";  // Example encrypted text
@@ -253,8 +253,9 @@ int main() {
 	free(encrypted_text);
 
 
-    // Освобождаем память, выделенную для шифрованного текста
+    //  ,    
     //free(encrypted_text);
     
     return 0;
 }*/
+
