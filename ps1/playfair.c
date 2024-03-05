@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
+#include "playfair.h"
 
 // Function to remove spaces from a string, convert it to uppercase,
 // and replace 'W' with 'V'
@@ -233,7 +234,7 @@ char* playfair_decrypt(const char* key, const char* text) {
 
     return decrypted_text;
 }
-
+/*
 int main() {
     const char* key = "secret";
     const char* text = "Hello World!";
@@ -256,4 +257,4 @@ int main() {
     //free(encrypted_text);
     
     return 0;
-}
+}*/
