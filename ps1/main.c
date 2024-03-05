@@ -70,7 +70,17 @@ char* encrypted_1;
 encrypted_1 = vigenere_encrypt("CoMPuTeR", "Hello world!");
 printf("%s\n", encrypted);
 // "JSXAI PSINR!"
+    
+    // Encryption
+    char* encrypted_text = bmp_encrypt("secret", "Hello World!");
+    printf("Encrypted Text: %s\n", encrypted_text);
+    
+    // Decryption
+    char* decrypted_text = bmp_decrypt("secret", (unsigned char*)encrypted_text);
+    printf("Decrypted Text: %s\n", decrypted_text);
 
+    free(encrypted_text);
+    free(decrypted_text);
 
 
 }
