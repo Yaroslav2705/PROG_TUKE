@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
+#include <stbool.h>
 #include "playfair.h"
 
 // Function to remove spaces from a string, convert it to uppercase,
@@ -147,33 +148,29 @@ char* playfair_encrypt(const char* key, const char* text) {
     return encrypted_pairs;
 }
 
-#include <stdbool.h>
-
-#define SIZE 5
-
 void preprocess_text(const char* input, char* output) {
-    int zyxdqv = strlen(input);
-    int abc = 0;
-    for (int i = 0; i < zyxdqv; ++i) {
+    int input_length = strlen(input);
+    int output_index = 0;
+    for (int i = 0; i < input_length; ++i) {
         if (isalpha(input[i])) {
-            output[abc++] = toupper(input[i]);
+            output[output_index++] = toupper(input[i]);
         }
     }
-    output[abc] = '\0';
+    output[output_index] = '\0';
 }
 
-void generate_key_matrix(const char* key, char keyMatrix[SIZE][SIZE]) {
+void generate_key_matrix(const char* key, char keyMatrix[5][5]) {
     bool used[26] = {false};
-    int xz = strlen(key);
+    int key_length = strlen(key);
     int row = 0, col = 0;
-    for (int i = 0; i < xz; ++i) {
+    for (int i = 0; i < key_length; ++i) {
         if (isalpha(key[i])) {
             char letter = toupper(key[i]);
             if (!used[letter - 'A'] && letter != 'J') {
                 keyMatrix[row][col] = letter;
                 used[letter - 'A'] = true;
                 ++col;
-                if (col == SIZE) {
+                if (col == 5) {
                     col = 0;
                     ++row;
                 }
@@ -184,7 +181,7 @@ void generate_key_matrix(const char* key, char keyMatrix[SIZE][SIZE]) {
         if (ch != 'J' && !used[ch - 'A']) {
             keyMatrix[row][col] = ch;
             ++col;
-            if (col == SIZE) {
+            if (col == 5) {
                 col = 0;
                 ++row;
             }
@@ -192,9 +189,9 @@ void generate_key_matrix(const char* key, char keyMatrix[SIZE][SIZE]) {
     }
 }
 
-void find_position(char letter, const char keyMatrix[SIZE][SIZE], int* row, int* col) {
-    for (int i = 0; i < SIZE; ++i) {
-        for (int j = 0; j < SIZE; ++j) {
+void find_position(char letter, const char keyMatrix[5][5], int* row, int* col) {
+    for (int i = 0; i < 5; ++i) {
+        for (int j = 0; j < 5; ++j) {
             if (keyMatrix[i][j] == letter) {
                 *row = i;
                 *col = j;
@@ -204,22 +201,21 @@ void find_position(char letter, const char keyMatrix[SIZE][SIZE], int* row, int*
     }
 }
 
-void decrypt_pair(char a, char b, const char keyMatrix[SIZE][SIZE], char* decryptedA, char* decryptedB) {
+void decrypt_pair(char a, char b, const char keyMatrix[5][5], char* decryptedA, char* decryptedB) {
     int row1, col1, row2, col2;
     find_position(a, keyMatrix, &row1, &col1);
     find_position(b, keyMatrix, &row2, &col2);
     if (row1 == row2) {
-        *decryptedA = keyMatrix[row1][(col1 + SIZE - 1) % SIZE];
-        *decryptedB = keyMatrix[row2][(col2 + SIZE - 1) % SIZE];
+        *decryptedA = keyMatrix[row1][(col1 + 4) % 5];
+        *decryptedB = keyMatrix[row2][(col2 + 4) % 5];
     } else if (col1 == col2) {
-        *decryptedA = keyMatrix[(row1 + SIZE - 1) % SIZE][col1];
-        *decryptedB = keyMatrix[(row2 + SIZE - 1) % SIZE][col2];
+        *decryptedA = keyMatrix[(row1 + 4) % 5][col1];
+        *decryptedB = keyMatrix[(row2 + 4) % 5][col2];
     } else {
         *decryptedA = keyMatrix[row1][col2];
         *decryptedB = keyMatrix[row2][col1];
     }
 }
-
 
 char* playfair_decrypt(const char* key, const char* text) {
     if (key == NULL || text == NULL)
@@ -228,7 +224,7 @@ char* playfair_decrypt(const char* key, const char* text) {
     char processedText[1000];
     preprocess_text(text, processedText);
 
-    char keyMatrix[SIZE][SIZE];
+    char keyMatrix[5][5];
     generate_key_matrix(key, keyMatrix);
 
     int len = strlen(processedText);
@@ -244,6 +240,7 @@ char* playfair_decrypt(const char* key, const char* text) {
 
     return decryptedText;
 }
+
 
 /*
 int main() {
