@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
-#include <stbool.h>
+#include <stdbool.h>
 #include "playfair.h"
 
 // Function to remove spaces from a string, convert it to uppercase,
