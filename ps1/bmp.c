@@ -94,7 +94,7 @@ unsigned char* bmp_encrypt(const char* key, const char* text) {
     char* reversed_text = reverse(text);
     char* encrypted_text = vigenere_encrypt(key, reversed_text);
     free(reversed_text);
-    return encrypted_text;
+    return (unsigned char*)encrypted_text;
 }
 
 char* bmp_decrypt(const char* key, const unsigned char* text) {
@@ -110,7 +110,7 @@ int main() {
     const char* original_text = "Hello World!";
     
     // Encryption
-    char* encrypted_text = bmp_encrypt(key, original_text);
+    unsigned char* encrypted_text = bmp_encrypt(key, original_text);
     printf("Encrypted Text: %s\n", encrypted_text);
     
     // Decryption
@@ -122,4 +122,3 @@ int main() {
 
     return 0;
 }*/
-
