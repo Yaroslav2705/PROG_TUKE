@@ -26,19 +26,28 @@ void split_into_pairs(char* str, char* pairs) {
     for (int i = 0; str[i] != '\0'; i += 2) {
         pairs[pair_index++] = str[i];
         pairs[pair_index++] = str[i + 1];
-        pairs[pair_index++] = ' '; //    
+        if (str[i + 2] != '\0') { // Add space only if the next character exists
+            pairs[pair_index++] = ' ';
+        }
     }
-    pairs[pair_index] = '\0'; //   -
+    pairs[pair_index] = '\0'; // Add null-terminating character
 }
 
 // Function for Playfair encryption
 char* playfair_encrypt(const char* key, const char* text) {
     // Remove spaces, convert to uppercase, and replace 'W' with 'V' for both key and text
-    char nacalo[26], konec[100];
+    char nacalo[26], konec[1000]; // Increased buffer size for text
     strcpy(nacalo, key);
     strcpy(konec, text);
     super_varik(nacalo);
     super_varik(konec);
+
+    // Allocate memory buffer for encrypted text with dynamic size
+    int encrypted_buffer_size = strlen(konec) * 2; // Increased size for letter pairs
+    char* encrypted_text = (char*)calloc((encrypted_buffer_size + 1), sizeof(char)); // Using calloc instead of malloc
+    if (encrypted_text == NULL) {
+        return NULL; // Check for successful memory allocation
+    }
 
     // Create a 5x5 matrix for the key
     char matrix[5][5] = {0};  // Initialize all elements to 0
@@ -79,7 +88,6 @@ char* playfair_encrypt(const char* key, const char* text) {
 
     // Encrypt the text
     int text_length = strlen(konec);
-    char* encrypted_text = (char*)calloc(2 * text_length + 1, sizeof(char)); // Fix calloc argument
     int encrypted_index = 0;
 
     for (int i = 0; i < text_length; i += 2) {
@@ -131,7 +139,7 @@ char* playfair_encrypt(const char* key, const char* text) {
     encrypted_text[encrypted_index] = '\0';
 
     // Split the encrypted text into pairs of two letters
-    char* encrypted_pairs = (char*)calloc(2 * text_length + 1, sizeof(char));
+    char* encrypted_pairs = (char*)calloc((2 * text_length + 1), sizeof(char));
     split_into_pairs(encrypted_text, encrypted_pairs);
 
     free(encrypted_text);
@@ -142,11 +150,18 @@ char* playfair_encrypt(const char* key, const char* text) {
 // Function for Playfair decryption
 char* playfair_decrypt(const char* key, const char* text) {
     // Remove spaces, convert to uppercase, and replace 'W' with 'V' for both key and text
-    char nacalo[26], konec[100];
+    char nacalo[26], konec[1000]; // Increased buffer size for text
     strcpy(nacalo, key);
     strcpy(konec, text);
     super_varik(nacalo);
     super_varik(konec);
+
+    // Allocate memory buffer for decrypted text with dynamic size
+    int decrypted_buffer_size = strlen(konec) * 2; // Increased size for letter pairs
+    char* decrypted_text = (char*)calloc((decrypted_buffer_size + 1), sizeof(char));  // Using calloc instead of malloc
+    if (decrypted_text == NULL) {
+        return NULL; // Check for successful memory allocation
+    }
 
     // Create a 5x5 matrix for the key
     char matrix[5][5] = {0};  // Initialize all elements to 0
@@ -187,7 +202,6 @@ char* playfair_decrypt(const char* key, const char* text) {
 
     // Decrypt the text
     int text_length = strlen(konec);
-    char* decrypted_text = (char*)calloc((2 * text_length + 1), sizeof(char));  // Using calloc instead of malloc
     int decrypted_index = 0;
 
     for (int i = 0; i < text_length; i += 2) {
@@ -234,6 +248,8 @@ char* playfair_decrypt(const char* key, const char* text) {
 
     return decrypted_text;
 }
+
+
 /*
 int main() {
     const char* key = "secret";
