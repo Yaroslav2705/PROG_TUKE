@@ -10,6 +10,16 @@
     return "";
     }*/
 
+bool is_all_alpha(const char* str) {
+    while (*str) {
+        if (!isalpha(*str)) {
+            return false; // If the character is not a letter, return false
+        }
+        ++str;
+    }
+    return true; // If all characters are letters, return true
+}
+
 char* reverse(const char* text) {
     if (text == NULL)
         return NULL;
@@ -40,6 +50,11 @@ char* vigenere_encrypt(const char* key, const char* text) {
     if (key == NULL || text == NULL)
         return NULL;
 
+    // Check if the key contains only letters
+    if (!is_all_alpha(key))
+        return NULL;
+
+
     int aboba = strlen(key); // Length of the key
     int obabo = strlen(text); // Length of the text
 
@@ -68,6 +83,10 @@ char* vigenere_encrypt(const char* key, const char* text) {
 
 char* vigenere_decrypt(const char* key, const char* text) {
     if (key == NULL || text == NULL)
+        return NULL;
+
+    // Check if the key contains only letters
+    if (!is_all_alpha(key))
         return NULL;
 
     int abobo = strlen(key); // Length of the key
