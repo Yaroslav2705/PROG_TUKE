@@ -2,6 +2,7 @@
 #include <string.h>
 #include <ctype.h>
 #include <stdlib.h>
+#include <stbool.h>
 #include "bmp.h"
 
 /*char* reverse (const char* text){   

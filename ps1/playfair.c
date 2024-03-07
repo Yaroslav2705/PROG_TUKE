@@ -165,111 +165,97 @@ char* playfair_encrypt(const char* key, const char* text) {
     return encrypted_pairs;
 }
 
-// Function for Playfair decryption
+void preprocess_text(const char* input, char* output) {
+    int len = strlen(input);
+    int count = 0;
+    for (int i = 0; i < len; ++i) {
+        if (isalpha(input[i])) {
+            output[count++] = toupper(input[i]);
+        }
+    }
+    output[count] = '\0';
+}
+
+void generate_key_matrix(const char* key, char keyMatrix[SIZE][SIZE]) {
+    bool used[26] = {false};
+    int len = strlen(key);
+    int row = 0, col = 0;
+    for (int i = 0; i < len; ++i) {
+        if (isalpha(key[i])) {
+            char letter = toupper(key[i]);
+            if (!used[letter - 'A'] && letter != 'W') {
+                keyMatrix[row][col] = letter;
+                used[letter - 'A'] = true;
+                ++col;
+                if (col == SIZE) {
+                    col = 0;
+                    ++row;
+                }
+            }
+        }
+    }
+    for (char ch = 'A'; ch <= 'Z'; ++ch) {
+        if (ch != 'W' && !used[ch - 'A']) {
+            keyMatrix[row][col] = ch;
+            ++col;
+            if (col == SIZE) {
+                col = 0;
+                ++row;
+            }
+        }
+    }
+}
+
+void find_position(char letter, const char keyMatrix[SIZE][SIZE], int* row, int* col) {
+    for (int i = 0; i < SIZE; ++i) {
+        for (int j = 0; j < SIZE; ++j) {
+            if (keyMatrix[i][j] == letter) {
+                *row = i;
+                *col = j;
+                return;
+            }
+        }
+    }
+}
+
 char* playfair_decrypt(const char* key, const char* text) {
-    if (key == NULL || text == NULL)
+    if (key == NULL || text == NULL) 
         return NULL;
 
     // Check if the key contains only letters
     if (!is_all_alpha(key))
         return NULL;
 
-    // Remove spaces, convert to uppercase, and replace 'W' with 'V' for both key and text
-    char nacalo[26], konec[1000];
-    strcpy(nacalo, key);
-    strcpy(konec, text);
-    super_varik(nacalo);
-    super_varik(konec);
+    char keyMatrix[SIZE][SIZE];
+    generate_key_matrix(key, keyMatrix);
 
-    // Create a 5x5 matrix for the key
-    char matrix[5][5] = {0};  // Initialize all elements to 0
-    int key_length = strlen(nacalo);
-    int row = 0, col = 0;
+    char processedText[1000];
+    preprocess_text(text, processedText);
 
-    // Fill the matrix with unique characters from the key
-    for (int i = 0; i < key_length; i++) {
-        int exist=0;
-        for (int ii = 0; ii < 5; ii++) {
-            for (int ij = 0; ij < 5; ij++) {
-                if(matrix[ii][ij]==nacalo[i]) {
-                    exist=1;
-                }
-            }
-        }
-
-        if(!exist) {
-            matrix[row][col++] = nacalo[i];
-            if (col == 5) {
-                row++;
-                col = 0;
-            }
-        }
-    }
-
-    // Fill the matrix with remaining alphabet characters
-    char ch = 'A';
-    for (int i = row; i < 5; i++) {
-        for (int j = col; j < 5; j++) {
-            while (strchr(nacalo, ch) || ch == 'W') {
-                ch++;
-            }
-            matrix[i][j] = ch++;
-        }
-        col = 0;
-    }
-
-    // Decrypt the text
-    int text_length = strlen(konec);
-    char* decrypted_text = (char*)malloc((2 * text_length + 1) * sizeof(char));
-    int decrypted_index = 0;
-
-    for (int i = 0; i < text_length; i += 2) {
-        char first = konec[i];
-        char second = konec[i + 1];
-
+    int len = strlen(processedText);
+    char* decryptedText = (char*)malloc(len + 1);
+    int decryptedIndex = 0;
+    for (int i = 0; i < len; i += 2) {
         int row1, col1, row2, col2;
-
-        // Find positions of letters in the matrix
-        for (int row = 0; row < 5; row++) {
-            for (int col = 0; col < 5; col++) {
-                if (matrix[row][col] == first) {
-                    row1 = row;
-                    col1 = col;
-                }
-                if (matrix[row][col] == second) {
-                    row2 = row;
-                    col2 = col;
-                }
-            }
+        char decryptedA, decryptedB;
+        find_position(processedText[i], keyMatrix, &row1, &col1);
+        find_position(processedText[i + 1], keyMatrix, &row2, &col2);
+        if (row1 == row2) {
+            decryptedA = keyMatrix[row1][(col1 + SIZE - 1) % SIZE];
+            decryptedB = keyMatrix[row2][(col2 + SIZE - 1) % SIZE];
+        } else if (col1 == col2) {
+            decryptedA = keyMatrix[(row1 + SIZE - 1) % SIZE][col1];
+            decryptedB = keyMatrix[(row2 + SIZE - 1) % SIZE][col2];
+        } else {
+            decryptedA = keyMatrix[row1][col2];
+            decryptedB = keyMatrix[row2][col1];
         }
-
-        // Decrypt the letters
-        char decrypted_first, decrypted_second;
-        if (col1 == col2) {  // If both letters are in the same column
-            decrypted_first = matrix[(row1 - 1 + 5) % 5][col1];
-            decrypted_second = matrix[(row2 - 1 + 5) % 5][col2];
-        }
-        else if (row1 == row2) {  // If both letters are in the same row
-            decrypted_first = matrix[row1][(col1 - 1 + 5) % 5];
-            decrypted_second = matrix[row2][(col2 - 1 + 5) % 5];         
-        } else {  // If letters are in different rows and columns
-            decrypted_first = matrix[row1][col2];
-            decrypted_second = matrix[row2][col1];
-        }
-
-        // Add decrypted letters to the result
-        decrypted_text[decrypted_index++] = decrypted_first;
-        decrypted_text[decrypted_index++] = decrypted_second;
+        decryptedText[decryptedIndex++] = decryptedA;
+        decryptedText[decryptedIndex++] = decryptedB;
     }
+    decryptedText[decryptedIndex] = '\0';
 
-    // Add the null-terminating character
-    decrypted_text[decrypted_index] = '\0';
-    /*
-    // Split the decrypted text into pairs of two letters
-    printf("Decrypted text pairs: ");
-    split_into_pairs(decrypted_text);
-    */
-    return decrypted_text;
+    return decryptedText;
 }
 
 /*
