@@ -246,11 +246,11 @@ char* playfair_decrypt(const char* key, const char* text) {
 
     // Add the null-terminating character
     decrypted_text[decrypted_index] = '\0';
-
+    /*
     // Split the decrypted text into pairs of two letters
     printf("Decrypted text pairs: ");
     split_into_pairs(decrypted_text);
-
+    */
     return decrypted_text;
 }
 
