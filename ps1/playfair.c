@@ -21,6 +21,16 @@ void super_varik(char* str) {
     str[svo] = '\0';  // Terminate the string
 }
 
+bool is_all_alpha(const char* str) {
+    while (*str) {
+        if (!isalpha(*str)) {
+            return false; // If the character is not a letter, return false
+        }
+        ++str;
+    }
+    return true; // If all characters are letters, return true
+}
+
 // Function to split the text into pairs of two letters
 void split_into_pairs(char* str, char* pairs) {
     int pair_index = 0;
@@ -37,6 +47,10 @@ void split_into_pairs(char* str, char* pairs) {
 // Function for Playfair encryption
 char* playfair_encrypt(const char* key, const char* text) {
     if (key == NULL || text == NULL)
+        return NULL;
+    
+    // Check if the key contains only letters
+    if (!is_all_alpha(key))
         return NULL;
 
     // Remove spaces, convert to uppercase, and replace 'W' with 'V' for both key and text
@@ -154,6 +168,10 @@ char* playfair_encrypt(const char* key, const char* text) {
 // Function for Playfair decryption
 char* playfair_decrypt(const char* key, const char* text) {
     if (key == NULL || text == NULL)
+        return NULL;
+
+    // Check if the key contains only letters
+    if (!is_all_alpha(key))
         return NULL;
 
     // Remove spaces, convert to uppercase, and replace 'W' with 'V' for both key and text
