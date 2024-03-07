@@ -123,6 +123,10 @@ unsigned char* bmp_encrypt(const char* key, const char* text) {
     if (key == NULL || text == NULL)
         return NULL;
 
+    // Check if the key contains only letters
+    if (!is_all_alpha(key))
+        return NULL;
+
     char* reversed_text = reverse(text);
     char* encrypted_text = vigenere_encrypt(key, reversed_text);
     free(reversed_text);
@@ -131,6 +135,10 @@ unsigned char* bmp_encrypt(const char* key, const char* text) {
 
 char* bmp_decrypt(const char* key, const unsigned char* text) {
     if (key == NULL || text == NULL)
+        return NULL;
+
+    // Check if the key contains only letters
+    if (!is_all_alpha(key))
         return NULL;
 
     char* decrypted_reversed_text = vigenere_decrypt(key, (char*)text);
