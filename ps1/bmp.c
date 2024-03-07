@@ -11,6 +11,9 @@
     }*/
 
 char* reverse(const char* text) {
+    if (text == NULL)
+        return NULL;
+
     size_t length = strlen(text);
     char* reversed_text = (char*)calloc(length + 1, sizeof(char)); //    
     if (reversed_text == NULL) {
@@ -34,6 +37,9 @@ void to_uppercase(char* str) {
 }
 
 char* vigenere_encrypt(const char* key, const char* text) {
+    if (key == NULL || text == NULL)
+        return NULL;
+
     int aboba = strlen(key); // Length of the key
     int obabo = strlen(text); // Length of the text
 
@@ -61,6 +67,9 @@ char* vigenere_encrypt(const char* key, const char* text) {
 }
 
 char* vigenere_decrypt(const char* key, const char* text) {
+    if (key == NULL || text == NULL)
+        return NULL;
+
     int abobo = strlen(key); // Length of the key
     int obobo = strlen(text); // Length of the text
 
@@ -91,6 +100,9 @@ char* vigenere_decrypt(const char* key, const char* text) {
 }
 
 unsigned char* bmp_encrypt(const char* key, const char* text) {
+    if (key == NULL || text == NULL)
+        return NULL;
+
     char* reversed_text = reverse(text);
     char* encrypted_text = vigenere_encrypt(key, reversed_text);
     free(reversed_text);
@@ -98,6 +110,9 @@ unsigned char* bmp_encrypt(const char* key, const char* text) {
 }
 
 char* bmp_decrypt(const char* key, const unsigned char* text) {
+    if (key == NULL || text == NULL)
+        return NULL;
+
     char* decrypted_reversed_text = vigenere_decrypt(key, (char*)text);
     char* decrypted_text = reverse(decrypted_reversed_text);
     free(decrypted_reversed_text);
