@@ -21,7 +21,7 @@ void super_varik(char* str) {
     str[svo] = '\0';  // Terminate the string
 }
 
-bool is_all_alpha(const char* str) {
+bool is_all_alpha1(const char* str) {
     while (*str) {
         if (!isalpha(*str)) {
             return false; // If the character is not a letter, return false
@@ -50,7 +50,7 @@ char* playfair_encrypt(const char* key, const char* text) {
         return NULL;
     
     // Check if the key contains only letters
-    if (!is_all_alpha(key))
+    if (!is_all_alpha1(key))
         return NULL;
 
     // Remove spaces, convert to uppercase, and replace 'W' with 'V' for both key and text
@@ -223,7 +223,7 @@ char* playfair_decrypt(const char* key, const char* text) {
         return NULL;
 
     // Check if the key contains only letters
-    if (!is_all_alpha(key))
+    if (!is_all_alpha1(key))
         return NULL;
 
     char keyMatrix[5][5]; // Заменяем SIZE на 5
