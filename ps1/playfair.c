@@ -157,7 +157,7 @@ char* playfair_decrypt(const char* key, const char* text) {
         return NULL;
 
     // Remove spaces, convert to uppercase, and replace 'W' with 'V' for both key and text
-    char nacalo[26], konec[100];
+    char nacalo[26], konec[1000];
     strcpy(nacalo, key);
     strcpy(konec, text);
     super_varik(nacalo);
