@@ -176,7 +176,7 @@ void preprocess_text(const char* input, char* output) {
     output[count] = '\0';
 }
 
-void generate_key_matrix(const char* key, char keyMatrix[SIZE][SIZE]) {
+void generate_key_matrix(const char* key, char keyMatrix[5][5]) { // Заменяем SIZE на 5
     bool used[26] = {false};
     int len = strlen(key);
     int row = 0, col = 0;
@@ -187,7 +187,7 @@ void generate_key_matrix(const char* key, char keyMatrix[SIZE][SIZE]) {
                 keyMatrix[row][col] = letter;
                 used[letter - 'A'] = true;
                 ++col;
-                if (col == SIZE) {
+                if (col == 5) { // Заменяем SIZE на 5
                     col = 0;
                     ++row;
                 }
@@ -198,7 +198,7 @@ void generate_key_matrix(const char* key, char keyMatrix[SIZE][SIZE]) {
         if (ch != 'W' && !used[ch - 'A']) {
             keyMatrix[row][col] = ch;
             ++col;
-            if (col == SIZE) {
+            if (col == 5) { // Заменяем SIZE на 5
                 col = 0;
                 ++row;
             }
@@ -206,9 +206,9 @@ void generate_key_matrix(const char* key, char keyMatrix[SIZE][SIZE]) {
     }
 }
 
-void find_position(char letter, const char keyMatrix[SIZE][SIZE], int* row, int* col) {
-    for (int i = 0; i < SIZE; ++i) {
-        for (int j = 0; j < SIZE; ++j) {
+void find_position(char letter, const char keyMatrix[5][5], int* row, int* col) { // Заменяем SIZE на 5
+    for (int i = 0; i < 5; ++i) { // Заменяем SIZE на 5
+        for (int j = 0; j < 5; ++j) { // Заменяем SIZE на 5
             if (keyMatrix[i][j] == letter) {
                 *row = i;
                 *col = j;
@@ -226,7 +226,7 @@ char* playfair_decrypt(const char* key, const char* text) {
     if (!is_all_alpha(key))
         return NULL;
 
-    char keyMatrix[SIZE][SIZE];
+    char keyMatrix[5][5]; // Заменяем SIZE на 5
     generate_key_matrix(key, keyMatrix);
 
     char processedText[1000];
@@ -241,11 +241,11 @@ char* playfair_decrypt(const char* key, const char* text) {
         find_position(processedText[i], keyMatrix, &row1, &col1);
         find_position(processedText[i + 1], keyMatrix, &row2, &col2);
         if (row1 == row2) {
-            decryptedA = keyMatrix[row1][(col1 + SIZE - 1) % SIZE];
-            decryptedB = keyMatrix[row2][(col2 + SIZE - 1) % SIZE];
+            decryptedA = keyMatrix[row1][(col1 + 5 - 1) % 5]; // Заменяем SIZE на 5
+            decryptedB = keyMatrix[row2][(col2 + 5 - 1) % 5]; // Заменяем SIZE на 5
         } else if (col1 == col2) {
-            decryptedA = keyMatrix[(row1 + SIZE - 1) % SIZE][col1];
-            decryptedB = keyMatrix[(row2 + SIZE - 1) % SIZE][col2];
+            decryptedA = keyMatrix[(row1 + 5 - 1) % 5][col1]; // Заменяем SIZE на 5
+            decryptedB = keyMatrix[(row2 + 5 - 1) % 5][col2]; // Заменяем SIZE на 5
         } else {
             decryptedA = keyMatrix[row1][col2];
             decryptedB = keyMatrix[row2][col1];
