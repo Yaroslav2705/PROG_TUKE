@@ -120,6 +120,8 @@ char* vigenere_decrypt(const char* key, const char* text) {
 }
 
 unsigned char* bit_encrypt(const char* text) {
+    if (text == NULL)
+        return NULL;
     // Выделяем память для зашифрованного текста
     unsigned char* encrypted = (unsigned char*)calloc(strlen(text) * sizeof(unsigned char));
     if (encrypted == NULL) {
@@ -149,6 +151,8 @@ unsigned char* bit_encrypt(const char* text) {
 }
 
 char* bit_decrypt(const unsigned char* text) {
+    if (text == NULL)
+        return NULL;
     // Получаем размер зашифрованного текста
     int size = strlen((char*)text); // Преобразуем указатель на unsigned char в строку
     
