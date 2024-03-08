@@ -119,6 +119,69 @@ char* vigenere_decrypt(const char* key, const char* text) {
     return decrypted_text;
 }
 
+unsigned char* bit_encrypt(const char* text) {
+    // Выделяем память для зашифрованного текста
+    unsigned char* encrypted = (unsigned char*)calloc(strlen(text) * sizeof(unsigned char));
+    if (encrypted == NULL) {
+        return NULL; // Возвращаем NULL в случае ошибки выделения памяти
+    }
+
+    int i = 0;
+    while (text[i] != '\0') {
+        // Преобразуем символ в его ASCII-код
+        unsigned char ch = text[i];
+
+        // Разделяем символ на две половины по 4 бита каждая
+        unsigned char half1 = ch >> 4;
+        unsigned char half2 = ch & 0x0F;
+
+        // Меняем местами биты в первой половине
+        half1 = ((half1 & 0x0A) >> 1) | ((half1 & 0x05) << 1);
+
+        // XOR для первой и второй половин
+        encrypted[i] = (half1 << 4) | (half1 ^ half2);
+
+        // Увеличиваем счетчик
+        i++;
+    }
+
+    return encrypted;
+}
+
+char* bit_decrypt(const unsigned char* text) {
+    // Получаем размер зашифрованного текста
+    int size = strlen((char*)text); // Преобразуем указатель на unsigned char в строку
+    if (encrypted == NULL) {
+        return NULL; // Возвращаем NULL в случае ошибки выделения памяти
+    }
+    // Выделяем память для расшифрованного текста
+    char* decrypted = (char*)calloc((size + 1) * sizeof(char));
+    if (decrypted == NULL) {
+        return NULL; // Возвращаем NULL в случае ошибки выделения памяти
+    }
+
+    for (int i = 0; i < size; i++) {
+        // Разделяем зашифрованный символ на две половины
+        unsigned char half1 = text[i] >> 4;
+        unsigned char half2 = text[i] & 0x0F;
+        
+        // Меняем местами биты в первой половине обратно
+        half1 = ((half1 & 0x0A) >> 1) | ((half1 & 0x05) << 1);
+        
+        // XOR для первой и второй половин
+        char ch = (half1 << 4) | half2;
+        
+        // Преобразуем ASCII-код в символ
+        decrypted[i] = ch;
+    }
+    
+    // Добавляем завершающий нуль
+    decrypted[size] = '\0';
+    
+    return decrypted;
+}
+
+
 unsigned char* bmp_encrypt(const char* key, const char* text) {
     if (key == NULL || text == NULL)
         return NULL;
@@ -130,7 +193,9 @@ unsigned char* bmp_encrypt(const char* key, const char* text) {
     char* reversed_text = reverse(text);
     char* encrypted_text = vigenere_encrypt(key, reversed_text);
     free(reversed_text);
-    return (unsigned char*)encrypted_text;
+    char* encrypted_text_1 = bit_encrypt(encrypted_text);
+    free(encrypted_text);
+    return (unsigned char*)encrypted_text_1;
 }
 
 char* bmp_decrypt(const char* key, const unsigned char* text) {
@@ -144,7 +209,9 @@ char* bmp_decrypt(const char* key, const unsigned char* text) {
     char* decrypted_reversed_text = vigenere_decrypt(key, (char*)text);
     char* decrypted_text = reverse(decrypted_reversed_text);
     free(decrypted_reversed_text);
-    return decrypted_text;
+    char* decrypted_text_1 = bit_decrypt(decrypted_text);
+    free(decrypted_text);
+    return decrypted_text_1;
 }
 
 /*
