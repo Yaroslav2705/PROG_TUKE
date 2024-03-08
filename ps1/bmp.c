@@ -122,28 +122,29 @@ char* vigenere_decrypt(const char* key, const char* text) {
 unsigned char* bit_encrypt(const char* text) {
     if (text == NULL)
         return NULL;
-    // Выделяем память для зашифрованного текста
-    unsigned char* encrypted = (unsigned char*)calloc(strlen(text) * sizeof(unsigned char));
+    // Allocate memory for the encrypted text
+    size_t length = strlen(text);
+    unsigned char* encrypted = (unsigned char*)calloc(length, sizeof(unsigned char));
     if (encrypted == NULL) {
-        return NULL; // Возвращаем NULL в случае ошибки выделения памяти
+        return NULL; // Return NULL in case of memory allocation failure
     }
 
     int i = 0;
     while (text[i] != '\0') {
-        // Преобразуем символ в его ASCII-код
+        // Convert the character to its ASCII code
         unsigned char ch = text[i];
 
-        // Разделяем символ на две половины по 4 бита каждая
+        // Split the character into two halves of 4 bits each
         unsigned char half1 = ch >> 4;
         unsigned char half2 = ch & 0x0F;
 
-        // Меняем местами биты в первой половине
+        // Swap the bits in the first half
         half1 = ((half1 & 0x0A) >> 1) | ((half1 & 0x05) << 1);
 
-        // XOR для первой и второй половин
+        // XOR for the first and second half
         encrypted[i] = (half1 << 4) | (half1 ^ half2);
 
-        // Увеличиваем счетчик
+        // Increment the counter
         i++;
     }
 
@@ -153,35 +154,36 @@ unsigned char* bit_encrypt(const char* text) {
 char* bit_decrypt(const unsigned char* text) {
     if (text == NULL)
         return NULL;
-    // Получаем размер зашифрованного текста
-    int size = strlen((char*)text); // Преобразуем указатель на unsigned char в строку
+    // Get the size of the encrypted text
+    size_t size = strlen((char*)text); // Convert the pointer to unsigned char to a string
     
-    // Выделяем память для расшифрованного текста
-    char* decrypted = (char*)calloc((size + 1) * sizeof(char));
+    // Allocate memory for the decrypted text
+    char* decrypted = (char*)calloc(size + 1, sizeof(char));
     if (decrypted == NULL) {
-        return NULL; // Возвращаем NULL в случае ошибки выделения памяти
+        return NULL; // Return NULL in case of memory allocation failure
     }
 
-    for (int i = 0; i < size; i++) {
-        // Разделяем зашифрованный символ на две половины
+    for (size_t i = 0; i < size; i++) {
+        // Split the encrypted character into two halves
         unsigned char half1 = text[i] >> 4;
         unsigned char half2 = text[i] & 0x0F;
         
-        // Меняем местами биты в первой половине обратно
+        // Swap the bits in the first half back
         half1 = ((half1 & 0x0A) >> 1) | ((half1 & 0x05) << 1);
         
-        // XOR для первой и второй половин
+        // XOR for the first and second half
         char ch = (half1 << 4) | half2;
         
-        // Преобразуем ASCII-код в символ
+        // Convert the ASCII code to a character
         decrypted[i] = ch;
     }
     
-    // Добавляем завершающий нуль
+    // Add the null-terminating character
     decrypted[size] = '\0';
     
     return decrypted;
 }
+
 
 
 unsigned char* bmp_encrypt(const char* key, const char* text) {
