@@ -187,6 +187,8 @@ void generate_key_matrix(const char* key, char keyMatrix[5][5]) {
     for (int i = 0; i < len; ++i) {
         if (isalpha(key[i])) {
             char letter = toupper(key[i]);
+            if (letter == 'W') 
+                letter = 'V';
             if (!used[letter - 'A'] && letter != 'W') {
                 keyMatrix[row][col] = letter;
                 used[letter - 'A'] = true;
