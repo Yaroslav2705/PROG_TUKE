@@ -24,7 +24,7 @@ void super_varik(char* str) {
 bool contains_letter(const char* text, char letter) {
     return strchr(text, letter) != NULL;
 }
-
+/*
 bool is_all_alpha1(const char* str) {
     while (*str) {
         if (!isalpha(*str)) {
@@ -33,7 +33,7 @@ bool is_all_alpha1(const char* str) {
         ++str;
     }
     return true; // If all characters are letters, return true
-}
+}*/
 
 // Function to split the text into pairs of two letters
 void split_into_pairs(char* str, char* pairs) {
@@ -53,9 +53,15 @@ char* playfair_encrypt(const char* key, const char* text) {
     if (key == NULL || text == NULL)
         return NULL;
     
-    // Check if the key contains only letters
-    if (!is_all_alpha1(key))
+    // Check if the first character of the key is a letter
+    if (!isalpha(key[0]))
         return NULL;
+
+    // Check if the key contains only letters and spaces
+    for (int i = 0; key[i] != '\0'; ++i) {
+        if (!isalpha(key[i]) && key[i] != ' ')
+            return NULL;
+    }
 
     // Remove spaces, convert to uppercase, and replace 'W' with 'V' for both key and text
     char nacalo[26], konec[1000]; // Increased buffer size for text
@@ -244,9 +250,15 @@ char* playfair_decrypt(const char* key, const char* text) {
     if (key == NULL || text == NULL)
         return NULL;
 
-    // Check if the key contains only letters
-    if (!is_all_alpha1(key))
+    // Check if the first character of the key is a letter
+    if (!isalpha(key[0]))
         return NULL;
+
+    // Check if the key contains only letters and spaces
+    for (int i = 0; key[i] != '\0'; ++i) {
+        if (!isalpha(key[i]) && key[i] != ' ')
+            return NULL;
+    }
 
     char processedText[1000];
     preprocess_text(text, processedText);
