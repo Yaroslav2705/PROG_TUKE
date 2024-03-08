@@ -151,9 +151,7 @@ unsigned char* bit_encrypt(const char* text) {
 char* bit_decrypt(const unsigned char* text) {
     // Получаем размер зашифрованного текста
     int size = strlen((char*)text); // Преобразуем указатель на unsigned char в строку
-    if (encrypted == NULL) {
-        return NULL; // Возвращаем NULL в случае ошибки выделения памяти
-    }
+    
     // Выделяем память для расшифрованного текста
     char* decrypted = (char*)calloc((size + 1) * sizeof(char));
     if (decrypted == NULL) {
