@@ -124,7 +124,7 @@ unsigned char* bit_encrypt(const char* text) {
         return NULL;
     // Allocate memory for the encrypted text
     size_t length = strlen(text);
-    unsigned char* encrypted = (unsigned char*)calloc(length, sizeof(unsigned char));
+    unsigned char* encrypted = (unsigned char*)calloc(length + 1, sizeof(unsigned char));
     if (encrypted == NULL) {
         return NULL; // Return NULL in case of memory allocation failure
     }
