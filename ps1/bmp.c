@@ -197,10 +197,11 @@ unsigned char* bmp_encrypt(const char* key, const char* text) {
     char* reversed_text = reverse(text);
     char* encrypted_text = vigenere_encrypt(key, reversed_text);
     free(reversed_text);
-    char* encrypted_text_1 = bit_encrypt(encrypted_text);
+    unsigned char* encrypted_text_1 = bit_encrypt(encrypted_text);
     free(encrypted_text);
-    return (unsigned char*)encrypted_text_1;
+    return encrypted_text_1;
 }
+
 
 char* bmp_decrypt(const char* key, const unsigned char* text) {
     if (key == NULL || text == NULL)
@@ -210,10 +211,10 @@ char* bmp_decrypt(const char* key, const unsigned char* text) {
     if (!is_all_alpha(key))
         return NULL;
 
-    char* decrypted_reversed_text = vigenere_decrypt(key, (char*)text);
-    char* decrypted_text = reverse(decrypted_reversed_text);
+    char* decrypted_reversed_text = bit_decrypt((unsigned char*)text);
+    char* decrypted_text = vigenere_decrypt(key, decrypted_reversed_text);
     free(decrypted_reversed_text);
-    char* decrypted_text_1 = bit_decrypt(decrypted_text);
+    char* decrypted_text_1 = reverse(decrypted_text);
     free(decrypted_text);
     return decrypted_text_1;
 }
