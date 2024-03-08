@@ -152,35 +152,38 @@ unsigned char* bit_encrypt(const char* text) {
 }
 
 char* bit_decrypt(const unsigned char* text) {
-    if (text == NULL)
+    if (text == NULL) {
         return NULL;
-    // Get the size of the encrypted text
-    size_t size = strlen((char*)text); // Convert the pointer to unsigned char to a string
-    
+    }
+
     // Allocate memory for the decrypted text
-    char* decrypted = (char*)calloc(size + 1, sizeof(char));
+    size_t length = strlen((const char*)text);
+    char* decrypted = (char*)calloc(length + 1, sizeof(char));
     if (decrypted == NULL) {
         return NULL; // Return NULL in case of memory allocation failure
     }
 
-    for (size_t i = 0; i < size; i++) {
-        // Split the encrypted character into two halves
-        unsigned char half1 = text[i] >> 4;
-        unsigned char half2 = text[i] & 0x0F;
-        
-        // Swap the bits in the first half back
-        half1 = ((half1 & 0x0A) >> 1) | ((half1 & 0x05) << 1);
-        
-        // XOR for the first and second half
-        char ch = (half1 << 4) | half2;
-        
-        // Convert the ASCII code to a character
-        decrypted[i] = ch;
+    int i = 0;
+    while (text[i] != '\0') {
+        // Get the encrypted character
+        unsigned char ch = text[i];
+
+        // Isolate the two halves
+        unsigned char half1 = ch >> 4;
+        unsigned char half2 = ch & 0x0F;
+
+        // Reverse the XOR operation
+        unsigned char original_half2 = half1 ^ half2;
+
+        // Reverse the bit swapping
+        half1 = ((half1 & 0x05) << 1) | ((half1 & 0x0A) >> 1);
+
+        // Combine the reversed halves
+        decrypted[i] = (char)((half1 << 4) | original_half2);
+
+        i++;
     }
-    
-    // Add the null-terminating character
-    decrypted[size] = '\0';
-    
+
     return decrypted;
 }
 
