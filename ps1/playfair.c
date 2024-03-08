@@ -21,6 +21,10 @@ void super_varik(char* str) {
     str[svo] = '\0';  // Terminate the string
 }
 
+bool contains_letter(const char* text, char letter) {
+    return strchr(text, letter) != NULL;
+}
+
 bool is_all_alpha1(const char* str) {
     while (*str) {
         if (!isalpha(*str)) {
@@ -176,7 +180,7 @@ void preprocess_text(const char* input, char* output) {
     output[count] = '\0';
 }
 
-void generate_key_matrix(const char* key, char keyMatrix[5][5]) { // Заменяем SIZE на 5
+void generate_key_matrix(const char* key, char keyMatrix[5][5]) {
     bool used[26] = {false};
     int len = strlen(key);
     int row = 0, col = 0;
@@ -187,7 +191,7 @@ void generate_key_matrix(const char* key, char keyMatrix[5][5]) { // Замен�
                 keyMatrix[row][col] = letter;
                 used[letter - 'A'] = true;
                 ++col;
-                if (col == 5) { // Заменяем SIZE на 5
+                if (col == 5) {
                     col = 0;
                     ++row;
                 }
@@ -198,7 +202,7 @@ void generate_key_matrix(const char* key, char keyMatrix[5][5]) { // Замен�
         if (ch != 'W' && !used[ch - 'A']) {
             keyMatrix[row][col] = ch;
             ++col;
-            if (col == 5) { // Заменяем SIZE на 5
+            if (col == 5) {
                 col = 0;
                 ++row;
             }
@@ -206,9 +210,9 @@ void generate_key_matrix(const char* key, char keyMatrix[5][5]) { // Замен�
     }
 }
 
-void find_position(char letter, const char keyMatrix[5][5], int* row, int* col) { // Заменяем SIZE на 5
-    for (int i = 0; i < 5; ++i) { // Заменяем SIZE на 5
-        for (int j = 0; j < 5; ++j) { // Заменяем SIZE на 5
+void find_position(char letter, const char keyMatrix[5][5], int* row, int* col) {
+    for (int i = 0; i < 5; ++i) {
+        for (int j = 0; j < 5; ++j) {
             if (keyMatrix[i][j] == letter) {
                 *row = i;
                 *col = j;
@@ -218,45 +222,59 @@ void find_position(char letter, const char keyMatrix[5][5], int* row, int* col) 
     }
 }
 
+void decrypt_pair(char a, char b, const char keyMatrix[5][5], char* decryptedA, char* decryptedB) {
+    int row1, col1, row2, col2;
+    find_position(a, keyMatrix, &row1, &col1);
+    find_position(b, keyMatrix, &row2, &col2);
+    if (row1 == row2) {
+        *decryptedA = keyMatrix[row1][(col1 + 5 - 1) % 5];
+        *decryptedB = keyMatrix[row2][(col2 + 5 - 1) % 5];
+    } else if (col1 == col2) {
+        *decryptedA = keyMatrix[(row1 + 5 - 1) % 5][col1];
+        *decryptedB = keyMatrix[(row2 + 5 - 1) % 5][col2];
+    } else {
+        *decryptedA = keyMatrix[row1][col2];
+        *decryptedB = keyMatrix[row2][col1];
+    }
+}
+
 char* playfair_decrypt(const char* key, const char* text) {
-    if (key == NULL || text == NULL) 
+    if (key == NULL || text == NULL)
         return NULL;
 
     // Check if the key contains only letters
     if (!is_all_alpha1(key))
         return NULL;
 
-    char keyMatrix[5][5]; // Заменяем SIZE на 5
-    generate_key_matrix(key, keyMatrix);
-
     char processedText[1000];
     preprocess_text(text, processedText);
 
+    if (contains_letter(processedText, 'W')) 
+    return NULL;
+
+    char keyMatrix[5][5];
+    generate_key_matrix(key, keyMatrix);
+
     int len = strlen(processedText);
-    char* decryptedText = (char*)malloc(len + 1);
+    char* decryptedText = (char*)calloc(len + 1, sizeof(char)); 
     int decryptedIndex = 0;
     for (int i = 0; i < len; i += 2) {
-        int row1, col1, row2, col2;
         char decryptedA, decryptedB;
-        find_position(processedText[i], keyMatrix, &row1, &col1);
-        find_position(processedText[i + 1], keyMatrix, &row2, &col2);
-        if (row1 == row2) {
-            decryptedA = keyMatrix[row1][(col1 + 5 - 1) % 5]; // Заменяем SIZE на 5
-            decryptedB = keyMatrix[row2][(col2 + 5 - 1) % 5]; // Заменяем SIZE на 5
-        } else if (col1 == col2) {
-            decryptedA = keyMatrix[(row1 + 5 - 1) % 5][col1]; // Заменяем SIZE на 5
-            decryptedB = keyMatrix[(row2 + 5 - 1) % 5][col2]; // Заменяем SIZE на 5
+        decrypt_pair(processedText[i], processedText[i + 1], keyMatrix, &decryptedA, &decryptedB);
+        
+        if (decryptedA == decryptedB) {
+            decryptedText[decryptedIndex++] = 'X';
+            decryptedText[decryptedIndex++] = 'X';
         } else {
-            decryptedA = keyMatrix[row1][col2];
-            decryptedB = keyMatrix[row2][col1];
+            decryptedText[decryptedIndex++] = decryptedA;
+            decryptedText[decryptedIndex++] = decryptedB;
         }
-        decryptedText[decryptedIndex++] = decryptedA;
-        decryptedText[decryptedIndex++] = decryptedB;
     }
     decryptedText[decryptedIndex] = '\0';
 
     return decryptedText;
 }
+
 
 /*
 int main() {
