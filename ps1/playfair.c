@@ -23,7 +23,7 @@ void super_varik(char* str) {
     }
     str[svo] = '\0';  // Terminate the string
 }
-
+*/
 bool contains_letter(const char* text, char letter) {
     return strchr(text, letter) != NULL;
 }
