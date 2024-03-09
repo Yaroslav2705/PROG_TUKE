@@ -466,6 +466,9 @@ char* playfair_decrypt(const char* key, const char* text) {
             return NULL;
     }
 
+    // Check if the text contains 'W', if so, return NULL
+    if (strchr(text, 'W') != NULL)                                                                                              return NULL;
+
 
     // Remove spaces, convert to uppercase, and replace 'W' with 'V' for both key and text
     char nacalo[1000], konec[1000];
@@ -513,7 +516,7 @@ char* playfair_decrypt(const char* key, const char* text) {
 
     // Decrypt the text
     int text_length = strlen(konec);
-    char* decrypted_text = (char*)malloc((2 * text_length + 1) * sizeof(char));
+    char* decrypted_text = (char*)calloc((2 * text_length + 1), sizeof(char));
     int decrypted_index = 0;
 
     for (int i = 0; i < text_length; i += 2) {
