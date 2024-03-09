@@ -7,7 +7,7 @@
 
 
 
-/*
+
 // Function to remove spaces from a string, convert it to uppercase,
 // and replace 'W' with 'V'
 void super_varik(char* str) {
@@ -23,11 +23,11 @@ void super_varik(char* str) {
     }
     str[svo] = '\0';  // Terminate the string
 }
-*/
+
 bool contains_letter(const char* text, char letter) {
     return strchr(text, letter) != NULL;
 }
-/*
+
 bool is_all_alpha1(const char* str) {
     while (*str) {
         if (!isalpha(*str)) {
@@ -67,7 +67,7 @@ char* playfair_encrypt(const char* key, const char* text) {
     }
 
     // Remove spaces, convert to uppercase, and replace 'W' with 'V' for both key and text
-    char nacalo[26], konec[1000]; // Increased buffer size for text
+    char nacalo[1000], konec[1000]; // Increased buffer size for text
     strcpy(nacalo, key);
     strcpy(konec, text);
     super_varik(nacalo);
@@ -176,7 +176,7 @@ char* playfair_encrypt(const char* key, const char* text) {
     free(encrypted_text);
 
     return encrypted_pairs;
-}*/
+}
 
 void preprocess_text(const char* input, char* output) {
     int len = strlen(input);
@@ -291,96 +291,6 @@ char* playfair_decrypt(const char* key, const char* text) {
 
     return decryptedText;
 }
-/*
-// Function to remove spaces from a string, convert it to uppercase,
-// and replace 'W' with 'V'
-void super_varik(char* str) {
-    int svo = 0;
-    for (int kak = 0; str[kak]; kak++) {
-        if (!isspace(str[kak])) {  // If the character is not a space
-            char wq = toupper(str[kak]);  // Convert it to uppercase
-            if (wq == 'W') {
-                wq = 'V';  // Replace 'W' with 'V'
-            }
-            str[svo++] = wq;  // Store the modified character
-        }
-    }
-    str[svo] = '\0';  // Terminate the string
-}*/
-
-
-void encrypt_pair(char a, char b, const char keyMatrix[5][5], char* encryptedA, char* encryptedB) {
-    int row1, col1, row2, col2;
-    find_position(a, keyMatrix, &row1, &col1);
-    find_position(b, keyMatrix, &row2, &col2);
-    //printf("Encrypting pair: %c%c -> ", a, b); // Debugging output
-    if (row1 == row2) {
-        *encryptedA = keyMatrix[row1][(col1 + 1) % 5];
-        *encryptedB = keyMatrix[row2][(col2 + 1) % 5];
-    } else if (col1 == col2) {
-        *encryptedA = keyMatrix[(row1 + 1) % 5][col1];
-        *encryptedB = keyMatrix[(row2 + 1) % 5][col2];
-    } else {
-        *encryptedA = keyMatrix[row1][col2];
-        *encryptedB = keyMatrix[row2][col1];
-    }
-    //printf("%c%c\n", *encryptedA, *encryptedB); // Debugging output
-}
-
-
-char* playfair_encrypt(const char* key, const char* text) {
-    if (key == NULL || text == NULL)
-        return NULL;
-
-    // Check if the first character of the key is a letter
-    if (!isalpha(key[0]))
-        return NULL;
-
-    // Check if the key contains only letters and spaces
-    for (int i = 0; key[i] != '\0'; ++i) {
-        if (!isalpha(key[i]) && key[i] != ' ')
-            return NULL;
-    }
-
-    char processedText[1000];
-    preprocess_text(text, processedText);
-
-    // Add 'X' between consecutive identical letters
-    int len = strlen(processedText);
-    char temp[2000];
-    int tempIndex = 0;
-    for (int i = 0; i < len; ++i) {
-        temp[tempIndex++] = processedText[i];
-        if (i < len - 1 && processedText[i] == processedText[i + 1]) {
-            temp[tempIndex++] = 'X';
-        }
-    }
-    if (tempIndex % 2 != 0) { // If the length is odd, add 'X' at the end
-        temp[tempIndex++] = 'X';
-    }
-    temp[tempIndex] = '\0';
-
-    char keyMatrix[5][5];
-    generate_key_matrix(key, keyMatrix);
-
-    len = strlen(temp); // Update the length after adding 'X'
-    char* encryptedText = (char*)calloc(len * 2 + 1, sizeof(char)); // Double the length for possible additional space characters
-    if (encryptedText == NULL)
-        return NULL;
-
-    int encryptedIndex = 0;
-    for (int i = 0; i < len; i += 2) {
-        char encryptedA, encryptedB;
-        encrypt_pair(temp[i], temp[i + 1], keyMatrix, &encryptedA, &encryptedB);
-        encryptedText[encryptedIndex++] = encryptedA;
-        encryptedText[encryptedIndex++] = encryptedB;
-        encryptedText[encryptedIndex++] = ' '; // Add space between pairs
-    }
-    encryptedText[encryptedIndex - 1] = '\0'; // Replace the last space with null-terminating character
-
-    return encryptedText;
-}
-
 
 
 /*
