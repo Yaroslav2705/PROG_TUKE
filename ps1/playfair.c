@@ -291,7 +291,7 @@ char* playfair_decrypt(const char* key, const char* text) {
 
     return decryptedText;
 }
-
+/*
 // Function to remove spaces from a string, convert it to uppercase,
 // and replace 'W' with 'V'
 void super_varik(char* str) {
@@ -306,7 +306,7 @@ void super_varik(char* str) {
         }
     }
     str[svo] = '\0';  // Terminate the string
-}
+}*/
 
 
 void encrypt_pair(char a, char b, const char keyMatrix[5][5], char* encryptedA, char* encryptedB) {
