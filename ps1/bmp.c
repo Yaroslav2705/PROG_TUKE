@@ -3,7 +3,7 @@
 #include <ctype.h>
 #include <stdlib.h>
 #include <stdbool.h>
-#include "bmp.h"
+//#include "bmp.h"
 
 /*char* reverse (const char* text){   
     if(text == NULL){
@@ -147,9 +147,8 @@ char* bmp_decrypt(const char* key, const unsigned char* text) {
     return decrypted_text;
 }
 
-/*
 int main() {
-    const char* key = "secret";
+    const char* key = " !#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[]^_`abcdefghijklmnopqrstuvwxyz{|";
     const char* original_text = "Hello World!";
     
     // Encryption
@@ -164,4 +163,4 @@ int main() {
     free(decrypted_text);
 
     return 0;
-}*/
+}
