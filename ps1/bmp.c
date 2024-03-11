@@ -119,6 +119,76 @@ char* vigenere_decrypt(const char* key, const char* text) {
     return decrypted_text;
 }
 
+unsigned char* bit_encrypt(const char* text) {
+    if (text == NULL)
+        return NULL;
+    // Allocate memory for the encrypted text
+    size_t length = strlen(text);
+    unsigned char* encrypted = (unsigned char*)calloc(length + 1, sizeof(unsigned char));
+    if (encrypted == NULL) {
+        return NULL; // Return NULL in case of memory allocation failure
+    }
+
+    int i = 0;
+    while (text[i] != '\0') {
+        // Convert the character to its ASCII code
+        unsigned char ch = text[i];
+
+        // Split the character into two halves of 4 bits each
+        unsigned char half1 = ch >> 4;
+        unsigned char half2 = ch & 0x0F;
+
+        // Swap the bits in the first half
+        half1 = ((half1 & 0x0A) >> 1) | ((half1 & 0x05) << 1);
+
+        // XOR for the first and second half
+        encrypted[i] = (half1 << 4) | (half1 ^ half2);
+
+        // Increment the counter
+        i++;
+    }
+
+    return encrypted;
+}
+
+char* bit_decrypt(const unsigned char* text) {
+    if (text == NULL) {
+        return NULL;
+    }
+
+    // Allocate memory for the decrypted text
+    size_t length = strlen((const char*)text);
+    char* decrypted = (char*)calloc(length + 1, sizeof(char));
+    if (decrypted == NULL) {
+        return NULL; // Return NULL in case of memory allocation failure
+    }
+
+    int i = 0;
+    while (text[i] != '\0') {
+        // Get the encrypted character
+        unsigned char ch = text[i];
+
+        // Isolate the two halves
+        unsigned char half1 = ch >> 4;
+        unsigned char half2 = ch & 0x0F;
+
+        // Reverse the XOR operation
+        unsigned char original_half2 = half1 ^ half2;
+
+        // Reverse the bit swapping
+        half1 = ((half1 & 0x05) << 1) | ((half1 & 0x0A) >> 1);
+
+        // Combine the reversed halves
+        decrypted[i] = (char)((half1 << 4) | original_half2);
+
+        i++;
+    }
+
+    return decrypted;
+}
+
+
+
 unsigned char* bmp_encrypt(const char* key, const char* text) {
     if (key == NULL || text == NULL)
         return NULL;
@@ -130,8 +200,11 @@ unsigned char* bmp_encrypt(const char* key, const char* text) {
     char* reversed_text = reverse(text);
     char* encrypted_text = vigenere_encrypt(key, reversed_text);
     free(reversed_text);
-    return (unsigned char*)encrypted_text;
+    unsigned char* encrypted_text_1 = bit_encrypt(encrypted_text);
+    free(encrypted_text);
+    return encrypted_text_1;
 }
+
 
 char* bmp_decrypt(const char* key, const unsigned char* text) {
     if (key == NULL || text == NULL)
@@ -141,10 +214,12 @@ char* bmp_decrypt(const char* key, const unsigned char* text) {
     if (!is_all_alpha(key))
         return NULL;
 
-    char* decrypted_reversed_text = vigenere_decrypt(key, (char*)text);
-    char* decrypted_text = reverse(decrypted_reversed_text);
+    char* decrypted_reversed_text = bit_decrypt((unsigned char*)text);
+    char* decrypted_text = vigenere_decrypt(key, decrypted_reversed_text);
     free(decrypted_reversed_text);
-    return decrypted_text;
+    char* decrypted_text_1 = reverse(decrypted_text);
+    free(decrypted_text);
+    return decrypted_text_1;
 }
 
 int main() {
