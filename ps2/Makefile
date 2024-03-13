@@ -21,11 +21,11 @@ main.o: main.c
 	$(CC) $(CFLAGS) -c $^ $(LDLIBS) -o $@
 	
 k.o: k.c
-	echo "Building object file bmp.o"
+	echo "Building object file k.o"
 	$(CC) $(CFLAGS) -c $^ $(LDLIBS) -o $@ 
 
 ui.o: ui.c
-	echo "Building object file playfair.o"
+	echo "Building object file ui.o"
 	$(CC) $(CFLAGS) -c $^ $(LDLIBS) -o $@ 
 
 clean:
