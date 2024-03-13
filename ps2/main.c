@@ -18,4 +18,5 @@ struct game game = {
 printf("is won: %d\n", is_game_won(game));
 printf("is move possible: %d\n", is_move_possible(game));
 bool result = update(&game, 0, -1);
+printf("Result: %s\n", result ? "true" : "false");
 }
