@@ -2,7 +2,7 @@ CC=gcc
 CFLAGS=-std=c11 -Wall -Werror
 LDLIBS=-lm
 OUTPUT=ps1
-SOURCES=main.c k.c ui.c hof.c
+SOURCES=main.c k.c ui.c
 
 .PHONY: tests clean
 
@@ -26,10 +26,6 @@ k.o: k.c
 
 ui.o: ui.c
 	echo "Building object file ui.o"
-	$(CC) $(CFLAGS) -c $^ $(LDLIBS) -o $@ 
-
-hof.o: hof.c
-	echo "Building object file hof.o"
 	$(CC) $(CFLAGS) -c $^ $(LDLIBS) -o $@ 
 
 clean:
