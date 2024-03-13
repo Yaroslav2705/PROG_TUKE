@@ -3,7 +3,7 @@
 #include "k.h"
 #include "ui.h"
 
-int main{
+int main(){
 struct game game = {
     .board = {
         {'A', ' ', ' ', ' '},
