@@ -2,7 +2,7 @@ CC=gcc
 CFLAGS=-std=c11 -Wall -Werror
 LDLIBS=-lm
 OUTPUT=ps1
-SOURCES=main.c k.c ui.c
+SOURCES=main.c k.c ui.c hof.c
 
 .PHONY: tests clean
 
@@ -11,7 +11,7 @@ all: $(OUTPUT)
 codeanalysis: $(SOURCES)
 	cppcheck --enable=unusedFunction --error-exitcode=1 $^
 
-$(OUTPUT): main.o k.o ui.o
+$(OUTPUT): main.o k.o ui.o hof.o
 	echo "Running complication"
 	cppcheck --enable=unusedFunction --error-exitcode=1 $(SOURCES)
 	$(CC) $(CFLAGS) $^ $(LDLIBS) -o $(OUTPUT)
@@ -25,6 +25,10 @@ k.o: k.c
 	$(CC) $(CFLAGS) -c $^ $(LDLIBS) -o $@ 
 
 ui.o: ui.c
+	echo "Building object file ui.o"
+	$(CC) $(CFLAGS) -c $^ $(LDLIBS) -o $@ 
+
+hof.o: hof.c
 	echo "Building object file ui.o"
 	$(CC) $(CFLAGS) -c $^ $(LDLIBS) -o $@ 
 
