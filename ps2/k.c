@@ -1,6 +1,8 @@
 #include <stdlib.h>
-
+#include <stdio.h>
 #include "k.h"
+
+
 
 void add_random_tile(struct game *game){
     int row, col;
