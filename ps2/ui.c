@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <curses.h>
 #include <string.h>
-
+#include "ui.h"
 #include "k.h"
 
 //void render(const struct game game){
@@ -16,7 +16,7 @@
 //    }
 //    printf("+---+---+---+---+\n");
 //}
-
+/*
 void render(const struct game game){
     clear();
     char text[20];
@@ -56,3 +56,4 @@ void render(const struct game game){
 
     refresh();
 }
+*/
