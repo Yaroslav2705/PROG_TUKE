@@ -82,6 +82,10 @@ void move_and_merge_tiles(char line[SIZE]) {
 }
 
 bool update(struct game *game, int dy, int dx) {
+    if (!is_move_possible(*game)) {
+        //printf("Игра окончена! Невозможно выполнить ходы.\n");
+        return false;
+    }
     // Check the correctness of the movement direction
     if ((dy != 1 && dy != 0 && dy != -1) || (dx != 1 && dx != 0 && dx != -1)) {
         return false; // Incorrect direction
