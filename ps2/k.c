@@ -83,7 +83,7 @@ void move_and_merge_tiles(char line[SIZE]) {
 
 bool update(struct game *game, int dy, int dx) {
     // Check the correctness of the movement direction
-    if ((dy != -1 && dy != 0 && dy != 1) || (dx != -1 && dx != 0 && dx != 1)) {
+    if ((dy != 1 && dy != 0 && dy != -1) || (dx != 1 && dx != 0 && dx != -1)) {
         return false; // Incorrect direction
     }
 
@@ -99,26 +99,26 @@ bool update(struct game *game, int dy, int dx) {
     }
 
     // Move and merge tiles in each row or column depending on the direction
-    if (dy == -1 || dy == 1) { // Up or down
+    if (dy == 1 || dy == -1) { // Up or down
         for (int x = 0; x < SIZE; x++) {
             char line[SIZE];
             for (int y = 0; y < SIZE; y++) {
-                line[y] = (dy == -1) ? temp_board[y][x] : temp_board[SIZE - 1 - y][x];
+                line[y] = (dy == 1) ? temp_board[y][x] : temp_board[SIZE - 1 - y][x];
             }
             move_and_merge_tiles(line);
             for (int y = 0; y < SIZE; y++) {
-                temp_board[y][x] = (dy == -1) ? line[y] : line[SIZE - 1 - y];
+                temp_board[y][x] = (dy == 1) ? line[y] : line[SIZE - 1 - y];
             }
         }
-    } else if (dx == -1 || dx == 1) { // Left or right
+    } else if (dx == 1 || dx == -1) { // Left or right
         for (int y = 0; y < SIZE; y++) {
             char line[SIZE];
             for (int x = 0; x < SIZE; x++) {
-                line[x] = (dx == -1) ? temp_board[y][x] : temp_board[y][SIZE - 1 - x];
+                line[x] = (dx == 1) ? temp_board[y][x] : temp_board[y][SIZE - 1 - x];
             }
             move_and_merge_tiles(line);
             for (int x = 0; x < SIZE; x++) {
-                temp_board[y][x] = (dx == -1) ? line[x] : line[SIZE - 1 - x];
+                temp_board[y][x] = (dx == 1) ? line[x] : line[SIZE - 1 - x];
             }
         }
     }
@@ -134,8 +134,8 @@ bool update(struct game *game, int dy, int dx) {
     }
 
     // If we cannot move, return false
-    if (!can_move) {
-        return false;
+    if (can_move) {
+        return true;
     }
 
     // Update the board state
@@ -148,8 +148,9 @@ bool update(struct game *game, int dy, int dx) {
     // Generate a new tile on a random empty cell
     generate_new_tile(game);
 
-    return true;
+    return false;
 }
+
 
 /*
 void add_random_tile(struct game *game){
