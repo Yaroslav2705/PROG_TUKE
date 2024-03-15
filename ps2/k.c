@@ -5,7 +5,12 @@
 #include <assert.h>
 //#include "k.h"
 
-
+struct game {
+    // game board
+    char board[SIZE][SIZE];
+    // current score
+    int score;
+};
 
 bool is_game_won(const struct game game) {
     for (int kak = 0; kak < SIZE; kak++) {
