@@ -2,6 +2,7 @@
 #include <string.h>
 #include "hof.h"
 
+/*
 int load(struct player list[]) {
     FILE *file = fopen("score.txt", "r");
     if (file == NULL) {
@@ -31,4 +32,38 @@ int load(struct player list[]) {
     }
 
     return count; // Return the number of loaded players
+}*/
+
+int load(struct player list[]) {
+    FILE *file = fopen("score.txt", "r");
+    if (file == NULL) {
+        //printf("Error opening file.\n");
+        return -1; // Return -1 to indicate error
+    }
+
+    int count = 0;
+    while (fscanf(file, "%s %d", list[count].name, &list[count].score) == 2) {
+        count++;
+        if (count >= 10) // Check if we've reached the maximum number of players
+            break;
+    }
+
+    fclose(file);
+    return count; // Return the number of loaded players
+}
+
+bool save(struct player list[], int size) {
+    FILE *file = fopen("score.txt", "w");
+    if (file == NULL) {
+        //printf("Error opening file.\n");
+        return false; // Return false to indicate failure
+    }
+
+    // Write players to file
+    for (int i = 0; i < size; i++) {
+        fprintf(file, "%s %d\n", list[i].name, list[i].score);
+    }
+
+    fclose(file);
+    return true; // Return true to indicate success
 }

@@ -31,4 +31,6 @@ int num_loaded = load(list);
     printf("Загружено %d игроков из файла:\n", num_loaded);
     for (int i = 0; i < num_loaded; i++) {
         printf("%s - %d\n", list[i].name, list[i].score);
-    }}
+    }
+
+bool success = save(players, num_players);}
