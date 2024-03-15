@@ -294,7 +294,7 @@ bool move_left(struct game *game) {
 // Function to move in the specified direction
 bool update(struct game *game, int dy, int dx) {
     
-    if(!is_move_possible)
+    if(!is_move_possible(*game))
        return false;
     
     bool moved = false;
