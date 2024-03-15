@@ -180,7 +180,7 @@ bool move_down(struct game *game) {
                     } else if (game->board[new_y][x] == game->board[y][x]) {
                         game->board[new_y][x]++;
                         game->board[y][x] = ' ';
-                        game->score += 1 << (game->board[new_y][x] - 'A');
+                        game->score += 1 << (game->board[new_y][x] - 'A'+1);
                         moved = true;
                         break;
                     } else {
@@ -212,7 +212,7 @@ bool move_up(struct game *game) {
                     } else if (game->board[new_y][x] == game->board[y][x]) {
                         game->board[new_y][x]++;
                         game->board[y][x] = ' ';
-                        game->score += 1 << (game->board[new_y][x] - 'A');
+                        game->score += 1 << (game->board[new_y][x] - 'A'+1);
                         moved = true;
                         break;
                     } else {
@@ -244,7 +244,7 @@ bool move_right(struct game *game) {
                     } else if (game->board[y][new_x] == game->board[y][x]) {
                         game->board[y][new_x]++;
                         game->board[y][x] = ' ';
-                        game->score += 1 << (game->board[y][new_x] - 'A');
+                        game->score += 1 << (game->board[y][new_x] - 'A'+1);
                         moved = true;
                         break;
                     } else {
@@ -276,7 +276,7 @@ bool move_left(struct game *game) {
                     } else if (game->board[y][new_x] == game->board[y][x]) {
                         game->board[y][new_x]++;
                         game->board[y][x] = ' ';
-                        game->score += 1 << (game->board[y][new_x] - 'A');
+                        game->score += 1 << (game->board[y][new_x] - 'A'+1);
                         moved = true;
                         break;
                     } else {
