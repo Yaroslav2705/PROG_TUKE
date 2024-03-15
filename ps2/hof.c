@@ -52,7 +52,7 @@ int load(struct player list[]) {
     return count; // Return the number of loaded players
 }
 
-bool save(struct player list[], int size) {
+bool save(struct player list[], int const size) {
     FILE *file = fopen("score.txt", "w");
     if (file == NULL) {
         //printf("Error opening file.\n");
