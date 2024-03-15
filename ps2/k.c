@@ -3,7 +3,7 @@
 #include <stdbool.h>
 #include <time.h>
 #include <assert.h>
-//#include "k.h"
+#include "k.h"
 
 /*
 struct game {
@@ -293,6 +293,10 @@ bool move_left(struct game *game) {
 
 // Function to move in the specified direction
 bool update(struct game *game, int dy, int dx) {
+    
+    if(!is_move_possible)
+       return false;
+    
     bool moved = false;
 
     if (dy == 1)
