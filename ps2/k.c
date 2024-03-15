@@ -290,7 +290,7 @@ bool move_left(struct game *game) {
 
     return moved;
 }
-
+/*
 // Function to move in the specified direction
 bool update(struct game *game, int dy, int dx) {
     
@@ -306,6 +306,22 @@ bool update(struct game *game, int dy, int dx) {
     else if (dx == 1)
         moved = move_right(game);
     else if (dx == -1)
+        moved = move_left(game);
+
+    return moved;
+}*/
+
+bool update(struct game *game, int dy, int dx) {
+    bool moved = false;
+
+    // Проверяем возможность движения и осуществляем ход
+    if (dy == 1 && is_move_possible(*game))
+        moved = move_down(game);
+    else if (dy == -1 && is_move_possible(*game))
+        moved = move_up(game);
+    else if (dx == 1 && is_move_possible(*game))
+        moved = move_right(game);
+    else if (dx == -1 && is_move_possible(*game))
         moved = move_left(game);
 
     return moved;
