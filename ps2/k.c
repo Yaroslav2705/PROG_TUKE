@@ -5,12 +5,13 @@
 #include <assert.h>
 //#include "k.h"
 
+/*
 struct game {
     // game board
     char board[SIZE][SIZE];
     // current score
     int score;
-};
+};*/
 
 bool is_game_won(const struct game game) {
     for (int kak = 0; kak < SIZE; kak++) {
@@ -324,85 +325,3 @@ void add_random_tile(struct game *game){
 }
 */
 
-// Function to print the game board and current score
-void print_game(struct game *game) {
-    printf("Current Score: %d\n", game->score);
-    printf("+---+---+---+---+\n");
-    for (int i = 0; i < SIZE; i++) {
-        printf("|");
-        for (int j = 0; j < SIZE; j++) {
-            printf(" %c |", game->board[i][j]);
-        }
-        printf("\n+---+---+---+---+\n");
-    }
-}
-
-int main() {
-    // Checks for each direction
-
-    // Right
-    struct game game1 = {
-        .score = 5669,
-        .board = {
-            {' ', ' ', ' ', ' '},
-            {'F', ' ', ' ', ' '},
-            {' ', ' ', ' ', 'J'},
-            {'I', 'H', ' ', 'A'}
-        }
-    };
-    printf("Move right:\n");
-    print_game(&game1);
-    bool result1 = update(&game1, 0, 1);
-    assert(result1);
-    print_game(&game1);
-
-    // Left
-    struct game game2 = {
-        .score = 149,
-        .board = {
-            {' ', 'C', 'F', 'F'},
-            {'H', ' ', ' ', ' '},
-            {' ', ' ', ' ', ' '},
-            {' ', ' ', ' ', 'D'}
-        }
-    };
-    printf("\nMove left:\n");
-    print_game(&game2);
-    bool result2 = update(&game2, 0, -1);
-    assert(result2);
-    print_game(&game2);
-
-    // Up
-    struct game game3 = {
-        .score = 4182,
-        .board = {
-            {'H', ' ', 'A', 'F'},
-            {'B', 'A', 'E', 'J'},
-            {' ', ' ', 'J', ' '},
-            {'F', ' ', ' ', ' '}
-        }
-    };
-    printf("\nMove up:\n");
-    print_game(&game3);
-    bool result3 = update(&game3, -1, 0);
-    assert(result3);
-    print_game(&game3);
-
-    // Down
-    struct game game4 = {
-        .score = 4799,
-        .board = {
-            {' ', 'I', ' ', ' '},
-            {' ', 'H', 'G', 'I'},
-            {'H', ' ', 'B', 'A'},
-            {'F', 'D', ' ', ' '}
-        }
-    };
-    printf("\nMove down:\n");
-    print_game(&game4);
-    bool result4 = update(&game4, 1, 0);
-    assert(result4);
-    print_game(&game4);
-
-    return 0;
-}
