@@ -33,4 +33,7 @@ int num_loaded = load(list);
         printf("%s - %d\n", list[i].name, list[i].score);
     }
 
-bool success = save(players, num_players);}
+int size = sizeof(list) / sizeof(list[0]);
+
+    if (save(list, size)) {
+        printf("Players saved successfully.\n");}}
