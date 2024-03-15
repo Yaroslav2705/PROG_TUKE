@@ -5,6 +5,8 @@
 #include <assert.h>
 //#include "k.h"
 
+#define SIZE 4
+
 struct game {
     // game board
     char board[SIZE][SIZE];
