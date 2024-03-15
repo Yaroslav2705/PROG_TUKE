@@ -88,80 +88,7 @@ void move_and_merge_tiles(char line[SIZE]) {
     }
 }
 
-bool update(struct game *game, int dy, int dx) {
-    if (!is_move_possible(*game)) {
-        //printf("Игра окончена! Невозможно выполнить ходы.\n");
-        return false;
-    }
-    // Check the correctness of the movement direction
-    if ((dy != 1 && dy != 0 && dy != -1) || (dx != 1 && dx != 0 && dx != -1)) {
-        return false; // Incorrect direction
-    }
 
-    // Check if we can move in the specified direction
-    bool can_move = false;
-    char temp_board[SIZE][SIZE];
-
-    // Create a temporary copy of the board to check movement possibility
-    for (int i = 0; i < SIZE; i++) {
-        for (int j = 0; j < SIZE; j++) {
-            temp_board[i][j] = game->board[i][j];
-        }
-    }
-
-    // Move and merge tiles in each row or column depending on the direction
-    if (dy == 1 || dy == -1) { // Up or down
-        for (int x = 0; x < SIZE; x++) {
-            char line[SIZE];
-            for (int y = 0; y < SIZE; y++) {
-                line[y] = (dy == 1) ? temp_board[y][x] : temp_board[SIZE - 1 - y][x];
-            }
-            move_and_merge_tiles(line);
-            for (int y = 0; y < SIZE; y++) {
-                temp_board[y][x] = (dy == 1) ? line[y] : line[SIZE - 1 - y];
-            }
-        }
-    } else if (dx == 1 || dx == -1) { // Left or right
-        for (int y = 0; y < SIZE; y++) {
-            char line[SIZE];
-            for (int x = 0; x < SIZE; x++) {
-                line[x] = (dx == 1) ? temp_board[y][x] : temp_board[y][SIZE - 1 - x];
-            }
-            move_and_merge_tiles(line);
-            for (int x = 0; x < SIZE; x++) {
-                temp_board[y][x] = (dx == 1) ? line[x] : line[SIZE - 1 - x];
-            }
-        }
-    }
-
-    // Check if the board state has changed
-    for (int i = 0; i < SIZE; i++) {
-        for (int j = 0; j < SIZE; j++) {
-            if (game->board[i][j] != temp_board[i][j]) {
-                can_move = true;
-                break;
-            }
-        }
-    }
-
-    // If we cannot move, return false
-    if (can_move) {
-        return true;
-    }
-
-    // Update the board state
-    for (int i = 0; i < SIZE; i++) {
-        for (int j = 0; j < SIZE; j++) {
-            game->board[i][j] = temp_board[i][j];
-        }
-    }
-
-    // Generate a new tile on a random empty cell
-    generate_new_tile(game);
-
-    return false;
-}
-*/
 
 // Function to move down
 bool move_down(struct game *game) {
@@ -309,7 +236,7 @@ bool update(struct game *game, int dy, int dx) {
         moved = move_left(game);
 
     return moved;
-}*/
+}
 
 bool update(struct game *game, int dy, int dx) {
     bool moved = false;
@@ -344,4 +271,141 @@ void add_random_tile(struct game *game){
     }
 }
 */
+bool move_down(struct game *game) {
+    bool moved = false;
 
+    for (int x = 0; x < SIZE; x++) {
+        for (int y = SIZE - 2; y >= 0; y--) {
+            if (game->board[y][x] != ' ') {
+                int new_y = y + 1;
+                while (new_y < SIZE) {
+                    if (game->board[new_y][x] == ' ') {
+                        game->board[new_y][x] = game->board[y][x];
+                        game->board[y][x] = ' ';
+                        y = new_y;
+                        moved = true;
+                    } else if (game->board[new_y][x] == game->board[y][x]) {
+                        game->board[new_y][x]++;
+                        game->board[y][x] = ' ';
+                        game->score += 1 << (game->board[new_y][x] - 'A' + 1);
+                        moved = true;
+                        y = new_y;  // Update y to continue merging if possible
+                        break;
+                    } else {
+                        break;
+                    }
+                    new_y++;
+                }
+            }
+        }
+    }
+
+    return moved;
+}
+
+bool move_up(struct game *game) {
+    bool moved = false;
+
+    for (int x = 0; x < SIZE; x++) {
+        for (int y = 1; y < SIZE; y++) {
+            if (game->board[y][x] != ' ') {
+                int new_y = y - 1;
+                while (new_y >= 0) {
+                    if (game->board[new_y][x] == ' ') {
+                        game->board[new_y][x] = game->board[y][x];
+                        game->board[y][x] = ' ';
+                        y = new_y;
+                        moved = true;
+                    } else if (game->board[new_y][x] == game->board[y][x]) {
+                        game->board[new_y][x]++;
+                        game->board[y][x] = ' ';
+                        game->score += 1 << (game->board[new_y][x] - 'A' + 1);
+                        moved = true;
+                        y = new_y;  // Update y to continue merging if possible
+                        break;
+                    } else {
+                        break;
+                    }
+                    new_y--;
+                }
+            }
+        }
+    }
+
+    return moved;
+}
+
+bool move_right(struct game *game) {
+    bool moved = false;
+
+    for (int y = 0; y < SIZE; y++) {
+        for (int x = SIZE - 2; x >= 0; x--) {
+            if (game->board[y][x] != ' ') {
+                int new_x = x + 1;
+                while (new_x < SIZE) {
+                    if (game->board[y][new_x] == ' ') {
+                        game->board[y][new_x] = game->board[y][x];
+                        game->board[y][x] = ' ';
+                        x = new_x;
+                        moved = true;
+                    } else if (game->board[y][new_x] == game->board[y][x]) {
+                        game->board[y][new_x]++;
+                        game->board[y][x] = ' ';
+                        game->score += 1 << (game->board[y][new_x] - 'A' + 1);
+                        moved = true;
+                        x = new_x;  // Update x to continue merging if possible
+                        break;
+                    } else {
+                        break;
+                    }
+                    new_x++;
+                }
+            }
+        }
+    }
+
+    return moved;
+}
+
+bool move_left(struct game *game) {
+    bool moved = false;
+
+    for (int y = 0; y < SIZE; y++) {
+        for (int x = 1; x < SIZE; x++) {
+            if (game->board[y][x] != ' ') {
+                int new_x = x - 1;
+                while (new_x >= 0) {
+                    if (game->board[y][new_x] == ' ') {
+                        game->board[y][new_x] = game->board[y][x];
+                        game->board[y][x] = ' ';
+                        x = new_x;
+                        moved = true;
+                    } else if (game->board[y][new_x] == game->board[y][x]) {
+                        game->board[y][new_x]++;
+                        game->board[y][x] = ' ';
+                        game->score += 1 << (game->board[y][new_x] - 'A' + 1);
+                        moved = true;
+                        x = new_x;  // Update x to continue merging if possible
+                        break;
+                    } else {
+                        break;
+                    }
+                    new_x--;
+                }
+            }
+        }
+    }
+
+    return moved;
+}
+
+bool update(struct game *game, int dy, int dx) {
+    bool moved = false;
+
+    if ((dy == 1 || dy == -1) && is_move_possible(*game))
+        moved = dy == 1 ? move_down(game) : move_up(game);
+    else if ((dx == 1 || dx == -1) && is_move_possible(*game))
+        moved = dx == 1 ? move_right(game) : move_left(game);
+
+    return moved;
+}
