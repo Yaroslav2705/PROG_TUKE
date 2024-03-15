@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include "k.h"
 #include "ui.h"
+#include "hof.h"
 
 int main(){
 struct game game = {
