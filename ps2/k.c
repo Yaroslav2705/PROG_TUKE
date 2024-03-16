@@ -98,7 +98,7 @@ void add_random_tile(struct game *game){
     }
 }
 */
-/*
+
 bool move_down(struct game *game) {
     bool moved = false;
 
@@ -226,7 +226,7 @@ bool move_left(struct game *game) {
 
     return moved;
 }
-
+/*
 bool update(struct game *game, int dy, int dx) {
     bool moved = false;
 
@@ -238,157 +238,6 @@ bool update(struct game *game, int dy, int dx) {
     return moved;
 }
 */
-
-
-bool merge_left(struct game *game, int row) {
-    bool moved = false;
-    for (int j = 0; j < SIZE - 1; j++) {
-        if (game->board[row][j] != ' ' && game->board[row][j] == game->board[row][j + 1]) {
-            game->board[row][j]++; // Увеличиваем значение текущей ячейки на 1
-            game->board[row][j + 1] = ' '; // Очищаем следующую ячейку
-            game->score += 1 << (game->board[row][j] - 'A' + 1); // Увеличиваем счет
-            moved = true; // Устанавливаем флаг, что было совершено движение
-        }
-    }
-    return moved;
-}
-
-
-bool move_left(struct game *game) {
-    bool moved = false;
-
-    for (int y = 0; y < SIZE; y++) {
-        // Слияние клеток в строке
-        moved |= merge_left(game,y);
-
-        // Сдвиг клеток влево
-        int next_empty = 0;
-        for (int x = 0; x < SIZE; x++) {
-            if (game->board[y][x] != ' ') {
-                if (x != next_empty) {
-                    game->board[y][next_empty] = game->board[y][x];
-                    game->board[y][x] = ' ';
-                    moved = true;
-                }
-                next_empty++;
-            }
-        }
-    }
-
-    return moved;
-}
-
-bool merge_right(struct game *game, int row) {
-    bool moved = false;
-    for (int j = SIZE - 1; j > 0; j--) {
-        if (game->board[row][j] != ' ' && game->board[row][j] == game->board[row][j - 1]) {
-            game->board[row][j]++; // Увеличиваем значение текущей ячейки на 1
-            game->board[row][j - 1] = ' '; // Очищаем предыдущую ячейку
-            game->score += 1 << (game->board[row][j] - 'A' + 1); // Увеличиваем счет
-            moved = true; // Устанавливаем флаг, что было совершено движение
-        }
-    }
-    return moved;
-}
-
-
-bool move_right(struct game *game) {
-    bool moved = false;
-
-    for (int y = 0; y < SIZE; y++) {
-        // Слияние клеток в строке
-        moved |= merge_right(game, y);
-
-        // Сдвиг клеток вправо
-        int next_empty = SIZE - 1;
-        for (int x = SIZE - 1; x >= 0; x--) {
-            if (game->board[y][x] != ' ') {
-                if (x != next_empty) {
-                    game->board[y][next_empty] = game->board[y][x];
-                    game->board[y][x] = ' ';
-                    moved = true;
-                }
-                next_empty--;
-            }
-        }
-    }
-
-    return moved;
-}
-
-bool merge_up(struct game *game, int column) {
-    bool moved = false;
-    for (int i = 0; i < SIZE - 1; i++) {
-        if (game->board[i][column] != ' ' && game->board[i][column] == game->board[i + 1][column]) {
-            game->board[i][column]++;
-            game->board[i + 1][column] = ' ';
-            game->score += 1 << (game->board[i][column] - 'A' + 1);
-            moved = true;
-        }
-    }
-    return moved;
-}
-
-bool move_up(struct game *game) {
-    bool moved = false;
-
-    for (int x = 0; x < SIZE; x++) {
-        // Слияние клеток в столбце
-        moved |= merge_up(game, x);
-
-        // Сдвиг клеток вверх
-        int next_empty = 0;
-        for (int y = 0; y < SIZE; y++) {
-            if (game->board[y][x] != ' ') {
-                if (y != next_empty) {
-                    game->board[next_empty][x] = game->board[y][x];
-                    game->board[y][x] = ' ';
-                    moved = true;
-                }
-                next_empty++;
-            }
-        }
-    }
-
-    return moved;
-}
-
-bool merge_down(struct game *game, int column) {
-    bool moved = false;
-    for (int i = SIZE - 1; i > 0; i--) {
-        if (game->board[i][column] != ' ' && game->board[i][column] == game->board[i - 1][column]) {
-            game->board[i][column]++;
-            game->board[i - 1][column] = ' ';
-            game->score += 1 << (game->board[i][column] - 'A' + 1);
-            moved = true;
-        }
-    }
-    return moved;
-}
-
-bool move_down(struct game *game) {
-    bool moved = false;
-
-    for (int x = 0; x < SIZE; x++) {
-        // Слияние клеток в столбце
-        moved |= merge_down(game, x);
-
-        // Сдвиг клеток вниз
-        int next_empty = SIZE - 1;
-        for (int y = SIZE - 1; y >= 0; y--) {
-            if (game->board[y][x] != ' ') {
-                if (y != next_empty) {
-                    game->board[next_empty][x] = game->board[y][x];
-                    game->board[y][x] = ' ';
-                    moved = true;
-                }
-                next_empty--;
-            }
-        }
-    }
-
-    return moved;
-}
 
 bool update(struct game *game, int dy, int dx) {
         if(dy == 0 || dx == 0){
