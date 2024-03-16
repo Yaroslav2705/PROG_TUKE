@@ -5,13 +5,6 @@
 #include <assert.h>
 #include "k.h"
 
-/*
-struct game {
-    // game board
-    char board[SIZE][SIZE];
-    // current score
-    int score;
-};*/
 
 bool is_game_won(const struct game game) {
     for (int kak = 0; kak < SIZE; kak++) {
@@ -86,172 +79,6 @@ void move_and_merge_tiles(char line[SIZE]) {
             }
         }
     }
-}
-
-
-
-// Function to move down
-bool move_down(struct game *game) {
-    bool moved = false;
-
-    for (int x = 0; x < SIZE; x++) {
-        for (int y = SIZE - 2; y >= 0; y--) {
-            if (game->board[y][x] != ' ') {
-                int new_y = y + 1;
-                while (new_y < SIZE) {
-                    if (game->board[new_y][x] == ' ') {
-                        game->board[new_y][x] = game->board[y][x];
-                        game->board[y][x] = ' ';
-                        y = new_y;
-                        moved = true;
-                    } else if (game->board[new_y][x] == game->board[y][x]) {
-                        game->board[new_y][x]++;
-                        game->board[y][x] = ' ';
-                        game->score += 1 << (game->board[new_y][x] - 'A'+1);
-                        moved = true;
-                        break;
-                    } else {
-                        break;
-                    }
-                    new_y++;
-                }
-            }
-        }
-    }
-
-    return moved;
-}
-
-// Function to move up
-bool move_up(struct game *game) {
-    bool moved = false;
-
-    for (int x = 0; x < SIZE; x++) {
-        for (int y = 1; y < SIZE; y++) {
-            if (game->board[y][x] != ' ') {
-                int new_y = y - 1;
-                while (new_y >= 0) {
-                    if (game->board[new_y][x] == ' ') {
-                        game->board[new_y][x] = game->board[y][x];
-                        game->board[y][x] = ' ';
-                        y = new_y;
-                        moved = true;
-                    } else if (game->board[new_y][x] == game->board[y][x]) {
-                        game->board[new_y][x]++;
-                        game->board[y][x] = ' ';
-                        game->score += 1 << (game->board[new_y][x] - 'A'+1);
-                        moved = true;
-                        break;
-                    } else {
-                        break;
-                    }
-                    new_y--;
-                }
-            }
-        }
-    }
-
-    return moved;
-}
-
-// Function to move right
-bool move_right(struct game *game) {
-    bool moved = false;
-
-    for (int y = 0; y < SIZE; y++) {
-        for (int x = SIZE - 2; x >= 0; x--) {
-            if (game->board[y][x] != ' ') {
-                int new_x = x + 1;
-                while (new_x < SIZE) {
-                    if (game->board[y][new_x] == ' ') {
-                        game->board[y][new_x] = game->board[y][x];
-                        game->board[y][x] = ' ';
-                        x = new_x;
-                        moved = true;
-                    } else if (game->board[y][new_x] == game->board[y][x]) {
-                        game->board[y][new_x]++;
-                        game->board[y][x] = ' ';
-                        game->score += 1 << (game->board[y][new_x] - 'A'+1);
-                        moved = true;
-                        break;
-                    } else {
-                        break;
-                    }
-                    new_x++;
-                }
-            }
-        }
-    }
-
-    return moved;
-}
-
-// Function to move left
-bool move_left(struct game *game) {
-    bool moved = false;
-
-    for (int y = 0; y < SIZE; y++) {
-        for (int x = 1; x < SIZE; x++) {
-            if (game->board[y][x] != ' ') {
-                int new_x = x - 1;
-                while (new_x >= 0) {
-                    if (game->board[y][new_x] == ' ') {
-                        game->board[y][new_x] = game->board[y][x];
-                        game->board[y][x] = ' ';
-                        x = new_x;
-                        moved = true;
-                    } else if (game->board[y][new_x] == game->board[y][x]) {
-                        game->board[y][new_x]++;
-                        game->board[y][x] = ' ';
-                        game->score += 1 << (game->board[y][new_x] - 'A'+1);
-                        moved = true;
-                        break;
-                    } else {
-                        break;
-                    }
-                    new_x--;
-                }
-            }
-        }
-    }
-
-    return moved;
-}
-
-// Function to move in the specified direction
-bool update(struct game *game, int dy, int dx) {
-    
-    if(!is_move_possible(*game))
-       return false;
-    
-    bool moved = false;
-
-    if (dy == 1)
-        moved = move_down(game);
-    else if (dy == -1)
-        moved = move_up(game);
-    else if (dx == 1)
-        moved = move_right(game);
-    else if (dx == -1)
-        moved = move_left(game);
-
-    return moved;
-}
-
-bool update(struct game *game, int dy, int dx) {
-    bool moved = false;
-
-    // Проверяем возможность движения и осуществляем ход
-    if (dy == 1 && is_move_possible(*game))
-        moved = move_down(game);
-    else if (dy == -1 && is_move_possible(*game))
-        moved = move_up(game);
-    else if (dx == 1 && is_move_possible(*game))
-        moved = move_right(game);
-    else if (dx == -1 && is_move_possible(*game))
-        moved = move_left(game);
-
-    return moved;
 }
 
 
@@ -398,7 +225,7 @@ bool move_left(struct game *game) {
 
     return moved;
 }
-
+/*
 bool update(struct game *game, int dy, int dx) {
     bool moved = false;
 
@@ -408,4 +235,28 @@ bool update(struct game *game, int dy, int dx) {
         moved = dx == 1 ? move_right(game) : move_left(game);
 
     return moved;
+}
+*/
+bool update(struct game *game, int dy, int dx) {
+        if(dy == 0 || dx == 0){
+        bool moved = false;
+
+    // Проверяем возможность движения и осуществляем ход
+    if ((dy == 1 || dy == -1) && is_move_possible(*game)) {
+        if (dy == 1)
+            moved = move_down(game);
+        else if (dy == -1)
+            moved = move_up(game);
+    }
+    else if ((dx == 1 || dx == -1) && is_move_possible(*game)) {
+        if (dx == 1)
+            moved = move_right(game);
+        else if (dx == -1)
+            moved = move_left(game);
+    }
+
+    return moved;}
+        else {
+                return false;
+        }
 }
