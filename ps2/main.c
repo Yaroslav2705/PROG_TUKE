@@ -36,4 +36,14 @@ int num_loaded = load(list);
 int size = sizeof(list) / sizeof(list[0]);
 
     if (save(list, size)) {
-        printf("Players saved successfully.\n");}}
+        printf("Players saved successfully.\n");}
+        
+struct player hall_of_fame[10] = {0}; // Initialize hall of fame list
+    int size = load(hall_of_fame); // Load hall of fame list from file
+
+    // Adding players to the hall of fame
+    struct player new_player = {.name = "Player1", .score = 100}; // Example player
+    add_player(hall_of_fame, &size, new_player);        
+        
+
+}
