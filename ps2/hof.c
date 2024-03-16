@@ -36,24 +36,6 @@ int load(struct player list[]) {
 }
 
 int load(struct player list[]) {
-    FILE *file = fopen("score.txt", "r");
-    if (file == NULL) {
-        //printf("Error opening file.\n");
-        return -1; // Return -1 to indicate error
-    }
-
-    int count = 0;
-    while (fscanf(file, "%s %d", list[count].name, &list[count].score) == 2) {
-        count++;
-        if (count >= 10) // Check if we've reached the maximum number of players
-            break;
-    }
-
-    fclose(file);
-    return count; // Return the number of loaded players
-}*/
-
-int load(struct player list[]) {
     FILE *file = fopen("score", "r");
     if (file == NULL) {
         //printf("Error opening file.\n");
@@ -68,7 +50,36 @@ int load(struct player list[]) {
     fclose(file);
     return count; // Return the number of loaded players
 }
+*/
 
+int load(struct player list[]) {
+    FILE *file = fopen("score", "r");
+    if (file == NULL) {
+        //printf("Error opening file.\n");
+        return 0; // Return 0 to indicate error
+    }
+
+    int count = 0;
+    while (count < 10 && fscanf(file, "%s %d", list[count].name, &list[count].score) == 2) {
+        count++;
+    }
+
+    fclose(file);
+
+    // sort
+    for (int i = 0; i < count - 1; i++) {
+        for (int j = i + 1; j < count; j++) {
+            if (list[i].score < list[j].score) {
+                // Обмен местами
+                struct player temp = list[i];
+                list[i] = list[j];
+                list[j] = temp;
+            }
+        }
+    }
+
+    return count; // Return the number of loaded players
+}
 
 bool save(const struct player list[], const int size) {
     FILE *file = fopen("score.txt", "w");
