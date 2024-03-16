@@ -128,7 +128,7 @@ bool add_player(struct player list[], int *size, const struct player new_player)
     save(list, *size);
 
     return true;
-}*/
+}
 
 bool add_player(struct player list[], int *size, const struct player new_player) {
     // Find the insertion index
@@ -160,4 +160,42 @@ bool add_player(struct player list[], int *size, const struct player new_player)
     save(list, *size);
 
     return true;
+}*/
+
+bool add_player(struct player list[], int *size, const struct player new_player) {
+    // Find the insertion index
+    int insert_index = *size;
+    for (int i = 0; i < *size; i++) {
+        if (new_player.score >= list[i].score) {
+            insert_index = i;
+            break;
+        }
+    }
+
+    // Shift players to the right to make room for the new player
+    for (int i = *size; i > insert_index; i--) {
+        list[i] = list[i - 1];
+    }
+
+    // Copy the data of the new player to the correct position in the list
+    list[insert_index] = new_player;
+
+    // Increase the size of the list
+    (*size)++;
+
+    // If the size exceeds 10, remove the last player
+    if (*size > 10) {
+        (*size)--;
+    }
+
+    // Save the changes to the file
+    bool saved = save(list, *size);
+
+    // Return false if the player wasn't added due to list being full
+    if (!saved && *size == 10 && new_player.score >= list[9].score) {
+        return false;
+    }
+
+    return true;
 }
+
