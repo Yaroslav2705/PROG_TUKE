@@ -198,4 +198,3 @@ bool add_player(struct player list[], int *size, const struct player new_player)
 
     return true;
 }
-
