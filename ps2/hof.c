@@ -96,22 +96,19 @@ bool save(const struct player list[], const int size) {
     fclose(file);
     return true; // Return true to indicate success
 }
+
 /*
 bool add_player(struct player list[], int *size, const struct player new_player) {
-    // If the list size has already reached the maximum value, the new player cannot be added
-    if (*size >= 10)
-        return false;
-
-    // Check if the new player can be inserted into the list
+    // Find the insertion index
     int insert_index = *size;
     for (int i = 0; i < *size; i++) {
-        if (new_player.score > list[i].score) {
+        if (new_player.score > list[i].score || (new_player.score == list[i].score && strcmp(new_player.name, list[i].name) < 0)) {
             insert_index = i;
             break;
         }
     }
 
-    // Shift all players to the right to make room for the new player
+    // Shift players to the right to make room for the new player
     for (int i = *size; i > insert_index; i--) {
         list[i] = list[i - 1];
     }
@@ -122,22 +119,22 @@ bool add_player(struct player list[], int *size, const struct player new_player)
     // Increase the size of the list
     (*size)++;
 
-    // If the list size exceeds the maximum value, remove the last player
-    if (*size > 10)
+    // If the size exceeds 10, remove the last player
+    if (*size > 10) {
         (*size)--;
+    }
 
     // Save the changes to the file
     save(list, *size);
 
     return true;
-}
-*/
+}*/
 
 bool add_player(struct player list[], int *size, const struct player new_player) {
     // Find the insertion index
     int insert_index = *size;
     for (int i = 0; i < *size; i++) {
-        if (new_player.score > list[i].score || (new_player.score == list[i].score && strcmp(new_player.name, list[i].name) < 0)) {
+        if (new_player.score >= list[i].score) {
             insert_index = i;
             break;
         }
