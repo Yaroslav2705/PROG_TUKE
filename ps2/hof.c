@@ -54,7 +54,7 @@ int load(struct player list[]) {
 }*/
 
 int load(struct player list[]) {
-    FILE *file = fopen("score.txt", "r");
+    FILE *file = fopen("score", "r");
     if (file == NULL) {
         //printf("Error opening file.\n");
         return 0; // Return -1 to indicate error
