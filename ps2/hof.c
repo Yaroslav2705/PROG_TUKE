@@ -56,7 +56,7 @@ int load(struct player list[]) {
     FILE *file = fopen("score", "r");
     if (file == NULL) {
         //printf("Error opening file.\n");
-        return 0; // Return 0 to indicate error
+        return -1; // Return -1 to indicate error
     }
 
     int count = 0;
