@@ -217,7 +217,7 @@ bool move_left(struct game *game) {
 
     return moved;
 }
-/*
+
 // Function to move in the specified direction
 bool update(struct game *game, int dy, int dx) {
     
@@ -254,7 +254,7 @@ bool update(struct game *game, int dy, int dx) {
     return moved;
 }
 
-/*
+
 void add_random_tile(struct game *game){
     int row, col;
     // find random, but empty tile
