@@ -226,18 +226,6 @@ bool move_left(struct game *game) {
 
     return moved;
 }
-/*
-bool update(struct game *game, int dy, int dx) {
-    bool moved = false;
-
-    if ((dy == 1 || dy == -1) && is_move_possible(*game))
-        moved = dy == 1 ? move_down(game) : move_up(game);
-    else if ((dx == 1 || dx == -1) && is_move_possible(*game))
-        moved = dx == 1 ? move_right(game) : move_left(game);
-
-    return moved;
-}
-*/
 
 bool update(struct game *game, int dy, int dx) {
         if(dy == 0 || dx == 0){
