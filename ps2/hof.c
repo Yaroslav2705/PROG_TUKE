@@ -191,10 +191,10 @@ bool add_player(struct player list[], int *size, const struct player new_player)
     // Save the changes to the file
     bool saved = save(list, *size);
 
-    // Return false if the player wasn't added due to list being full
-    if (!saved && *size == 10 && new_player.score >= list[9].score) {
-        return false;
-    }
+    if (!saved && *size == 10 && new_player.score > list[9].score) {
+    return false;
+}
+
 
     return true;
 }
