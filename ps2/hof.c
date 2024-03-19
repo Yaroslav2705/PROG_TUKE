@@ -60,7 +60,7 @@ bool add_player(struct player list[], int *size, const struct player new_player)
 
     // If the list is full and the new player has a score lower than
     // the last player in the list, return false without modifying the list
-    if (*size == 10 && new_player.score <= list[9].score) {
+    if (*size == 10 && new_player.score <= list[10].score) {
         return false;
     }
 
