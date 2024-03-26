@@ -8,6 +8,7 @@ int sum_of_digits(char *number) {
     for (int i = 0; number[i] != '\0'; i++) {
         sum += number[i] - '0';
     }
+    
     return sum;
 }
 
