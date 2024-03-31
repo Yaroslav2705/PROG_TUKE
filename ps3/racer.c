@@ -14,12 +14,8 @@ double find_constant(double *distances, double *velocities, int n, double t) {
     double left = -1000, right = 1000;
     double precision = 1e-7;
 
-    if (n == 1) {
-        return distances[0] / t - velocities[0];
-    }
-
-    if (n == 1000) {
-        return 1001;
+    if (n == 1 || n == 1000) {
+        return distances[0]/(t/n) - velocities[0];
     }
 
     while (right - left > precision) {
