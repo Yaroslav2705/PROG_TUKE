@@ -179,13 +179,13 @@ double calculate_time(double *distances, double *velocities, int n, double k, do
 }
 
 double find_constant(double *distances, double *velocities, int n, double t, double epsilon) {
-    double best_k = -1000.0;
+    double best_k = -1001.0;
     double min_time_difference = INFINITY;
     
     if (n == 1 || n == 1000)
         return distances[0] / (t / n) - velocities[0];
 
-    double left = -1000.0, right = 1000.0;
+    double left = -1001.0, right = 1001.0;
     while (left <= right) {
         double k = (left + right) / 2;
         double time = calculate_time(distances, velocities, n, k, epsilon);
