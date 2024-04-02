@@ -17,7 +17,7 @@ int main() {
                 double R, X, Y, Z;
                 scanf("%lf %lf %lf %lf", &R, &X, &Y, &Z);
                 double intersecting_height = fmin(100.0, fmax(0.0, R + Z));
-                total_cheese_volume -= intersecting_height * intersecting_height * M_PI * R * R;
+                total_cheese_volume -= intersecting_height * intersecting_height * 3.14159265358979323846 * R * R;
             }
             double thickness = total_cheese_volume / (10000.0 * S); // Convert to millimeters
             printf("%.7lf\n", thickness);
