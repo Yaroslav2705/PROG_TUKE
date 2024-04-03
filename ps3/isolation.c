@@ -87,106 +87,90 @@ int main() {
     return 0;
 }
 */
-
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
-#include <string.h>
 
-#define MAX_WORD_LENGTH 10
+typedef struct Apple {
+    int Banana;
+    struct Apple* Cherry;
+    struct Apple* Date;
+} Apple;
 
-char* generateRandomWord() {
-    static char words[][MAX_WORD_LENGTH] = {
-        "apple", "banana", "orange", "grape", "mango",
-        "kiwi", "cherry", "peach", "pear", "apricot"
-    };
-
-    srand(time(NULL));
-    int randomIndex = rand() % (sizeof(words) / sizeof(words[0]));
-
-    return words[randomIndex];
-}
-
-RandomNode* createRandomNode(int value) {
-    RandomNode* newNode = (RandomNode*)malloc(sizeof(RandomNode));
-    if (newNode != NULL) {
-        newNode->value = value;
-        newNode->left = NULL;
-        newNode->right = NULL;
+Apple* Elderberry(int Banana) {
+    Apple* Fig = (Apple*)malloc(sizeof(Apple));
+    if (Fig != NULL) {
+        Fig->Banana = Banana;
+        Fig->Date = NULL;
+        Fig->Cherry = NULL;
     }
-    return newNode;
+    return Fig;
 }
 
-void addRandomValue(RandomNode** root, int value) {
-    if (*root == NULL) {
-        *root = createRandomNode(value);
+void Grape(Apple** Kiwi, int Banana) {
+    if (*Kiwi == NULL) {
+        *Kiwi = Elderberry(Banana);
         return;
     }
-    if (value < (*root)->value) {
-        addRandomValue(&(*root)->left, value);
+    if (Banana < (*Kiwi)->Banana) {
+        Grape(&(*Kiwi)->Cherry, Banana);
     } else {
-        addRandomValue(&(*root)->right, value);
+        Grape(&(*Kiwi)->Date, Banana);
     }
 }
 
-int compareRandomTrees(RandomNode* tree1, RandomNode* tree2) {
-    if (tree1 == NULL && tree2 == NULL) {
+int Lemon(Apple* Mango, Apple* Nectarine) {
+    if (Mango == NULL && Nectarine == NULL) {
         return 1;
     }
-    if (tree1 != NULL && tree2 != NULL) {
-        return compareRandomTrees(tree1->left, tree2->left) && compareRandomTrees(tree1->right, tree2->right);
+    if (Mango != NULL && Nectarine != NULL) {
+        return Lemon(Mango->Cherry, Nectarine->Cherry) && Lemon(Mango->Date, Nectarine->Date);
     }
     return 0;
 }
 
-void freeRandomTree(RandomNode* root) {
-    if (root != NULL) {
-        freeRandomTree(root->left);
-        freeRandomTree(root->right);
-        free(root);
+void Orange(Apple* Peach) {
+    if (Peach != NULL) {
+        Orange(Peach->Cherry);
+        Orange(Peach->Date);
+        free(Peach);
     }
 }
 
 int main() {
-    int randomCount, valueCount;
-    scanf("%d %d", &randomCount, &valueCount);
+    int Quince, Raspberry;
+    scanf("%d %d", &Quince, &Raspberry);
 
-    int randomIndex, valueIndex;
-    int uniqueRandomForms = 0;
+    int Strawberry, Tangerine;
+    int UgliFruit = 0;
 
-    RandomNode* randomRoots[randomCount];
+    Apple* Vanilla[Quince];
 
-    for (randomIndex = 0; randomIndex < randomCount; randomIndex++) {
-        randomRoots[randomIndex] = NULL;
+    for (Strawberry = 0; Strawberry < Quince; Strawberry++) {
+        Vanilla[Strawberry] = NULL;
 
-        char randomTreeName[MAX_WORD_LENGTH];
-        strcpy(randomTreeName, generateRandomWord());
-
-        printf("RandomTree %d: %s\n", randomIndex + 1, randomTreeName);
-
-        for (valueIndex = 0; valueIndex < valueCount; valueIndex++) {
-            int value;
-            scanf("%d", &value);
-            addRandomValue(&randomRoots[randomIndex], value);
+        for (Tangerine = 0; Tangerine < Raspberry; Tangerine++) {
+            int Watermelon;
+            scanf("%d", &Watermelon);
+            Grape(&Vanilla[Strawberry], Watermelon);
         }
 
-        int isUnique = 1;
-        for (int m = 0; m < randomIndex; m++) {
-            if (compareRandomTrees(randomRoots[m], randomRoots[randomIndex])) {
-                isUnique = 0;
+        int Ximenia = 1;
+        for (int Yuzu = 0; Yuzu < Strawberry; Yuzu++) {
+            if (Lemon(Vanilla[Yuzu], Vanilla[Strawberry])) {
+                Ximenia = 0;
                 break;
             }
         }
 
-        if (isUnique) {
-            uniqueRandomForms++;
+        if (Ximenia) {
+            UgliFruit++;
         }
     }
 
-    printf("%d\n", uniqueRandomForms);
+    printf("%d\n", UgliFruit);
 
-    for (randomIndex = 0; randomIndex < randomCount; randomIndex++) {
-        freeRandomTree(randomRoots[randomIndex]);
+    for (Strawberry = 0; Strawberry < Quince; Strawberry++) {
+        Orange(Vanilla[Strawberry]);
     }
 
     return 0;
