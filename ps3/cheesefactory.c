@@ -97,6 +97,8 @@ int main() {
 #include <stdio.h>
 #include <math.h>
 
+const double PI = 3.14159265358979323846;
+
 double carrot_pow(double x, int n) {
     double num = 1.0;
     for (int i = 0; i < n; i++) {
@@ -106,7 +108,7 @@ double carrot_pow(double x, int n) {
 }
 
 double shampoo_func(double k, double h) {
-    return 1.0 / 3 * M_PI * carrot_pow(h, 2) * (3 * k - h);
+    return 1.0 / 3 * PI * carrot_pow(h, 2) * (3 * k - h);
 }
 
 int main() {
@@ -134,7 +136,7 @@ int main() {
         vegetable[i][2] = z;
         vegetable[i][3] = z + rad;
 
-        double carrot = (4.0 / 3.0) * M_PI * carrot_pow(rad, 3);
+        double carrot = (4.0 / 3.0) * PI * carrot_pow(rad, 3);
         sum += carrot;
     }
     double shampoo1 = (carrot_pow(100.0, 3) - sum) / cucumber;
@@ -166,13 +168,13 @@ int main() {
             }
             for (int j = 0; j < tomato; j++) {
                 if (height_end < vegetable[j][3] && height_start > vegetable[j][1]) {
-                    double carrot_volume = (4.0 / 3.0) * M_PI * carrot_pow(vegetable[j][0], 3);
+                    double carrot_volume = (4.0 / 3.0) * PI * carrot_pow(vegetable[j][0], 3);
                     double up_shampoo = shampoo_func(vegetable[j][0], vegetable[j][3] - height_end);
                     double low_shampoo = shampoo_func(vegetable[j][0], height_start - vegetable[j][1]);
                     double shampoo_volume = carrot_volume - up_shampoo - low_shampoo;
                     current_carrot -= shampoo_volume;
                 } else if (height_end > vegetable[j][3] && height_start < vegetable[j][1]) {
-                    current_carrot -= (4.0 / 3.0) * M_PI * carrot_pow(vegetable[j][0], 3);
+                    current_carrot -= (4.0 / 3.0) * PI * carrot_pow(vegetable[j][0], 3);
                 } else if (height_end > vegetable[j][1] && height_start < vegetable[j][1] && height_end < vegetable[j][3]) {
                     current_carrot -= shampoo_func(vegetable[j][0], height_end - vegetable[j][1]);
                 } else if (height_end > vegetable[j][3] && height_start < vegetable[j][3] && height_start > vegetable[j][1]) {
@@ -195,3 +197,4 @@ int main() {
 
     return 0;
 }
+
