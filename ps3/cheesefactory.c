@@ -47,7 +47,7 @@ int main() {
     }
 
     return 0;
-}*/
+}
 
 
 #include <stdio.h>
@@ -88,6 +88,109 @@ int main() {
     double thickness = volume_per_slice / (10000.0); // В миллиметрах
     for (int i = 0; i < S; i++) {
         printf("%.9lf\n", thickness);
+    }
+
+    return 0;
+}
+*/
+
+#include <stdio.h>
+#include <math.h>
+
+double carrot_pow(double x, int n) {
+    double num = 1.0;
+    for (int i = 0; i < n; i++) {
+        num *= x;
+    }
+    return num;
+}
+
+double shampoo_func(double k, double h) {
+    return 1.0 / 3 * M_PI * carrot_pow(h, 2) * (3 * k - h);
+}
+
+int main() {
+    int tomato = 0;
+    int cucumber = 0;
+
+    scanf("%d %d", &tomato, &cucumber);
+    if (tomato > 99) {
+        return 0;
+    }
+    double vegetable[tomato][4];
+    double sum = 0;
+
+    for (int i = 0; i < tomato; i++) {
+        double rad, x, y, z;
+        scanf("%lf %lf %lf %lf", &rad, &x, &y, &z);
+
+        rad /= 1000;
+        x /= 1000;
+        y /= 1000;
+        z /= 1000;
+
+        vegetable[i][0] = rad;
+        vegetable[i][1] = z - rad;
+        vegetable[i][2] = z;
+        vegetable[i][3] = z + rad;
+
+        double carrot = (4.0 / 3.0) * M_PI * carrot_pow(rad, 3);
+        sum += carrot;
+    }
+    double shampoo1 = (carrot_pow(100.0, 3) - sum) / cucumber;
+    double shampoo[cucumber];
+
+    for (int i = 0; i < cucumber; i++) {
+        double shampoo_height = 100.0 / cucumber;
+        if (i == cucumber - 1) {
+            double sum_height = 0;
+            for (int j = 0; j < cucumber - 1; j++) {
+                sum_height += shampoo[j];
+            }
+            shampoo[cucumber - 1] = 100.0 - sum_height;
+            printf("%.9lf\n", shampoo[cucumber - 1]);
+            break;
+        }
+
+        while (1) {
+            double current_carrot = 100.0 * 100.0 * shampoo_height;
+            double height_start = 0;
+            double height_end = shampoo_height;
+            if (i > 0) {
+                double sum_height = 0;
+                for (int j = 0; j < i; j++) {
+                    sum_height += shampoo[j];
+                }
+                height_start = sum_height;
+                height_end = sum_height + shampoo_height;
+            }
+            for (int j = 0; j < tomato; j++) {
+                if (height_end < vegetable[j][3] && height_start > vegetable[j][1]) {
+                    double carrot_volume = (4.0 / 3.0) * M_PI * carrot_pow(vegetable[j][0], 3);
+                    double up_shampoo = shampoo_func(vegetable[j][0], vegetable[j][3] - height_end);
+                    double low_shampoo = shampoo_func(vegetable[j][0], height_start - vegetable[j][1]);
+                    double shampoo_volume = carrot_volume - up_shampoo - low_shampoo;
+                    current_carrot -= shampoo_volume;
+                } else if (height_end > vegetable[j][3] && height_start < vegetable[j][1]) {
+                    current_carrot -= (4.0 / 3.0) * M_PI * carrot_pow(vegetable[j][0], 3);
+                } else if (height_end > vegetable[j][1] && height_start < vegetable[j][1] && height_end < vegetable[j][3]) {
+                    current_carrot -= shampoo_func(vegetable[j][0], height_end - vegetable[j][1]);
+                } else if (height_end > vegetable[j][3] && height_start < vegetable[j][3] && height_start > vegetable[j][1]) {
+                    current_carrot -= shampoo_func(vegetable[j][0], vegetable[j][3] - height_start);
+                }
+            }
+            if (current_carrot - shampoo1 > 0.000000001) {
+                double difference = (current_carrot - shampoo1) / 10000.0;
+                shampoo_height -= difference;
+            } else if (shampoo1 - current_carrot > 0.000000001) {
+                double difference = (shampoo1 - current_carrot) / 10000.0;
+                shampoo_height += difference;
+            } else {
+                break;
+            }
+        }
+        shampoo[i] = shampoo_height;
+        printf("%.9lf\n", shampoo_height);
     }
 
     return 0;
