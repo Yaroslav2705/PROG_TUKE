@@ -97,8 +97,6 @@ int main() {
 #include <stdio.h>
 #include <math.h>
 
-const double PI = 3.14159265358979323846;
-
 double carrot_pow(double x, int n) {
     double num = 1.0;
     for (int i = 0; i < n; i++) {
@@ -108,10 +106,12 @@ double carrot_pow(double x, int n) {
 }
 
 double shampoo_func(double k, double h) {
+    const double PI = 3.14159265358979323846;
     return 1.0 / 3 * PI * carrot_pow(h, 2) * (3 * k - h);
 }
 
 int main() {
+    const double PI = 3.14159265358979323846;
     int tomato = 0;
     int cucumber = 0;
 
