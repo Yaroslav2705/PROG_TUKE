@@ -75,7 +75,7 @@ struct bmp_header* read_bmp_header(FILE* stream) {
 
     return header;
 }
-
+/*
 struct pixel* read_data(FILE* stream, const struct bmp_header* header) {
     // Проверяем, что поток открыт и заголовок предоставлен
     if (stream == NULL || header == NULL) {
@@ -94,6 +94,34 @@ struct pixel* read_data(FILE* stream, const struct bmp_header* header) {
     }
 
     // Считываем данные изображения
+    if (fread(data, sizeof(struct pixel), header->width * header->height, stream) != header->width * header->height) {
+        fprintf(stderr, "Error: Failed to read image data.\n");
+        free(data);
+        return NULL;
+    }
+
+    return data;
+}*/
+
+// Function to read image data from a file
+struct pixel* read_data(FILE* stream, const struct bmp_header* header) {
+    // Check if the stream is open and header is provided
+    if (stream == NULL || header == NULL) {
+        fprintf(stderr, "Error: Input stream or BMP header is invalid.\n");
+        return NULL;
+    }
+
+    // Move to the beginning of image data
+    fseek(stream, header->offset, SEEK_SET);
+
+    // Allocate memory for image data
+    struct pixel* data = (struct pixel*)malloc(header->width * header->height * sizeof(struct pixel));
+    if (data == NULL) {
+        fprintf(stderr, "Error: Memory allocation failed.\n");
+        return NULL;
+    }
+
+    // Read image data
     if (fread(data, sizeof(struct pixel), header->width * header->height, stream) != header->width * header->height) {
         fprintf(stderr, "Error: Failed to read image data.\n");
         free(data);
