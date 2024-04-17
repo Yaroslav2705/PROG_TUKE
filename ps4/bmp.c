@@ -48,27 +48,27 @@ bool write_bmp(FILE* stream, const struct bmp_image* image) {
 struct bmp_header* read_bmp_header(FILE* stream) {
     // Проверяем, что поток открыт
     if (stream == NULL) {
-        fprintf(stderr, "Error: Input stream is not open.\n");
+        //fprintf(stderr, "Error: Input stream is not open.\n");
         return NULL;
     }
 
     // Выделяем память под заголовок
     struct bmp_header* header = (struct bmp_header*)malloc(sizeof(struct bmp_header));
     if (header == NULL) {
-        fprintf(stderr, "Error: Memory allocation failed.\n");
+        //fprintf(stderr, "Error: Memory allocation failed.\n");
         return NULL;
     }
 
     // Считываем заголовок из потока
     if (fread(header, sizeof(struct bmp_header), 1, stream) != 1) {
-        fprintf(stderr, "Error: Failed to read BMP header.\n");
+        //fprintf(stderr, "Error: Failed to read BMP header.\n");
         free(header);
         return NULL;
     }
 
     // Проверяем, является ли файл BMP файлом
     if (header->type != 0x4D42) { // BM
-        fprintf(stderr, "Error: This is not a BMP file.\n");
+        //fprintf(stderr, "Error: This is not a BMP file.\n");
         free(header);
         return NULL;
     }
