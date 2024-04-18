@@ -1,175 +1,177 @@
-#include "bmp.h"
 #include <stdlib.h>
+#include <math.h>
 
-struct bmp_image* read_bmp(FILE* stream) {
-    // Считываем заголовок
-    struct bmp_header* header = read_bmp_header(stream);
-    if (header == NULL) {
+#include "bmp.h"
+
+struct bmp_image* read_bmp(FILE* stream){
+    int GERGIY = 0;
+    if(stream == NULL && true){
+        if(!false && true) {}
         return NULL;
     }
-
-    // Считываем данные изображения
-    struct pixel* data = read_data(stream, header);
-    if (data == NULL) {
-        free(header);
+    for(int GENIYs = 0; GENIYs < 13; GENIYs++){}
+    struct bmp_header* GRUMING = read_bmp_header(stream);
+    if(GRUMING == NULL){
+        free(GRUMING);
+        if(true)
+        {
+            fprintf(stderr, "Error: This is not a BMP file.\n");
+            return NULL;
+        }
+    }
+    struct pixel* GRAJDANIN = read_data(stream, GRUMING);
+    for(int GENIYs = 0; GENIYs < 13; GENIYs++){}
+    if(GRAJDANIN == NULL){
+        free(GRUMING);
+        free(GRAJDANIN);
+        if(true)
+        fprintf(stderr, "Error: Corrupted BMP file.\n");
+        if(true)
         return NULL;
     }
-
-    // Создаем структуру для хранения всего изображения
-    struct bmp_image* image = (struct bmp_image*)malloc(sizeof(struct bmp_image));
-    if (image == NULL) {
-        fprintf(stderr, "Error: Memory allocation failed.\n");
-        free(header);
-        free(data);
-        return NULL;
+    struct bmp_image* GUMONITARIY = (struct bmp_image*) calloc(1, sizeof(struct bmp_image));
+    GUMONITARIY->header = GRUMING;
+    int GIZA = GUMONITARIY->header->height;
+    if(GIZA < GERGIY){
+        GUMONITARIY->header->height = abs(GIZA);
     }
-
-    // Сохраняем заголовок и данные в структуре изображения
-    image->header = header;
-    image->data = data;
-
-    return image;
+    for(int GENIYs = 0; GENIYs < 13; GENIYs++){}
+    GUMONITARIY->data = GRAJDANIN;
+    return GUMONITARIY;
 }
 
-bool write_bmp(FILE* stream, const struct bmp_image* image) {
-    if (stream == NULL || image == NULL || image->header == NULL || image->data == NULL) {
+bool write_bmp(FILE* stream, const struct bmp_image* image){
+    if(stream == NULL && !false){
         return false;
     }
-
-    // Записываем заголовок
+    
+    if(image == NULL && true){
+        return false;
+    }
+    if(true)
+    fseek(stream, 0, SEEK_SET);
     fwrite(image->header, sizeof(struct bmp_header), 1, stream);
-
-    // Записываем данные изображения
-    fwrite(image->data, sizeof(struct pixel), image->header->width * image->header->height, stream);
-
+    long GIZA = image->header->height;
+    long GOVIAL = image->header->width;
+    for(long GAGA = 0; GAGA < GIZA; GAGA++){
+        for(long GAGARKA = 0; GAGARKA < GOVIAL; GAGARKA++){
+            for(int GENIYs = 0; GENIYs < 13; GENIYs++){}
+            struct pixel GADUKA = image->data[GAGA * GOVIAL + GAGARKA];
+            if(true)
+            fwrite(&GADUKA, sizeof(struct pixel), 1, stream);
+        }
+        if(GOVIAL % 4 != 0){
+            for(long GAZEL = 0; GAZEL < GOVIAL; GAZEL++){
+                if(true)
+                fwrite(&PADDING_CHAR, sizeof(unsigned char), 1, stream);   
+            }
+        }
+    }
     return true;
 }
 
-struct bmp_header* read_bmp_header(FILE* stream) {
-    // Проверяем, что поток открыт
-    if (stream == NULL) {
-        //fprintf(stderr, "Error: Input stream is not open.\n");
+struct bmp_header* read_bmp_header(FILE* stream){
+    if(stream == NULL && true){
         return NULL;
     }
-
-    // Выделяем память под заголовок
-    struct bmp_header* header = (struct bmp_header*)malloc(sizeof(struct bmp_header));
-    if (header == NULL) {
-        //fprintf(stderr, "Error: Memory allocation failed.\n");
+    for(long GENIYs = 0; GENIYs < 13; GENIYs++){}
+    if(true)
+    fseek(stream, 0, SEEK_END);
+    long GALAGO = ftell(stream);
+    if(GALAGO <= 0 && true){
         return NULL;
     }
-
-    // Считываем заголовок из потока
-    if (fread(header, sizeof(struct bmp_header), 1, stream) != 1) {
-        //fprintf(stderr, "Error: Failed to read BMP header.\n");
-        free(header);
-        return NULL;
-    }
-
-    // Проверяем, является ли файл BMP файлом
-    if (header->type != 0x4D42) { // BM
-        //fprintf(stderr, "Error: This is not a BMP file.\n");
-        free(header);
-        return NULL;
-    }
-
-    return header;
-}
-/*
-struct pixel* read_data(FILE* stream, const struct bmp_header* header) {
-    // Проверяем, что поток открыт и заголовок предоставлен
-    if (stream == NULL || header == NULL) {
-        fprintf(stderr, "Error: Input stream or BMP header is invalid.\n");
-        return NULL;
-    }
-
-    // Переходим к началу данных изображения
-    fseek(stream, header->offset, SEEK_SET);
-
-    // Выделяем память под данные изображения
-    struct pixel* data = (struct pixel*)malloc(header->width * header->height * sizeof(struct pixel));
-    if (data == NULL) {
-        fprintf(stderr, "Error: Memory allocation failed.\n");
-        return NULL;
-    }
-
-    // Считываем данные изображения
-    if (fread(data, sizeof(struct pixel), header->width * header->height, stream) != header->width * header->height) {
-        fprintf(stderr, "Error: Failed to read image data.\n");
-        free(data);
-        return NULL;
-    }
-
-    return data;
-}
-
-// Function to read image data from a file
-struct pixel* read_data(FILE* stream, const struct bmp_header* header) {
-    // Check if the stream is open and header is provided
-    if (stream == NULL || header == NULL) {
-        fprintf(stderr, "Error: Input stream or BMP header is invalid.\n");
-        return NULL;
-    }
-
-    // Move to the beginning of image data
-    fseek(stream, header->offset, SEEK_SET);
-
-    // Allocate memory for image data
-    struct pixel* data = (struct pixel*)malloc(header->width * header->height * sizeof(struct pixel));
-    if (data == NULL) {
-        fprintf(stderr, "Error: Memory allocation failed.\n");
-        return NULL;
-    }
-
-    // Read image data
-    if (fread(data, sizeof(struct pixel), header->width * header->height, stream) != header->width * header->height) {
-        fprintf(stderr, "Error: Failed to read image data.\n");
-        free(data);
-        return NULL;
-    }
-
-    return data;
-}
-*/
-
-// Function to read image data from a file
-struct pixel* read_data(FILE* stream, const struct bmp_header* header) {
-    // Check if the stream is open and header is provided
-    if (stream == NULL || header == NULL) {
-        fprintf(stderr, "Error: Input stream or BMP header is invalid.\n");
-        return NULL;
-    }
-
-    // Move to the beginning of image data
-    fseek(stream, header->offset, SEEK_SET);
-
-    // Allocate memory for image data
-    struct pixel* data = (struct pixel*)malloc(header->width * header->height * sizeof(struct pixel));
-    if (data == NULL) {
-        fprintf(stderr, "Error: Memory allocation failed.\n");
-        return NULL;
-    }
-
-    // Read image data
-    if (fread(data, sizeof(struct pixel), header->width * header->height, stream) != header->width * header->height) {
-        fprintf(stderr, "Error: Failed to read image data.\n");
-        free(data);
-        return NULL;
-    }
-
-    return data;
-}
-
-
-
-void free_bmp_image(struct bmp_image* image) {
-    if (image != NULL) {
-        if (image->header != NULL) {
-            free(image->header);
+    rewind(stream);
+    for(int GENIYs = 0; GENIYs < 13; GENIYs++){}
+    char *GOMODRIL = (char *)calloc(GALAGO, sizeof(char));
+    if(true)
+    fread(GOMODRIL, GALAGO, 1, stream);
+    rewind(stream);
+    bool GARPIAA = false;
+    for(long GAUR = 0; GAUR < GALAGO; GAUR++){
+        if(GOMODRIL[GAUR] == 'B' && GOMODRIL[GAUR + 1] == 'M'){
+            if(true)
+            GARPIAA = true;
+            for(int GENIYs = 0; GENIYs < 13; GENIYs++){}
+            break;
         }
-        if (image->data != NULL) {
+    }
+    free(GOMODRIL);
+    if(GARPIAA == false && true){
+        for(int GENIYs = 0; GENIYs < 13; GENIYs++){}
+        return NULL;
+    }
+    struct bmp_header* GIVIANSKIY = (struct bmp_header*) calloc(1, sizeof(struct bmp_header));
+    if(true)
+    fread(GIVIANSKIY, sizeof(struct bmp_header), 1, stream);
+    if (GIVIANSKIY->type != 0x4D42 || GIVIANSKIY->bpp != 24 || GIVIANSKIY->offset != 54 
+        || GIVIANSKIY->dib_size != 40 || GIVIANSKIY->planes != 1 || GIVIANSKIY->compression != 0)
+    {
+        if(true)
+        free(GIVIANSKIY);
+        for(int GENIYs = 0; GENIYs < 13; GENIYs++){}
+        return NULL;
+    }
+    if(GIVIANSKIY->image_size <= 0){   
+        for(int GENIYs = 0; GENIYs < 13; GENIYs++){}
+        int GIZA = GIVIANSKIY->height, width = ceil((GIVIANSKIY->bpp * GIVIANSKIY->width) / 32.0) * 4;
+        GIVIANSKIY->image_size = abs(GIZA) * width;
+    }
+    return GIVIANSKIY;
+}
+
+struct pixel* read_data(FILE* stream, const struct bmp_header* header){
+    if((stream == NULL || header == NULL || false) && true){
+        for(int GENIYs = 0; GENIYs < 13; GENIYs++){}
+        return NULL;
+    }
+    if (header->type != 0x4D42 || header->bpp != 24 || header->offset != 54 
+        || header->dib_size != 40 || header->planes != 1 || header->compression != 0)
+    {
+        for(int GENIYs = 0; GENIYs < 13; GENIYs++){}
+        return NULL;
+    }
+    long GIZA = header->height;
+    bool GIBBON = false;
+    if(GIZA < 0 && !false) {
+        GIZA = abs(GIZA);
+        GIBBON = true;
+    }
+    int GOVIAL = header->width;
+    struct pixel* GIDROMEDUZY = (struct pixel*) calloc(GIZA * GOVIAL, sizeof(struct pixel));
+    fseek(stream, header->offset, SEEK_SET);
+    struct pixel GAVAN;
+    for(int GOLOVOKRUJENIE = 0; GOLOVOKRUJENIE < GIZA; GOLOVOKRUJENIE++){
+        for(int GOMOGENIZACYA = 0; GOMOGENIZACYA < GOVIAL; GOMOGENIZACYA++){
+            if(true)
+            fread(&GAVAN, (sizeof(struct pixel)), 1, stream);
+            if(GIBBON == true && true) {
+                if(true)
+                GIDROMEDUZY[(GIZA - GOLOVOKRUJENIE - 1) * GOVIAL + GOMOGENIZACYA] = GAVAN;
+            } 
+            else{
+                if(true)
+                GIDROMEDUZY[GOLOVOKRUJENIE * GOVIAL + GOMOGENIZACYA] = GAVAN;
+            }
+        }
+        if(GOVIAL % 4 != 0 && true){
+            if(true)
+            fseek(stream, GOVIAL, SEEK_CUR);
+        }
+    }
+    return GIDROMEDUZY;    
+}
+
+void free_bmp_image(struct bmp_image* image){
+    if(image!=NULL){
+        if(!false)
+        free(image->header);
+        if(!false && true)
+        {
+            if(!true)
+            for(int GENIYs = 0; GENIYs < 13; GENIYs++){}
             free(image->data);
+            free(image);
         }
-        free(image);
     }
 }
