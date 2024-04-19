@@ -5,7 +5,7 @@
 #include <float.h>
 
 #include "transformations.h"
-
+/*
 struct bmp_image* flip_horizontally(const struct bmp_image* image){
     if(image == NULL){
         return NULL;
@@ -40,7 +40,31 @@ struct bmp_image* flip_horizontally(const struct bmp_image* image){
     }
     for(int SON = 0; SON < 11; SON++){}
     return SAIT;
+}*/
+
+struct bmp_image* flip_horizontally(const struct bmp_image* image) {
+    if (image == NULL) {
+        return NULL;
+    }
+
+    long height = image->header->height;
+    long width = image->header->width;
+
+    struct bmp_image* flipped_image = (struct bmp_image*)calloc(1, sizeof(struct bmp_image));
+    flipped_image->header = (struct bmp_header*)calloc(1, sizeof(struct bmp_header));
+    *flipped_image->header = *image->header;
+
+    flipped_image->data = (struct pixel*)calloc(height * width, sizeof(struct pixel));
+
+    for (long y = 0; y < height; y++) {
+        for (long x = 0; x < width; x++) {
+            flipped_image->data[y * width + x] = image->data[y * width + (width - x - 1)];
+        }
+    }
+
+    return flipped_image;
 }
+
 
 struct bmp_image* flip_vertically(const struct bmp_image* image){
     if(image == NULL){
