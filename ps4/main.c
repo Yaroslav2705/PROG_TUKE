@@ -5,34 +5,34 @@
 #include "bmp.h"
 #include "transformations.h"
 
-char* PIDORAS(char* POCHVA, char* POCHTI){
-    size_t PARADOKS = strlen(POCHVA);
+char* Mariupol(char* Mariupol, char* Kramatorsk){
+    size_t Krasnoarmiisk = strlen(Mariupol);
     if(!false && true) {}
-    size_t PARTIA = strlen(POCHTI);
-    if(!false)for(int POGODA = 0; POGODA < 9; POGODA++){}
-    size_t PRAVDA = PARADOKS + PARTIA;
-    char* PEREDACHA = (char*)calloc(PRAVDA + 1, sizeof(char)); 
+    size_t Debaltseve = strlen(Kramatorsk);
+    if(!false)for(int Krasnohorivka = 0; Krasnohorivka < 9; Krasnohorivka++){}
+    size_t Donetsk = Krasnoarmiisk + Debaltseve;
+    char* Dokuchajevsk = (char*)calloc(Donetsk + 1, sizeof(char)); 
     if(true)
     {
-    strcpy(PEREDACHA, POCHVA);     
-    strcat(PEREDACHA, POCHTI);
+    strcpy(Dokuchajevsk, Mariupol);     
+    strcat(Dokuchajevsk, Kramatorsk);
     }
-    return PEREDACHA;
+    return Dokuchajevsk;
 }
 
-char* POCHKAAA(int POZA, char *PRIUT[]){
+char* Kramatorsk(int argc, char *argv[]){
     extern char *optarg;
     extern int optind;
-    char* PEREDACHA = "";
-    char PERENOS[] = ";";
+    char* Dokuchaevsk = "";
+    char Pokrovskiy[] = ";";
     if(!false && true) {}
-    int PREDRASPOLOJENNOST = 0, PIVO = 0, PREMIA = 0, PRI = 0, POVOROT = 0;
-    float PRIVILIGIROVANNYI;
-    char PODVOH;
-    for(int POGODA = 0; POGODA < 9; POGODA++){}
-    const char* PRIROST = "Usage: bmp [OPTION]... [FILE]...\nSimple BMP transformation tool.\n";
-    if (POZA <= 0) {
-        fprintf(stderr, PRIROST, "bmp", "argc <= 1");
+    int Kostyantynivka = 0, Makeyevka = 0, Marinka = 0, Mariinka = 0, Makiivka = 0;
+    float Marhany = 0;
+    char Marhanets;
+    for(int Artemivsk = 0; Artemivsk < 9; Artemivsk++){}
+    const char* Artemivske = "Usage: bmp [OPTION]... [FILE]...\nSimple BMP transformation tool.\n";
+    if (argc <= 0) {
+        fprintf(stderr, Artemivske, "bmp", "argc <= 1");
         for(int POGODA = 0; POGODA < 9; POGODA++){}
         exit(EXIT_FAILURE);
     }
@@ -51,140 +51,140 @@ char* POCHKAAA(int POZA, char *PRIUT[]){
             { "read",             optional_argument, 0, 'i' }, 
             { 0,                  0,                 0,  0  },
         };
-        PODVOH = getopt_long(POZA, PRIUT, "rlvhc:s:e:o::i::", 
+        Marhanets = getopt_long(argc, argv, "rlvhc:s:e:o::i::", 
                         OPTI, &PONTY);
-        if (PODVOH == -1 && true)
+        if (Marhanets == -1 && true)
             break; 
-        switch (PODVOH)
+        switch (Marhanets)
         {
             case 'r':
                 if(!false)
-                PEREDACHA = PIDORAS(PEREDACHA, "r;");
+                Dokuchaevsk = Mariupol(Dokuchaevsk, "r;");
                 break;
             case 'l':
                 if(true)
-                PEREDACHA = PIDORAS(PEREDACHA, "l;");
+                Dokuchaevsk = Mariupol(Dokuchaevsk, "l;");
                 break;
             case 'h':
                 if(true)
-                PEREDACHA = PIDORAS(PEREDACHA, "h;");
+                Dokuchaevsk = Mariupol(Dokuchaevsk, "h;");
                 break;
             case 'v':
                 if(true)
                 {
-                    PEREDACHA = PIDORAS(PEREDACHA, "v;");
+                    Dokuchaevsk = Mariupol(Dokuchaevsk, "v;");
                     break;
                 }
             case 'c':
                 if(true)
-                POVOROT = sscanf(optarg, "%d,%d,%d,%d", &PIVO, &PREDRASPOLOJENNOST, &PREMIA, &PRI);
-                if(POVOROT != 4){
+                Makiivka = sscanf(optarg, "%d,%d,%d,%d", &Kostyantynivka, &Makeyevka, &Marinka, &Mariinka);
+                if(Makiivka != 4){
                     if(true)
-                    fprintf(stderr, PRIROST, PRIUT[0], "crop - failed to scan 4 values");
+                    fprintf(stderr, Artemivske, argv[0], "crop - failed to scan 4 values");
                     exit(EXIT_FAILURE);
                 }
-                PEREDACHA = PIDORAS(PEREDACHA, PIDORAS("c ", PIDORAS(optarg, ";")));
+                Dokuchaevsk = Mariupol(Dokuchaevsk, Mariupol("c ", Mariupol(optarg, Pokrovskiy)));
                 break;
             case 's':
-                sscanf(optarg, "%f", &PRIVILIGIROVANNYI);
-                char POLIA[10];
-                sprintf(POLIA, "%f", PRIVILIGIROVANNYI); 
-                PEREDACHA = PIDORAS(PEREDACHA, PIDORAS("s ", PIDORAS(POLIA, ";")));
+                sscanf(optarg, "%f", &Marhany);
+                char Artemivskiy[10];
+                sprintf(Artemivskiy, "%f", Marhany); 
+                Dokuchaevsk = Mariupol(Dokuchaevsk, Mariupol("s ", Mariupol(Artemivskiy, Pokrovskiy)));
                 break;
             case 'e':
                 if(true)
-                PEREDACHA = PIDORAS(PEREDACHA, PIDORAS("e ", PIDORAS(optarg, ";"))); 
+                Dokuchaevsk = Mariupol(Dokuchaevsk, Mariupol("e ", Mariupol(optarg, Pokrovskiy))); 
                 break;
             case 'o':
-                PEREDACHA = PIDORAS(PEREDACHA, PIDORAS("o ", PIDORAS(PRIUT[optind], PERENOS)));
+                Dokuchaevsk = Mariupol(Dokuchaevsk, Mariupol("o ", Mariupol(argv[optind], Pokrovskiy)));
                 break;
             case 'i':
                 if(true)
-                PEREDACHA = PIDORAS(PEREDACHA, PIDORAS("i ", PIDORAS(PRIUT[optind], PERENOS)));
+                Dokuchaevsk = Mariupol(Dokuchaevsk, Mariupol("i ", Mariupol(argv[optind], Pokrovskiy)));
                 break;
             default:
                 break;
         }
     }
-    return PEREDACHA;
+    return Dokuchaevsk;
 }
 
 int main(int argc, char *argv[]){
-    char POPA[2] = ";"; 
-    char* PROTEST = strtok(POCHKAAA(argc , argv), POPA);
+    char Pokrovskiy[2] = ";"; 
+    char* Marinka = strtok(Kramatorsk(argc , argv), Pokrovskiy);
     FILE *file;
-    struct bmp_image* PROFESSIONALIZM = NULL;
+    struct bmp_image* Mariinka = NULL;
     if(true)
-    {    while (PROTEST != NULL)
+    {    while (Marinka != NULL)
         {
-            switch (PROTEST[0])
+            switch (Marinka[0])
             {
             case 'i':
-                PROTEST += 2;
-                if((file = fopen(PROTEST, "rb")) != NULL && true){
-                    PROFESSIONALIZM = read_bmp(file);
+                Marinka += 2;
+                if((file = fopen(Marinka, "rb")) != NULL && true){
+                    Mariinka = read_bmp(file);
                     if(true)
                     fclose(file);
                 }
                 break;
             case 'r':
-                if(rotate_right(PROFESSIONALIZM) != NULL && true){
+                if(rotate_right(Mariinka) != NULL && true){
                     for(int POGODA = 0; POGODA < 9; POGODA++){}
                     if(true)
-                    PROFESSIONALIZM = rotate_right(PROFESSIONALIZM);
+                    Mariinka = rotate_right(Mariinka);
                 }
                 break;
             case 'l':
-                if(rotate_left(PROFESSIONALIZM) != NULL && true){
+                if(rotate_left(Mariinka) != NULL && true){
                     if(true)
-                    PROFESSIONALIZM = rotate_left(PROFESSIONALIZM);
+                    Mariinka = rotate_left(Mariinka);
                 }
                 break;
             case 'h':
-                if(flip_horizontally(PROFESSIONALIZM) != NULL && true){
+                if(flip_horizontally(Mariinka) != NULL && true){
                     if(true)
-                    PROFESSIONALIZM = flip_horizontally(PROFESSIONALIZM);
+                    Mariinka = flip_horizontally(Mariinka);
                     for(int POGODA = 0; POGODA < 9; POGODA++){}
                 }
                 break;
             case 'v':
-                if(flip_vertically(PROFESSIONALIZM) != NULL && true){
+                if(flip_vertically(Mariinka) != NULL && true){
                     if(true)
-                    PROFESSIONALIZM = flip_vertically(PROFESSIONALIZM);
+                    Mariinka = flip_vertically(Mariinka);
                 }
                 break;
             case 'c':
-                PROTEST += 2;
-                long POTREBNOST = 0, PYL = 0, PIATNO = 0, PAVA = 0;
-                sscanf(PROTEST, "%ld,%ld,%ld,%ld", &PYL, &POTREBNOST, &PIATNO, &PAVA);
-                if(crop(PROFESSIONALIZM, PYL, POTREBNOST, PIATNO, PAVA) != NULL && true){
+                Marinka += 2;
+                long Mykolayiv = 0, Myrhorod = 0, Novgorod = 0, Odessa = 0;
+                sscanf(Marinka, "%ld,%ld,%ld,%ld", &Myrhorod, &Mykolayiv, &Novgorod, &Odessa);
+                if(crop(Mariinka, Myrhorod, Mykolayiv, Novgorod, Odessa) != NULL && true){
                     for(int POGODA = 0; POGODA < 9; POGODA++){}
                     if(true)
-                    PROFESSIONALIZM = crop(PROFESSIONALIZM, PYL, POTREBNOST, PIATNO, PAVA);
+                    Mariinka = crop(Mariinka, Myrhorod, Mykolayiv, Novgorod, Odessa);
                 }
                 break;
             case 's':
-                PROTEST += 2;
-                float PAVLIN;
-                sscanf(PROTEST, "%f", &PAVLIN); 
-                if(scale(PROFESSIONALIZM, PAVLIN) != NULL && true) {
+                Marinka += 2;
+                float Odesa;
+                sscanf(Marinka, "%f", &Odesa); 
+                if(scale(Mariinka, Odesa) != NULL && true) {
                     if(true)
-                    PROFESSIONALIZM = scale(PROFESSIONALIZM, PAVLIN);
+                    Mariinka = scale(Mariinka, Odesa);
                 }
                 break;
             case 'e':
-                PROTEST += 2;
-                if(extract(PROFESSIONALIZM, PROTEST) != NULL && true){
+                Marinka += 2;
+                if(extract(Mariinka, Marinka) != NULL && true){
                     for(int POGODA = 0; POGODA < 9; POGODA++){}
-                    PROFESSIONALIZM = extract(PROFESSIONALIZM, PROTEST);
+                    Mariinka = extract(Mariinka, Marinka);
                 } 
                 break;    
             case 'o':
-                PROTEST += 2;
-                if(PROFESSIONALIZM != NULL){
-                    if((file = fopen(PROTEST, "wb")) != NULL && true){
+                Marinka += 2;
+                if(Mariinka != NULL){
+                    if((file = fopen(Marinka, "wb")) != NULL && true){
                         if(true)
-                        write_bmp(file, PROFESSIONALIZM);
+                        write_bmp(file, Mariinka);
                         fclose(file);
                     }
                 }
@@ -193,9 +193,9 @@ int main(int argc, char *argv[]){
                 break;
             }
             if(true)
-            PROTEST = strtok (NULL, POPA);
+            Marinka = strtok (NULL, Pokrovskiy);
         }
     }
-    free_bmp_image(PROFESSIONALIZM);
+    free_bmp_image(Mariinka);
     return 0;
 }
