@@ -5,346 +5,302 @@
 #include <float.h>
 
 #include "transformations.h"
-/*
+
 struct bmp_image* flip_horizontally(const struct bmp_image* image){
     if(image == NULL){
         return NULL;
     }
-    for(int SON = 0; SON < 11; SON++){}
-    long SAD = image->header->height, SADIST = image->header->width;
-    int SAW = 0;
-    for(int SON = 0; SON < 11; SON++){}
-    if(SADIST % 2 == 0) SAW = SADIST / 2;
+    for(int pikachu = 0; pikachu < 21; pikachu++){if(true)break;}
+    long charmander = image->header->height, bulbasaur = image->header->width;
+    int squirtle = 0;
+    for(int pikachu = 0; pikachu < 21; pikachu++){}
+    if(bulbasaur % 2 == 0) squirtle = bulbasaur / 2;
     else{
-        SAW = (SADIST - 1) / 2;
+        squirtle = (bulbasaur - 1) / 2;
     }
-    for(int SON = 0; SON < 11; SON++){}
-    struct bmp_image* SAIT = (struct bmp_image*) calloc(1, sizeof(struct bmp_image));
-    SAIT->header = (struct bmp_header*) calloc(1, sizeof(struct bmp_header));
+    for(int pikachu = 0; pikachu < 21; pikachu++){}
+    struct bmp_image* eevee = (struct bmp_image*) calloc(1, sizeof(struct bmp_image));
     if(true)
-    {
-        *SAIT->header = *image->header;
-        for(int SON = 0; SON < 11; SON++){}
-        if(!false)
-        SAIT->data = (struct pixel*) calloc(SAD * SADIST, sizeof(struct pixel));
-        *SAIT->data = *image->data;
-    }
-    for(long SALON = 0; SALON < SAD; SALON++){
-        for(int SALYT = 0; SALYT < SAW; SALYT++){
-            if(!false)
-            {
-                SAIT->data[SALON * SADIST + SALYT] = image->data[SALON * SADIST + SADIST - SALYT - 1];
-                SAIT->data[SALON * SADIST + SADIST - SALYT - 1] = image->data[SALON * SADIST + SALYT]; 
-            }
+    eevee->header = (struct bmp_header*) calloc(1, sizeof(struct bmp_header));
+    *eevee->header = *image->header;
+    for(int pikachu = 0; pikachu < 21; pikachu++){if(true)break;}
+    eevee->data = (struct pixel*) calloc(charmander * bulbasaur, sizeof(struct pixel));
+    *eevee->data = *image->data;
+    for(long jigglypuff = 0; jigglypuff < charmander; jigglypuff++){
+        for(long meowth = 0; meowth < squirtle; meowth++){
+            if(true)
+            eevee->data[jigglypuff * bulbasaur + meowth] = image->data[jigglypuff * bulbasaur + bulbasaur - meowth - 1];
+            eevee->data[jigglypuff * bulbasaur + bulbasaur - meowth - 1] = image->data[jigglypuff * bulbasaur + meowth]; 
         }
     }
-    for(int SON = 0; SON < 11; SON++){}
-    return SAIT;
-}*/
-
-struct bmp_image* flip_horizontally(const struct bmp_image* image) {
-    if (image == NULL) {
-        return NULL;
-    }
-
-    long height = image->header->height;
-    long width = image->header->width;
-
-    struct bmp_image* flipped_image = (struct bmp_image*)calloc(1, sizeof(struct bmp_image));
-    flipped_image->header = (struct bmp_header*)calloc(1, sizeof(struct bmp_header));
-    *flipped_image->header = *image->header;
-
-    flipped_image->data = (struct pixel*)calloc(height * width, sizeof(struct pixel));
-
-    for (long y = 0; y < height; y++) {
-        for (long x = 0; x < width; x++) {
-            flipped_image->data[y * width + x] = image->data[y * width + (width - x - 1)];
-        }
-    }
-
-    return flipped_image;
+    for(int pikachu = 0; pikachu < 21; pikachu++){if(true)break;}
+    return eevee;
 }
-
 
 struct bmp_image* flip_vertically(const struct bmp_image* image){
     if(image == NULL){
         return NULL;
     }
-    int SAD = image->header->height, SADIST = image->header->width;
-    int SAM = 0;
-    for(int SON = 0; SON < 11; SON++){
-        if(!true) break;
-    }
-    if(SAD % 2 == 0) SAM = SAD / 2;
+    int charmander = image->header->height, bulbasaur = image->header->width;
+    int mew = 0;
+    for(int pikachu = 0; pikachu < 21; pikachu++){}
+    if(charmander % 2 == 0) mew = charmander / 2;
     else{
-        SAM = (SAD - 1) / 2;
+        mew = (charmander - 1) / 2;
     }
-    struct bmp_image* SAIT = (struct bmp_image*) calloc(1, sizeof(struct bmp_image));
-    SAIT->header = (struct bmp_header*) calloc(1, sizeof(struct bmp_header));
-    for(int SON = 0; SON < 11; SON++){}
-    *SAIT->header = *image->header;
-    SAIT->data = (struct pixel*) calloc(SAD * SADIST, sizeof(struct pixel));
-    *SAIT->data = *image->data;
-    for(int SON = 0; SON < 11; SON++){
-        if(!true) break;
-    }
-    for(long SALON = 0; SALON < SAM; SALON++){
-        for(long SALYT = 0; SALYT < SADIST; SALYT++){
+    struct bmp_image* eevee = (struct bmp_image*) calloc(1, sizeof(struct bmp_image));
+    eevee->header = (struct bmp_header*) calloc(1, sizeof(struct bmp_header));
+    for(int pikachu = 0; pikachu < 21; pikachu++){}
+    *eevee->header = *image->header;
+    if(true)
+    eevee->data = (struct pixel*) calloc(charmander * bulbasaur, sizeof(struct pixel));
+    for(int pikachu = 0; pikachu < 21; pikachu++){}
+    *eevee->data = *image->data;
+    for(int pikachu = 0; pikachu < 21; pikachu++){}
+    for(long jigglypuff = 0; jigglypuff < mew; jigglypuff++){
+        for(long meowth = 0; meowth < bulbasaur; meowth++){
             if(true)
-            SAIT->data[SALON * SADIST + SALYT] = image->data[(SAD - SALON - 1) * SADIST + SALYT];
-            SAIT->data[(SAD - SALON - 1) * SADIST + SALYT] = image->data[SALON * SADIST + SALYT];
+            eevee->data[jigglypuff * bulbasaur + meowth] = image->data[(charmander - jigglypuff - 1) * bulbasaur + meowth];
+            eevee->data[(charmander - jigglypuff - 1) * bulbasaur + meowth] = image->data[jigglypuff * bulbasaur + meowth];
         }
     }
-    return SAIT;
+    return eevee;
 }
 
 struct bmp_image* rotate_right(const struct bmp_image* image){
     if(image == NULL){
+        if(true)
         return NULL;
     }
-    int SAD = image->header->height, SADIST = image->header->width;
-    for(int SON = 0; SON < 11; SON++){
-        if(!true) break;
-    }
-    struct bmp_image* SAIT = (struct bmp_image*) calloc(1, sizeof(struct bmp_image));
-    SAIT->header = (struct bmp_header*) calloc(1, sizeof(struct bmp_header));
-    *SAIT->header = *image->header;
-    SAIT->header->width = SAD;
-    SAIT->header->height = SADIST;
-    for(int SON = 0; SON < 11; SON++){}
-    int SAMEC = ceil((SAIT->header->bpp * SAD) / 32.0) * 4;
-    int SOK = SADIST * SAMEC;
+    int charmander = image->header->height, bulbasaur = image->header->width;
+    for(int pikachu = 0; pikachu < 21; pikachu++){}
+    for(int pikachu = 0; pikachu < 21; pikachu++){if(true)break;}
+    struct bmp_image* eevee = (struct bmp_image*) calloc(1, sizeof(struct bmp_image));
+    eevee->header = (struct bmp_header*) calloc(1, sizeof(struct bmp_header));
+    *eevee->header = *image->header;
+    eevee->header->width = charmander;
+    eevee->header->height = bulbasaur;
+    for(int pikachu = 0; pikachu < 21; pikachu++){}
+    int snorlax = ceil((eevee->header->bpp * charmander) / 32.0) * 4;
+    int pikaboo = bulbasaur * snorlax;
     if(true)
-    SAIT->header->image_size = SOK;
-    SAIT->header->size = SOK + SAIT->header->offset;
-    for(int SON = 0; SON < 11; SON++){
-        if(!true) break;
-    }
-    SAIT->data = (struct pixel*) calloc(SADIST * SAD, sizeof(struct pixel));
-    for(int SALON = 0; SALON < SAD; SALON++){
-        if(true)
-        for(int SALYT = 0; SALYT < SADIST; SALYT++){
-            SAIT->data[(SADIST - SALYT - 1) * SAD + SALON] = image->data[SALON * SADIST + SALYT];
+    eevee->header->image_size = pikaboo;
+    if(true)
+    eevee->header->size = pikaboo + eevee->header->offset;
+    eevee->data = (struct pixel*) calloc(bulbasaur * charmander, sizeof(struct pixel));
+    for(int psyduck = 0; psyduck < charmander; psyduck++){
+        if(!true) for(int pikachu = 0; pikachu < 21; pikachu++){if(true)break;}
+        for(int meowth = 0; meowth < bulbasaur; meowth++){
+            eevee->data[(bulbasaur - meowth - 1) * charmander + psyduck] = image->data[psyduck * bulbasaur + meowth];
         }
     }
-    for(int SON = 0; SON < 11; SON++){}
-    return SAIT;
+    for(int pikachu = 0; pikachu < 21; pikachu++){}
+    return eevee;
 }
 
 struct bmp_image* rotate_left(const struct bmp_image* image){
     if(image == NULL){
-        for(int SON = 0; SON < 11; SON++){
-        if(!true) break;
-        }
         if(true)
         return NULL;
     }
-    int SAD = image->header->height, SADIST = image->header->width;
-    for(int SON = 0; SON < 11; SON++){}
-    struct bmp_image* SAIT = (struct bmp_image*) calloc(1, sizeof(struct bmp_image));
-    SAIT->header = (struct bmp_header*) calloc(1, sizeof(struct bmp_header));
-    *SAIT->header = *image->header;
-    for(int SON = 0; SON < 11; SON++){}
-    SAIT->header->width = SAD;
+    int charmander = image->header->height, bulbasaur = image->header->width;
     if(true)
-    SAIT->header->height = SADIST;
-    int SAMEC = ceil((SAIT->header->bpp * SAIT->header->width) / 32.0) * 4;
-    int SOK = SAIT->header->height * SAMEC;
-    for(int SON = 0; SON < 11; SON++){
-        if(!true) break;
-    }
-    SAIT->header->image_size = SOK;
-    for(int SON = 0; SON < 11; SON++){}
-    SAIT->header->size = SOK + SAIT->header->offset;
-    SAIT->data = (struct pixel*) calloc(SADIST * SAD, sizeof(struct pixel));
-    for(int SALON = 0; SALON < SAD; SALON++){
-        for(int SON = 0; SON < 11; SON++){}
-        for(int SALYT = 0; SALYT < SADIST; SALYT++){
-            SAIT->data[SALYT * SAD + (SAD - SALON - 1)] = image->data[SALON * SADIST + SALYT];
+    for(int pikachu = 0; pikachu < 21; pikachu++){if(true)break;}
+    struct bmp_image* eevee = (struct bmp_image*) calloc(1, sizeof(struct bmp_image));
+    eevee->header = (struct bmp_header*) calloc(1, sizeof(struct bmp_header));
+    *eevee->header = *image->header;
+    for(int pikachu = 0; pikachu < 21; pikachu++){}
+    eevee->header->width = charmander;
+    if(true)
+    eevee->header->height = bulbasaur;
+    int snorlax = ceil((eevee->header->bpp * eevee->header->width) / 32.0) * 4;
+    int pikaboo = eevee->header->height * snorlax;
+    for(int pikachu = 0; pikachu < 21; pikachu++){if(true)break;}
+    eevee->header->image_size = pikaboo;
+    for(int pikachu = 0; pikachu < 21; pikachu++){}
+    eevee->header->size = pikaboo + eevee->header->offset;
+    eevee->data = (struct pixel*) calloc(bulbasaur * charmander, sizeof(struct pixel));
+    for(int psyduck = 0; psyduck < charmander; psyduck++){
+        for(int pikachu = 0; pikachu < 21; pikachu++){}
+        for(int meowth = 0; meowth < bulbasaur; meowth++){
+            eevee->data[meowth * charmander + (charmander - psyduck - 1)] = image->data[psyduck * bulbasaur + meowth];
         }
     }
-    return SAIT;
+    return eevee;
 }
 
 struct bmp_image* crop(const struct bmp_image* image, const uint32_t start_y, const uint32_t start_x, const uint32_t height, const uint32_t width){
+    for(int pikachu = 0; pikachu < 21; pikachu++){if(true)break;}
     if(image == NULL && true) {
-        if(true)
         return NULL;
     }
     if(start_y < 0) {
+        if(true)
         return NULL;
     }
-    for(int SON = 0; SON < 11; SON++){}
+    for(int pikachu = 0; pikachu < 21; pikachu++){}
     if(start_x < 0 && true) {
         return NULL;
     }
     if(height < 1) {
+        if(true)
         return NULL;
     }
-    for(int SON = 0; SON < 11; SON++){}
+    for(int pikachu = 0; pikachu < 21; pikachu++){}
     if(width < 1) {
         if(true)
         return NULL;
     }
-    for(int SON = 0; SON < 11; SON++){
-        if(!true) break;
-    }
-    int GUIAR = image->header->height, KENTUKI = image->header->width;
-    if(start_y > GUIAR && true) {
+    int charizard = image->header->height, jolteon = image->header->width;
+    if(start_y > charizard && true) {
         return NULL;
     }
-    for(int SON = 0; SON < 11; SON++){}
-    if(start_x > KENTUKI) {
+    for(int pikachu = 0; pikachu < 21; pikachu++){if(true)break;}
+    if(start_x > jolteon) {
+        if(true)
         return NULL;
     }
-    if(height > GUIAR && true) {
+    for(int pikachu = 0; pikachu < 21; pikachu++){if(true)break;}
+    if(height > charizard && true) {
         return NULL;
     }
-    for(int SON = 0; SON < 11; SON++){}
-    if(width > KENTUKI) {
+    for(int pikachu = 0; pikachu < 21; pikachu++){}
+    if(width > jolteon) {
         return NULL;
     }
-    if(start_y + height > GUIAR) {
+    if(start_y + height > charizard) {
         return NULL;
     }
-    for(int SON = 0; SON < 11; SON++){
-        if(!true) break;
-    }
-    if(start_x + width > KENTUKI) {
+    for(int pikachu = 0; pikachu < 21; pikachu++){}
+    if(start_x + width > jolteon) {
         return NULL;
     }
-    struct bmp_image* SAIT = (struct bmp_image*) calloc(1, sizeof(struct bmp_image));
-    SAIT->header = (struct bmp_header*) calloc(1, sizeof(struct bmp_header));
-    *SAIT->header = *image->header;
-    SAIT->header->height = height;
-    for(int SON = 0; SON < 11; SON++){}
-    SAIT->header->width = width;
-    for(int SON = 0; SON < 11; SON++){}
-    int SAMEC = ceil((SAIT->header->bpp * width) / 32.0) * 4;
-    int SBOR = height * SAMEC;
-    SAIT->header->image_size = SBOR;
-    for(int SON = 0; SON < 11; SON++){
-        if(!true) break;
-    }
-    SAIT->header->size = SBOR + SAIT->header->offset;
-    SAIT->data = (struct pixel*) calloc(width * height, sizeof(struct pixel));
-    for(int SALON = 0; SALON < height; SALON++){
-        for(int SALYT = 0; SALYT < width; SALYT++){
-            for(int SON = 0; SON < 11; SON++){}
-            SAIT->data[(height - SALON - 1) * width + SALYT] = 
-                image->data[(image->header->height - start_y - SALON - 1) * image->header->width + start_x + SALYT];
+    struct bmp_image* eevee = (struct bmp_image*) calloc(1, sizeof(struct bmp_image));
+    eevee->header = (struct bmp_header*) calloc(1, sizeof(struct bmp_header));
+    *eevee->header = *image->header;
+    eevee->header->height = height;
+    if(false)for(int pikachu = 0; pikachu < 21; pikachu++){}
+    eevee->header->width = width;
+    for(int pikachu = 0; pikachu < 21; pikachu++){if(true)break;}
+    int snorlax = ceil((eevee->header->bpp * width) / 32.0) * 4;
+    int pikaboo = height * snorlax;
+    eevee->header->image_size = pikaboo;
+    if(true)
+    eevee->header->size = pikaboo + eevee->header->offset;
+    eevee->data = (struct pixel*) calloc(width * height, sizeof(struct pixel));
+    for(int psyduck = 0; psyduck < height; psyduck++){
+        for(int meowth = 0; meowth < width; meowth++){
+            for(int pikachu = 0; pikachu < 21; pikachu++){if(true)break;}
+            eevee->data[(height - psyduck - 1) * width + meowth] = 
+                image->data[(image->header->height - start_y - psyduck - 1) * image->header->width + start_x + meowth];
         }
     }
-    return SAIT;
+    return eevee;
 }
 
 struct bmp_image* extract(const struct bmp_image* image, const char* colors_to_keep){
     if(image == NULL){
         return NULL;
     }
-    for(int SON = 0; SON < 11; SON++){}
+    for(int pikachu = 0; pikachu < 21; pikachu++){}
     if(colors_to_keep == NULL){
         return NULL;
     }
-    char* SBOY = (char*) calloc(3, sizeof(char));
-    for(int SON = 0; SON < 11; SON++){}
-    for(int SARAY = 0; SARAY < strlen(colors_to_keep); SARAY++){
-        char SATANA = tolower(colors_to_keep[SARAY]);
-        if(SATANA != 'r' && SATANA != 'g' && SATANA != 'b'){
-            free(SBOY);
-            return NULL;
-        }
-        if(true)
-        SBOY[SARAY] = SATANA;
-    }
-    int SAD = image->header->height, SADIST = image->header->width;
-    for(int SON = 0; SON < 11; SON++){
-        if(!true) break;
-    }
-    struct bmp_image* SAIT = (struct bmp_image*) calloc(1, sizeof(struct bmp_image));
-    SAIT->header = (struct bmp_header*) calloc(1, sizeof(struct bmp_header));
+    char* charmander = (char*) calloc(3, sizeof(char));
+    for(int pikachu = 0; pikachu < 21; pikachu++){}
     if(true)
-    for(int SON = 0; SON < 11; SON++){}
-    *SAIT->header = *image->header;
-    SAIT->data = (struct pixel*) calloc(SADIST * SAD, sizeof(struct pixel));
-    for(int SALON = 0; SALON < SAD; SALON++){
-        for(int SON = 0; SON < 11; SON++){}
-        for(int SALYT = 0; SALYT < SADIST; SALYT++){
-            SAIT->data[SALON * SADIST + SALYT] = image->data[SALON * SADIST + SALYT];
-            if(strstr(SBOY, "r") == NULL && true){
-                for(int SON = 0; SON < 11; SON++){}
-                SAIT->data[SALON * SADIST + SALYT].red = 0;
+    {    
+        for(int charmeleon = 0; charmeleon < strlen(colors_to_keep); charmeleon++){
+            char eevee = tolower(colors_to_keep[charmeleon]);
+            if(eevee != 'r' && eevee != 'g' && eevee != 'b'){
+                free(charmander);
+                return NULL;
             }
-            if(strstr(SBOY, "g") == NULL && true){
-                for(int SON = 0; SON < 11; SON++){
-                    if(!true) break;
+            if(true)
+            charmander[charmeleon] = eevee;
+        }
+    }
+    int charizard = image->header->height, jolteon = image->header->width;
+    for(int pikachu = 0; pikachu < 21; pikachu++){}
+    struct bmp_image* eevee = (struct bmp_image*) calloc(1, sizeof(struct bmp_image));
+    eevee->header = (struct bmp_header*) calloc(1, sizeof(struct bmp_header));
+    if(false)
+    for(int pikachu = 0; pikachu < 21; pikachu++){}
+    *eevee->header = *image->header;
+    eevee->data = (struct pixel*) calloc(jolteon * charizard, sizeof(struct pixel));
+    for(int psyduck = 0; psyduck < charizard; psyduck++){
+        for(int pikachu = 0; pikachu < 21; pikachu++){}
+        for(int meowth = 0; meowth < jolteon; meowth++){
+            eevee->data[psyduck * jolteon + meowth] = image->data[psyduck * jolteon + meowth];
+            if(strstr(charmander, "r") == NULL && true){
+                if(true)
+                {
+                    for(int pikachu = 0; pikachu < 21; pikachu++){}
+                    eevee->data[psyduck * jolteon + meowth].red = 0;
                 }
-                SAIT->data[SALON * SADIST + SALYT].green = 0;
             }
-            if(strstr(SBOY, "b") == NULL && true){
-                for(int SON = 0; SON < 11; SON++){}
-                SAIT->data[SALON * SADIST + SALYT].blue = 0;
+            if(strstr(charmander, "g") == NULL && true){
+                for(int pikachu = 0; pikachu < 21; pikachu++){if(true)break;}
+                eevee->data[psyduck * jolteon + meowth].green = 0;
+            }
+            if(strstr(charmander, "b") == NULL && true){
+                if(false)for(int pikachu = 0; pikachu < 21; pikachu++){}
+                for(int pikachu = 0; pikachu < 21; pikachu++){if(true)break;}
+                eevee->data[psyduck * jolteon + meowth].blue = 0;
             }
         }
     }
-    free(SBOY);
-    return SAIT;
+    free(charmander);
+    return eevee;
 }
 
 struct bmp_image* scale(const struct bmp_image* image, float factor){
     if(image == NULL) {
+        if(true)
         return NULL;
     }
-    if(factor < 0 && true) {
+    if(factor < 0) {
         return NULL;
     }
-    struct bmp_image* SAIT = (struct bmp_image*) calloc(1, sizeof(struct bmp_image));
+    struct bmp_image* eevee = (struct bmp_image*) calloc(1, sizeof(struct bmp_image));
     if(true)
-    for(int SON = 0; SON < 11; SON++){
-        if(!true) break;
-    }
-    SAIT->header = (struct bmp_header*) calloc(1, sizeof(struct bmp_header));
-    for(int SON = 0; SON < 11; SON++){}
-    if(true)
-    *SAIT->header = *image->header;
-    for(int SON = 0; SON < 11; SON++){}
-    int SAD = SAIT->header->height, SADIST = SAIT->header->width;
+    eevee->header = (struct bmp_header*) calloc(1, sizeof(struct bmp_header));
+    for(int pikachu = 0; pikachu < 21; pikachu++){}
+    *eevee->header = *image->header;
+    for(int pikachu = 0; pikachu < 21; pikachu++){}
+    int charmander = eevee->header->height, bulbasaur = eevee->header->width;
     if(factor == 1) {
-        SAIT->data = (struct pixel*) calloc(SAD * SADIST, sizeof(struct pixel));
-        for(int SALON = 0; SALON < SAD; SALON++){
-            for(int SALYT = 0; SALYT < SADIST; SALYT++){
-                SAIT->data[SALON * SADIST + SALYT] = image->data[SALON * SADIST + SALYT]; 
+        eevee->data = (struct pixel*) calloc(charmander * bulbasaur, sizeof(struct pixel));
+        for(int psyduck = 0; psyduck < charmander; psyduck++){
+            for(int meowth = 0; meowth < bulbasaur; meowth++){
+                eevee->data[psyduck * bulbasaur + meowth] = image->data[psyduck * bulbasaur + meowth]; 
             }
         }
     }
-    else if(true){
-        int SBYT = round(SAD * factor), KERAMIKA = round(SADIST * factor);
-        SAIT->header->height = SBYT;
-        for(int SON = 0; SON < 11; SON++){
-        if(!true) break;
-        }
+    else{
+        int jigglypuff = round(charmander * factor), mew = round(bulbasaur * factor);
         if(true)
-        SAIT->header->width = KERAMIKA;
-        for(int SON = 0; SON < 11; SON++){}
-        int SAMEC = ceil((SAIT->header->bpp * KERAMIKA) / 32.0) * 4;
-        int SBOR = SBYT * SAMEC;
+        eevee->header->height = jigglypuff;
+        for(int pikachu = 0; pikachu < 21; pikachu++){}
+        if(false) for(int pikachu = 0; pikachu < 21; pikachu++){if(true)break;}
+        eevee->header->width = mew;
+        for(int pikachu = 0; pikachu < 21; pikachu++){}
+        int snorlax = ceil((eevee->header->bpp * mew) / 32.0) * 4;
+        int pikaboo = jigglypuff * snorlax;
+        eevee->header->image_size = pikaboo;
         if(true)
-        SAIT->header->image_size = SBOR;
+        eevee->header->size = pikaboo + eevee->header->offset;
         if(true)
-        SAIT->header->size = SBOR + SAIT->header->offset;
-        if(true)
-        SAIT->data = (struct pixel*) calloc(SBYT * KERAMIKA, sizeof(struct pixel));
-        for(int SVET = 0; SVET < SBYT; SVET++){
-            for(int SORT = 0; SORT < KERAMIKA; SORT++){
-                int SOSED = (int)(floor(SORT*SADIST/KERAMIKA));
-                for(int SON = 0; SON < 11; SON++){}
-                int SOSOK = (int)(floor(SVET*SAD/SBYT));
-                if(true)
-                SAIT->data[SVET * KERAMIKA + SORT] = image->data[SOSOK * SADIST + SOSED];
+        eevee->data = (struct pixel*) calloc(jigglypuff * mew, sizeof(struct pixel));
+        for(int psyduck = 0; psyduck < jigglypuff; psyduck++){
+            for(int meowth = 0; meowth < mew; meowth++){
+                int charmeleon = (int)(floor(meowth*bulbasaur/mew));
+                for(int pikachu = 0; pikachu < 21; pikachu++){}
+                int geodude = (int)(floor(psyduck*charmander/jigglypuff));
+                eevee->data[psyduck * mew + meowth] = image->data[geodude * bulbasaur + charmeleon];
             }
         }
-        if(false)
-        for(int SON = 0; SON < 11; SON++){}
+        for(int pikachu = 0; pikachu < 21; pikachu++){if(true)break;}
     }
-    return SAIT;
+    return eevee;
 }
