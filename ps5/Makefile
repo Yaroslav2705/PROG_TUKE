@@ -11,7 +11,7 @@ all: $(OUTPUT)
 codeanalysis: $(SOURCES)
 	cppcheck --enable=unusedFunction --error-exitcode=1 $^
 
-$(OUTPUT): main.o bmp.o transformations.o
+$(OUTPUT): main.o backpack.o command.o container.o game.o item.o parser.o room.o world.o
 	echo "Running complication"
 	cppcheck --enable=unusedFunction --error-exitcode=1 $(SOURCES)
 	$(CC) $(CFLAGS) $^ $(LDLIBS) -o $(OUTPUT)
