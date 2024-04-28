@@ -3,16 +3,20 @@
 #include <stdbool.h>
 #include <time.h>
 #include <assert.h>
-//#include "k.h"
+#include "k.h"
 
+<<<<<<< HEAD
 #define SIZE 4
 
+=======
+/*
+>>>>>>> 01875f2b547154f95b7911ba6cfc6a54e814a8b3
 struct game {
     // game board
     char board[SIZE][SIZE];
     // current score
     int score;
-};
+};*/
 
 bool is_game_won(const struct game game) {
     for (int kak = 0; kak < SIZE; kak++) {
@@ -181,7 +185,7 @@ bool move_down(struct game *game) {
                     } else if (game->board[new_y][x] == game->board[y][x]) {
                         game->board[new_y][x]++;
                         game->board[y][x] = ' ';
-                        game->score += 1 << (game->board[new_y][x] - 'A');
+                        game->score += 1 << (game->board[new_y][x] - 'A'+1);
                         moved = true;
                         break;
                     } else {
@@ -213,7 +217,7 @@ bool move_up(struct game *game) {
                     } else if (game->board[new_y][x] == game->board[y][x]) {
                         game->board[new_y][x]++;
                         game->board[y][x] = ' ';
-                        game->score += 1 << (game->board[new_y][x] - 'A');
+                        game->score += 1 << (game->board[new_y][x] - 'A'+1);
                         moved = true;
                         break;
                     } else {
@@ -245,7 +249,7 @@ bool move_right(struct game *game) {
                     } else if (game->board[y][new_x] == game->board[y][x]) {
                         game->board[y][new_x]++;
                         game->board[y][x] = ' ';
-                        game->score += 1 << (game->board[y][new_x] - 'A');
+                        game->score += 1 << (game->board[y][new_x] - 'A'+1);
                         moved = true;
                         break;
                     } else {
@@ -277,7 +281,7 @@ bool move_left(struct game *game) {
                     } else if (game->board[y][new_x] == game->board[y][x]) {
                         game->board[y][new_x]++;
                         game->board[y][x] = ' ';
-                        game->score += 1 << (game->board[y][new_x] - 'A');
+                        game->score += 1 << (game->board[y][new_x] - 'A'+1);
                         moved = true;
                         break;
                     } else {
@@ -291,9 +295,13 @@ bool move_left(struct game *game) {
 
     return moved;
 }
-
+/*
 // Function to move in the specified direction
 bool update(struct game *game, int dy, int dx) {
+    
+    if(!is_move_possible(*game))
+       return false;
+    
     bool moved = false;
 
     if (dy == 1)
@@ -303,6 +311,22 @@ bool update(struct game *game, int dy, int dx) {
     else if (dx == 1)
         moved = move_right(game);
     else if (dx == -1)
+        moved = move_left(game);
+
+    return moved;
+}*/
+
+bool update(struct game *game, int dy, int dx) {
+    bool moved = false;
+
+    // Проверяем возможность движения и осуществляем ход
+    if (dy == 1 && is_move_possible(*game))
+        moved = move_down(game);
+    else if (dy == -1 && is_move_possible(*game))
+        moved = move_up(game);
+    else if (dx == 1 && is_move_possible(*game))
+        moved = move_right(game);
+    else if (dx == -1 && is_move_possible(*game))
         moved = move_left(game);
 
     return moved;
@@ -325,6 +349,7 @@ void add_random_tile(struct game *game){
     }
 }
 */
+<<<<<<< HEAD
 // Function to print the game board and current score
 void print_game(struct game *game) {
     printf("Current Score: %d\n", game->score);
@@ -407,4 +432,6 @@ int main() {
 
     return 0;
 }
+=======
+>>>>>>> 01875f2b547154f95b7911ba6cfc6a54e814a8b3
 
