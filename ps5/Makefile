@@ -60,6 +60,6 @@ clean:
 	rm -rf *.o $(OUTPUT)
 
 push:
-	git commit -m "ps1"
+	git commit -m "ps5"
 	git push
  
