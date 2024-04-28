@@ -1,7 +1,7 @@
 CC=gcc
 CFLAGS=-std=c11 -Wall -Werror
 LDLIBS=-lm
-OUTPUT=ps1
+OUTPUT=ps5
 SOURCES=main.c backpack.c command.c container.c game.c item.c parser.c room.c world.c
 
 .PHONY: tests clean
