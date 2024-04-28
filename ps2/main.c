@@ -21,7 +21,7 @@ printf("is move possible: %d\n", is_move_possible(game));
 bool result = update(&game, 0, -1);
 printf("Result: %s\n", result ? "true" : "false");
 
-int num_loaded = load(score);
+int num_loaded = load(list);
 
     if (num_loaded == -1) {
         printf("Ошибка при загрузке файла.\n");
@@ -30,5 +30,21 @@ int num_loaded = load(score);
 
     printf("Загружено %d игроков из файла:\n", num_loaded);
     for (int i = 0; i < num_loaded; i++) {
-        printf("%s - %d\n", score[i].name, score[i].score);
-    }}
+        printf("%s - %d\n", list[i].name, list[i].score);
+    }
+
+int size = sizeof(list) / sizeof(list[0]);
+
+    if (save(list, size)) {
+        printf("Players saved successfully.\n");}
+        
+struct player hall_of_fame[10] = {0}; // Initialize hall of fame list
+    int size = load(hall_of_fame); // Load hall of fame list from file
+
+    // Adding players to the hall of fame
+    struct player new_player = {.name = "Player1", .score = 100}; // Example player
+    add_player(hall_of_fame, &size, new_player);        
+        
+
+}
+

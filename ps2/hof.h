@@ -1,6 +1,7 @@
 #ifndef _HOF_H
 #define _HOF_H
 
+
 #include <stdbool.h>
 
 // name of the Hall of Fame score file
