@@ -3,6 +3,18 @@
 #include <string.h>
 #include "container.h"
 
+char* strdup(const char* str) {
+    if (str == NULL) return NULL;
+
+    size_t len = strlen(str);
+    char* new_str = (char*)malloc(len + 1);
+    if (new_str == NULL) return NULL;
+
+    strcpy(new_str, str);
+    return new_str;
+}
+
+
 struct container* create_container(struct container* first, enum container_type type, void* entry) {
     // If entry is NULL or the container type is different from the type of the first container,
     // return NULL
