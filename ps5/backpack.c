@@ -6,7 +6,7 @@ struct backpack* create_backpack(const int capacity) {
     struct backpack* new_backpack = (struct backpack*)malloc(sizeof(struct backpack));
     if (new_backpack != NULL) {
         new_backpack->capacity = capacity;
-        new_backpack->items = create_container(NULL, BACKPACK, new_backpack); // Передача NULL для первого аргумента
+        new_backpack->items = create_container(NULL, CONTAINER_TYPE_BACKPACK, new_backpack); // Используем CONTAINER_TYPE_BACKPACK вместо BACKPACK
     }
     return new_backpack;
 }
@@ -20,7 +20,7 @@ void destroy_backpack(struct backpack* backpack) {
 
 bool add_item_to_backpack(struct backpack* backpack, struct item* item) {
     if (backpack != NULL && item != NULL) {
-        struct container* container = create_container(backpack->items, ITEM, item);
+        struct container* container = create_container(backpack->items, CONTAINER_TYPE_ITEM, item); // Используем CONTAINER_TYPE_ITEM вместо ITEM
         if (container != NULL) {
             backpack->items = container;
             return true;
@@ -35,9 +35,8 @@ void delete_item_from_backpack(struct backpack* backpack, struct item* item) {
         struct container* prev = NULL;
 
         while (current != NULL) {
-            if (current->type == ITEM && current->entry == item) {
+            if (current->type == CONTAINER_TYPE_ITEM && current->data == item) { // Заменяем entry на data
                 if (prev == NULL) {
-                    // Удаляемый элемент первый в списке
                     backpack->items = current->next;
                 } else {
                     prev->next = current->next;
