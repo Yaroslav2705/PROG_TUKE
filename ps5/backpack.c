@@ -35,7 +35,7 @@ void delete_item_from_backpack(struct backpack* backpack, struct item* item) {
         struct container* prev = NULL;
 
         while (current != NULL) {
-            if (current->type == CONTAINER_TYPE_ITEM && current->data == item) { // Заменяем entry на data
+            if (current->type == CONTAINER_TYPE_ITEM && current->entry == item) { // Заменяем data на entry
                 if (prev == NULL) {
                     backpack->items = current->next;
                 } else {
