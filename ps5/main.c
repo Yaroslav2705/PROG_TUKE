@@ -1,76 +1,63 @@
 #include <stdio.h>
 #include <stdbool.h>
-#include "room.h"
-#include "item.h"
-#include "command.h"
-#include "game.h"
-#include "parser.h"
 #include "backpack.h"
+#include "command.h"
+#include "container.h"
+#include "game.h"
+#include "item.h"
+#include "parser.h"
+#include "room.h"
 #include "world.h"
 
 int main() {
-    // Створюємо кімнати
-    struct room* room1 = create_room("Room 1", "This is room 1");
-    struct room* room2 = create_room("Room 2", "This is room 2");
-    struct room* room3 = create_room("Room 3", "This is room 3");
+    // Створення деяких прикладових структур даних
+    struct room room1 = { .name = "Room 1" };
+    struct item item1 = { .name = "Item 1" };
+    struct command command1 = { .name = "Command 1" };
 
-    // Встановлюємо виходи з кімнат
-    set_exits_from_room(room1, NULL, room2, room3, NULL);
-    set_exits_from_room(room2, room1, NULL, NULL, room3);
-    set_exits_from_room(room3, NULL, room1, room2, NULL);
+    // Створення контейнерів та додавання їх до списку
+    struct container* container_list = NULL;
+    container_list = create_container(container_list, ROOM, &room1);
+    container_list = create_container(container_list, ITEM, &item1);
+    container_list = create_container(container_list, COMMAND, &command1);
 
-    // Створюємо предмети
-    struct item* item1 = create_item("Item 1", "This is item 1", MOVABLE | USABLE);
-    struct item* item2 = create_item("Item 2", "This is item 2", MOVABLE);
-    struct item* item3 = create_item("Item 3", "This is item 3", USABLE);
+    // Створення гри
+    struct game* game = create_game(container_list);
 
-    // Додаємо предмети до кімнат
-    add_item_to_room(room1, item1);
-    add_item_to_room(room2, item2);
-    add_item_to_room(room3, item3);
+    // Створення рюкзака
+    struct backpack* backpack = create_my_backpack(5);
 
-    // Показуємо кімнату
-    show_room(room1);
-    show_room(room2);
-    show_room(room3);
+    // Створення світу
+    struct container* world = create_world();
 
-    // Створюємо команди
-    struct command* command1 = create_command("Command 1", "This is command 1", "pattern", 1);
-    struct command* command2 = create_command("Command 2", "This is command 2", "pattern", 1);
+    // Створення парсера
+    struct parser* parser = create_parser();
 
-    // Створюємо гру
-    struct game* game = create_game();
+    // Розбір команд
+    struct command* cmd = parse_input(parser, "your_command_string_here");
 
-    // Виконуємо команди
-    execute_command(game, command1);
-    execute_command(game, command2);
+    // Виконання команди
+    execute_command(game, cmd);
 
-    // Створюємо рюкзак
-    struct backpack* backpack = create_backpack(10);
-
-    // Додаємо предмети до рюкзака
-    add_item_to_backpack(backpack, item1);
-    add_item_to_backpack(backpack, item2);
-
-    // Виводимо предмети з рюкзака
-    struct item* retrieved_item = get_item_from_backpack(backpack, "Item 1");
+    // Отримання предмета зі списку контейнера за іменем
+    struct item* retrieved_item = (struct item*)get_from_container_by_name(container_list, "Item 1");
     if (retrieved_item != NULL) {
-        printf("Retrieved item from backpack: %s\n", retrieved_item->name);
+        printf("Retrieved item: %s\n", retrieved_item->name);
     } else {
-        printf("Item not found in backpack!\n");
+        printf("Item not found!\n");
     }
 
-    // Вивільняємо пам'ять
-    room1 = destroy_room(room1);
-    room2 = destroy_room(room2);
-    room3 = destroy_room(room3);
-    item1 = destroy_item(item1);
-    item2 = destroy_item(item2);
-    item3 = destroy_item(item3);
-    command1 = destroy_command(command1);
-    command2 = destroy_command(command2);
+    // Видалення предмета зі списку контейнера
+    container_list = remove_container(container_list, &item1);
+
+    // Видалення списку контейнера для звільнення пам'яті
+    container_list = destroy_containers(container_list);
+
+    // Звільнення пам'яті, що використовується грою, рюкзаком і світом
     game = destroy_game(game);
-    backpack = destroy_backpack(backpack);
+    backpack = destroy_my_backpack(backpack);
+    world = destroy_world(world);
+    parser = destroy_parser(parser);
 
     return 0;
 }
