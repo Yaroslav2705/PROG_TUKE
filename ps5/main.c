@@ -8,32 +8,55 @@
 #include "room.h"
 #include "world.h"
 
-
 int main() {
-    // Creating some example data structures
-    struct room room1 = { .name = "Room 1" };
-    struct item item1 = { .name = "Item 1" };
-    struct command command1 = { .name = "Command 1" };
+    // Create a world with rooms
+    struct container* world = create_world();
 
-    // Creating containers and adding them to the list
-    struct container* container_list = NULL;
-    container_list = create_container(container_list, ROOM, &room1);
-    container_list = create_container(container_list, ITEM, &item1);
-    container_list = create_container(container_list, COMMAND, &command1);
+    // Create rooms
+    struct room* room1 = create_room("Room 1", "Description of Room 1");
+    struct room* room2 = create_room("Room 2", "Description of Room 2");
 
-    // Retrieving an item from the container list by name
-    struct item* retrieved_item = (struct item*)get_from_container_by_name(container_list, "Item 1");
+    // Add rooms to the world
+    add_room_to_world(world, room1);
+    add_room_to_world(world, room2);
+
+    // Set exits between rooms
+    set_exits_from_room(room1, NULL, room2, NULL, NULL);
+    set_exits_from_room(room2, room1, NULL, NULL, NULL);
+
+    // Create items
+    struct item* item1 = create_item("Item 1", "Description of Item 1", MOVABLE | USABLE);
+    struct item* item2 = create_item("Item 2", "Description of Item 2", MOVABLE);
+
+    // Create a backpack
+    struct backpack* backpack = create_backpack(5);
+
+    // Add items to the backpack
+    add_item_to_backpack(backpack, item1);
+    add_item_to_backpack(backpack, item2);
+
+    // Get item from the backpack
+    struct item* retrieved_item = get_item_from_backpack(backpack, "Item 1");
     if (retrieved_item != NULL) {
-        printf("Retrieved item: %s\n", retrieved_item->name);
+        printf("Retrieved item from backpack: %s\n", retrieved_item->name);
     } else {
-        printf("Item not found!\n");
+        printf("Item not found in backpack!\n");
     }
 
-    // Removing an item from the container list
-    container_list = remove_container(container_list, &item1);
+    // Parse input
+    struct parser* parser = create_parser();
+    char* input = "TAKE Item 1";
+    struct command* cmd = parse_input(parser, input);
 
-    // Destroying the container list to free memory
-    container_list = destroy_containers(container_list);
+    // Execute command
+    execute_command(cmd, backpack, world);
+
+    // Destroy resources
+    destroy_backpack(backpack);
+    destroy_item(item1);
+    destroy_item(item2);
+    destroy_parser(parser);
+    world = destroy_world(world);
 
     return 0;
 }
