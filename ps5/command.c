@@ -56,4 +56,4 @@ struct command* destroy_command(struct command* command) {
     return NULL;
 }
 
-}
+
