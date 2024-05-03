@@ -25,7 +25,7 @@ int main() {
     struct game* game = create_game(container_list);
 
     // Створення рюкзака
-    struct backpack* backpack = create_my_backpack(5);
+    struct backpack* backpack = create_backpack(5);
 
     // Створення світу
     struct container* world = create_world();
@@ -55,7 +55,7 @@ int main() {
 
     // Звільнення пам'яті, що використовується грою, рюкзаком і світом
     game = destroy_game(game);
-    backpack = destroy_my_backpack(backpack);
+    backpack = destroy_backpack(backpack);
     world = destroy_world(world);
     parser = destroy_parser(parser);
 
