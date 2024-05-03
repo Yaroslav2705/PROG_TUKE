@@ -1,41 +1,59 @@
-#include <stdio.h>
 #include <stdlib.h>
 #include "backpack.h"
+#include "container.h"
 
 struct backpack* create_backpack(const int capacity) {
     struct backpack* new_backpack = (struct backpack*)malloc(sizeof(struct backpack));
-    if (new_backpack == NULL) {
-        fprintf(stderr, "Memory allocation failed\n");
-        exit(EXIT_FAILURE);
+    if (new_backpack != NULL) {
+        new_backpack->capacity = capacity;
+        new_backpack->items = create_container(NULL, BACKPACK, new_backpack); // Передача NULL для первого аргумента
     }
-    new_backpack->capacity = capacity;
-    new_backpack->size = 0;
-    new_backpack->items = create_container(NULL, BACKPACK, new_backpack); // Передача NULL для першого аргументу
     return new_backpack;
 }
 
-struct backpack* destroy_backpack(struct backpack* backpack) {
+void destroy_backpack(struct backpack* backpack) {
     if (backpack != NULL) {
-        destroy_container(backpack->items);
+        destroy_containers(backpack->items);
         free(backpack);
-        backpack = NULL;
     }
-    return backpack;
 }
 
 bool add_item_to_backpack(struct backpack* backpack, struct item* item) {
-    if (!add_item_to_container(backpack->items, item)) {
-        return false;
+    if (backpack != NULL && item != NULL) {
+        struct container* container = create_container(backpack->items, ITEM, item);
+        if (container != NULL) {
+            backpack->items = container;
+            return true;
+        }
     }
-    backpack->size++;
-    return true;
+    return false;
 }
 
 void delete_item_from_backpack(struct backpack* backpack, struct item* item) {
-    delete_item_from_container(backpack->items, item);
-    backpack->size--;
+    if (backpack != NULL && item != NULL) {
+        struct container* current = backpack->items;
+        struct container* prev = NULL;
+
+        while (current != NULL) {
+            if (current->type == ITEM && current->entry == item) {
+                if (prev == NULL) {
+                    // Удаляемый элемент первый в списке
+                    backpack->items = current->next;
+                } else {
+                    prev->next = current->next;
+                }
+                free(current);
+                break;
+            }
+            prev = current;
+            current = current->next;
+        }
+    }
 }
 
 struct item* get_item_from_backpack(const struct backpack* backpack, char* name) {
-    return (struct item*)get_from_container_by_name(backpack->items, name);
+    if (backpack != NULL && name != NULL) {
+        return (struct item*)get_from_container_by_name(backpack->items, name);
+    }
+    return NULL;
 }
