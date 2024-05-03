@@ -1,44 +1,23 @@
-#include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
+#include <string.h> // Добавленный заголовочный файл для использования функции strdup
 #include "command.h"
 
 struct command* create_command(char* name, char* description, char* pattern, size_t nmatch) {
-    if (name == NULL || description == NULL) {
-        return NULL; // Command cannot be created without name or description
-    }
-
     struct command* new_command = (struct command*)malloc(sizeof(struct command));
-    if (new_command == NULL) {
-        return NULL; // Memory allocation failed
+    if (new_command != NULL) {
+        new_command->name = strdup(name); // Дублируем строку name
+        new_command->description = strdup(description); // Дублируем строку description
+        new_command->pattern = strdup(pattern); // Дублируем строку pattern
+        new_command->nmatch = nmatch;
     }
-
-    new_command->name = strdup(name);
-    new_command->description = strdup(description);
-    new_command->nmatch = nmatch;
-
-    // Compile pattern if provided
-    if (pattern != NULL) {
-        if (regcomp(&(new_command->preg), pattern, REG_EXTENDED | REG_ICASE) != 0) {
-            // Pattern compilation failed
-            free(new_command->name);
-            free(new_command->description);
-            free(new_command);
-            return NULL;
-        }
-    } else {
-        // No pattern provided
-        new_command->preg = (regex_t){0};
-    }
-
     return new_command;
 }
 
 struct command* destroy_command(struct command* command) {
     if (command != NULL) {
-        free(command->name);
+        free(command->name); // Освобождаем память для дублированных строк
         free(command->description);
-        regfree(&(command->preg));
+        free(command->pattern);
         free(command);
     }
     return NULL;
