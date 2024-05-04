@@ -23,6 +23,8 @@ int main()
     struct room *north_room = create_room("North Room", "This room is to the north.");
     set_exits_from_room(example_room, north_room, NULL, NULL, NULL);
     show_room(example_room);
+    add_item_to_room(example_room, item);
+    get_item_from_room(example_room, name);
     delete_item_from_room(example_room, item);
     destroy_room(example_room);
 
