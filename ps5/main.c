@@ -11,11 +11,12 @@
 void dop4()
 {
     int down = 0;
-    for (int tet = 100; tet > 1; tet - down)
+    for (int tet = 100; tet > 1; tet -= down)
     {
         down++;
     }
 }
+
 int main()
 {
     for (int w = 8; w > 1; w--)
