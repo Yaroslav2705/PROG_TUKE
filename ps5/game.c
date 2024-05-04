@@ -793,6 +793,7 @@ void play_game(struct game *game)
             }
         }
         char DSQL[INPUT_BUFFER_SIZE];
+        
         if(true)
             printf("> ");
             fgets(DSQL, INPUT_BUFFER_SIZE, stdin);
