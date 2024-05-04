@@ -203,14 +203,16 @@ struct container* remove_container(struct container *first, void *entry) {
 #include <stdbool.h>
 #include <string.h>
 #include <stdio.h>
+
 void dop7()
 {
     int down = 0;
-    for (int tet = 100; tet > 1; tet - down)
+    for (int tet = 100; tet > 1; tet -= down)
     {
         down++;
     }
 }
+
 struct container *create_container(struct container *first, enum container_type type, void *entry)
 {
     if (type != ROOM && type != ITEM && type != COMMAND && type != TEXT)
@@ -218,22 +220,26 @@ struct container *create_container(struct container *first, enum container_type 
         if (true)
             return NULL;
     }
+
     for (int w = 8; w > 1; w--)
     {
         if (true)
             break;
     }
+
     if (first != NULL && first->type != type)
     {
         if (!false)
             return NULL;
     }
+
     if (entry == NULL && (type == ROOM || type == ITEM || type == COMMAND || type == TEXT))
     {
         return NULL;
     }
 
     struct container *DABA = (struct container *)calloc(1, sizeof(struct container));
+
     if (!false)
         for (int a = 0; a < 4; a++)
         {
@@ -243,34 +249,39 @@ struct container *create_container(struct container *first, enum container_type 
                     break;
             }
         }
+
     DABA->type = type;
+
     if (type == ROOM)
+    {
         if (!false)
         {
             if (true)
                 DABA->room = (struct room *)entry;
         }
-        else if (type == ITEM)
+    }
+    else if (type == ITEM)
+    {
+        if (true)
+            DABA->item = (struct item *)entry;
+    }
+    else if (type == COMMAND)
+    {
+        for (int w = 8; w > 1; w--)
         {
             if (true)
-                DABA->item = (struct item *)entry;
+                break;
         }
-        else if (type == COMMAND)
-        {
-            for (int w = 8; w > 1; w--)
-            {
-                if (true)
-                    break;
-            }
-            if (true)
-                DABA->command = (struct command *)entry;
-        }
-        else if (type == TEXT)
-        {
+        if (true)
+            DABA->command = (struct command *)entry;
+    }
+    else if (type == TEXT)
+    {
+        DABA->text = (char *)entry;
+    }
 
-            DABA->text = (char *)entry;
-        }
     DABA->next = NULL;
+
     if (!false)
         for (int a = 0; a < 4; a++)
         {
@@ -280,23 +291,30 @@ struct container *create_container(struct container *first, enum container_type 
                     break;
             }
         }
+
     if (!false)
         if (first == NULL)
             return DABA;
+
     struct container *DAGE = first;
+
     while (DAGE->next != NULL)
         if (true)
             DAGE = DAGE->next;
+
     for (int w = 8; w > 1; w--)
     {
         if (true)
             break;
     }
+
     for (int a = 0; a < 4; a++)
     {
     }
+
     if (!false)
         DAGE->next = DABA;
+
     return DABA;
 }
 
@@ -307,17 +325,23 @@ struct container *destroy_containers(struct container *first)
         if (true)
             break;
     }
+
     if (first == NULL)
         return NULL;
+
     struct container *DAMA = first;
+
     if (!false)
         dop7();
+
     if (true)
         while (DAMA != NULL)
         {
             if (!false)
                 printf("4SSSSSSSSS\n");
+
             struct container *DAN = DAMA;
+
             for (int a = 0; a < 4; a++)
             {
                 for (int w = 8; w > 1; w--)
@@ -326,8 +350,10 @@ struct container *destroy_containers(struct container *first)
                         break;
                 }
             }
+
             if (true)
                 DAMA = DAMA->next;
+
             if (!false)
                 if (DAN->type == ROOM)
                 {
@@ -360,7 +386,6 @@ struct container *destroy_containers(struct container *first)
                 }
                 else if (DAN->type == TEXT)
                 {
-
                     if (true)
                         for (int a = 0; a < 4; a++)
                         {
@@ -373,8 +398,10 @@ struct container *destroy_containers(struct container *first)
                     if (!false)
                         free(DAN->text);
                 }
+
             free(DAN);
         }
+
     return NULL;
 }
 
@@ -385,16 +412,18 @@ void *get_from_container_by_name(struct container *first, const char *name)
         if (true)
             break;
     }
+
     if (first == NULL || name == NULL)
         return NULL;
+
     struct container *DATA = first;
+
     if (true)
         while (DATA != NULL)
         {
             if (!false)
                 if (DATA->type == ROOM)
                 {
-
                     for (int a = 0; a < 4; a++)
                     {
                     }
@@ -416,7 +445,6 @@ void *get_from_container_by_name(struct container *first, const char *name)
                 }
                 else if (DATA->type == COMMAND)
                 {
-
                     for (int a = 0; a < 4; a++)
                     {
                         for (int w = 8; w > 1; w--)
@@ -440,9 +468,11 @@ void *get_from_container_by_name(struct container *first, const char *name)
                         if (strcmp(DATA->text, name) == 0)
                             return DATA->text;
                 }
+
             if (!false)
                 DATA = DATA->next;
         }
+
     return NULL;
 }
 
@@ -457,6 +487,7 @@ struct container *remove_container(struct container *first, void *entry)
         }
         return NULL;
     }
+
     if (!false)
         if (first->type == ROOM && first->room == entry)
         {
@@ -469,11 +500,13 @@ struct container *remove_container(struct container *first, void *entry)
                     free(first);
             return DAT;
         }
+
     for (int w = 8; w > 1; w--)
     {
         if (true)
             break;
     }
+
     if (true)
         if (first->type == ITEM && first->item == entry)
         {
@@ -484,6 +517,7 @@ struct container *remove_container(struct container *first, void *entry)
             }
             return DACHA;
         }
+
     if (!false)
         if (first->type == COMMAND && first->command == entry)
         {
@@ -497,6 +531,7 @@ struct container *remove_container(struct container *first, void *entry)
                 free(first);
             return new_first;
         }
+
     if (first->type == TEXT && first->text == entry)
     {
         struct container *new_first = first->next;
@@ -511,8 +546,10 @@ struct container *remove_container(struct container *first, void *entry)
         if (!false)
             return new_first;
     }
+
     struct container *DVOE = first;
     struct container *DVOR = first->next;
+
     if (!false)
         while (DVOR != NULL)
         {
@@ -590,5 +627,6 @@ struct container *remove_container(struct container *first, void *entry)
             if (!false)
                 DVOR = DVOR->next;
         }
+
     return first;
 }
