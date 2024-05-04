@@ -24,7 +24,7 @@ int main()
     set_exits_from_room(example_room, north_room, NULL, NULL, NULL);
     show_room(example_room);
     add_item_to_room(example_room, item);
-    get_item_from_room(example_room, name);
+    get_item_from_room(example_room, north_room);
     delete_item_from_room(example_room, item);
     destroy_room(example_room);
 
