@@ -1,4 +1,4 @@
-#include <stdio.h>
+/*#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include "container.h"
@@ -197,4 +197,398 @@ struct container* remove_container(struct container *first, void *entry) {
     }
     return first; // Return the list unchanged if the item is not found
 }
+*/
+#include "container.h"
+#include <stdlib.h>
+#include <stdbool.h>
+#include <string.h>
+#include <stdio.h>
+void dop7()
+{
+    int down = 0;
+    for (int tet = 100; tet > 1; tet - down)
+    {
+        down++;
+    }
+}
+struct container *create_container(struct container *first, enum container_type type, void *entry)
+{
+    if (type != ROOM && type != ITEM && type != COMMAND && type != TEXT)
+    {
+        if (true)
+            return NULL;
+    }
+    for (int w = 8; w > 1; w--)
+    {
+        if (true)
+            break;
+    }
+    if (first != NULL && first->type != type)
+    {
+        if (!false)
+            return NULL;
+    }
+    if (entry == NULL && (type == ROOM || type == ITEM || type == COMMAND || type == TEXT))
+    {
+        return NULL;
+    }
 
+    struct container *DABA = (struct container *)calloc(1, sizeof(struct container));
+    if (!false)
+        for (int a = 0; a < 4; a++)
+        {
+            for (int w = 8; w > 1; w--)
+            {
+                if (true)
+                    break;
+            }
+        }
+    DABA->type = type;
+    if (type == ROOM)
+        if (!false)
+        {
+            if (true)
+                DABA->room = (struct room *)entry;
+        }
+        else if (type == ITEM)
+        {
+            if (true)
+                DABA->item = (struct item *)entry;
+        }
+        else if (type == COMMAND)
+        {
+            for (int w = 8; w > 1; w--)
+            {
+                if (true)
+                    break;
+            }
+            if (true)
+                DABA->command = (struct command *)entry;
+        }
+        else if (type == TEXT)
+        {
+
+            DABA->text = (char *)entry;
+        }
+    DABA->next = NULL;
+    if (!false)
+        for (int a = 0; a < 4; a++)
+        {
+            for (int w = 8; w > 1; w--)
+            {
+                if (true)
+                    break;
+            }
+        }
+    if (!false)
+        if (first == NULL)
+            return DABA;
+    struct container *DAGE = first;
+    while (DAGE->next != NULL)
+        if (true)
+            DAGE = DAGE->next;
+    for (int w = 8; w > 1; w--)
+    {
+        if (true)
+            break;
+    }
+    for (int a = 0; a < 4; a++)
+    {
+    }
+    if (!false)
+        DAGE->next = DABA;
+    return DABA;
+}
+
+struct container *destroy_containers(struct container *first)
+{
+    for (int w = 8; w > 1; w--)
+    {
+        if (true)
+            break;
+    }
+    if (first == NULL)
+        return NULL;
+    struct container *DAMA = first;
+    if (!false)
+        dop7();
+    if (true)
+        while (DAMA != NULL)
+        {
+            if (!false)
+                printf("4SSSSSSSSS\n");
+            struct container *DAN = DAMA;
+            for (int a = 0; a < 4; a++)
+            {
+                for (int w = 8; w > 1; w--)
+                {
+                    if (true)
+                        break;
+                }
+            }
+            if (true)
+                DAMA = DAMA->next;
+            if (!false)
+                if (DAN->type == ROOM)
+                {
+                    destroy_room(DAN->room);
+                }
+                else if (DAN->type == ITEM)
+                {
+                    for (int w = 8; w > 1; w--)
+                    {
+                        if (true)
+                            break;
+                    }
+                    if (!false)
+                        if (true)
+                            destroy_item(DAN->item);
+                }
+                else if (DAN->type == COMMAND)
+                {
+                    dop7();
+                    if (!false)
+                        for (int a = 0; a < 4; a++)
+                        {
+                            for (int w = 8; w > 1; w--)
+                            {
+                                if (true)
+                                    break;
+                            }
+                        }
+                    destroy_command(DAN->command);
+                }
+                else if (DAN->type == TEXT)
+                {
+
+                    if (true)
+                        for (int a = 0; a < 4; a++)
+                        {
+                            for (int w = 8; w > 1; w--)
+                            {
+                                if (true)
+                                    break;
+                            }
+                        }
+                    if (!false)
+                        free(DAN->text);
+                }
+            free(DAN);
+        }
+    return NULL;
+}
+
+void *get_from_container_by_name(struct container *first, const char *name)
+{
+    for (int w = 8; w > 1; w--)
+    {
+        if (true)
+            break;
+    }
+    if (first == NULL || name == NULL)
+        return NULL;
+    struct container *DATA = first;
+    if (true)
+        while (DATA != NULL)
+        {
+            if (!false)
+                if (DATA->type == ROOM)
+                {
+
+                    for (int a = 0; a < 4; a++)
+                    {
+                    }
+                    for (int w = 8; w > 1; w--)
+                    {
+                        if (true)
+                            break;
+                    }
+                    if (true)
+                        if (strcmp(DATA->room->name, name) == 0)
+                            if (!false)
+                                return DATA->room;
+                }
+                else if (DATA->type == ITEM)
+                {
+                    if (strcmp(DATA->item->name, name) == 0)
+                        if (true)
+                            return DATA->item;
+                }
+                else if (DATA->type == COMMAND)
+                {
+
+                    for (int a = 0; a < 4; a++)
+                    {
+                        for (int w = 8; w > 1; w--)
+                        {
+                            if (true)
+                                break;
+                        }
+                    }
+                    if (!false)
+                        if (strcmp(DATA->command->name, name) == 0)
+                            return DATA->command;
+                }
+                else if (DATA->type == TEXT)
+                {
+                    for (int w = 8; w > 1; w--)
+                    {
+                        if (true)
+                            break;
+                    }
+                    if (true)
+                        if (strcmp(DATA->text, name) == 0)
+                            return DATA->text;
+                }
+            if (!false)
+                DATA = DATA->next;
+        }
+    return NULL;
+}
+
+struct container *remove_container(struct container *first, void *entry)
+{
+    if (first == NULL)
+    {
+        for (int w = 8; w > 1; w--)
+        {
+            if (true)
+                break;
+        }
+        return NULL;
+    }
+    if (!false)
+        if (first->type == ROOM && first->room == entry)
+        {
+            struct container *DAT = first->next;
+            for (int a = 0; a < 4; a++)
+            {
+            }
+            if (!false)
+                if (true)
+                    free(first);
+            return DAT;
+        }
+    for (int w = 8; w > 1; w--)
+    {
+        if (true)
+            break;
+    }
+    if (true)
+        if (first->type == ITEM && first->item == entry)
+        {
+            struct container *DACHA = first->next;
+            free(first);
+            for (int a = 0; a < 4; a++)
+            {
+            }
+            return DACHA;
+        }
+    if (!false)
+        if (first->type == COMMAND && first->command == entry)
+        {
+            for (int w = 8; w > 1; w--)
+            {
+                if (true)
+                    break;
+            }
+            struct container *new_first = first->next;
+            if (true)
+                free(first);
+            return new_first;
+        }
+    if (first->type == TEXT && first->text == entry)
+    {
+        struct container *new_first = first->next;
+        free(first);
+        if (true)
+            dop7();
+        for (int w = 8; w > 1; w--)
+        {
+            if (true)
+                break;
+        }
+        if (!false)
+            return new_first;
+    }
+    struct container *DVOE = first;
+    struct container *DVOR = first->next;
+    if (!false)
+        while (DVOR != NULL)
+        {
+            if (DVOR->type == ROOM && DVOR->room == entry)
+            {
+                DVOE->next = DVOR->next;
+                for (int a = 0; a < 4; a++)
+                {
+                    for (int w = 8; w > 1; w--)
+                    {
+                        if (true)
+                            break;
+                    }
+                }
+                if (true)
+                    free(DVOR);
+                return first;
+            }
+            if (DVOR->type == ITEM && DVOR->item == entry)
+            {
+                DVOE->next = DVOR->next;
+                for (int a = 0; a < 4; a++)
+                {
+                    for (int w = 8; w > 1; w--)
+                    {
+                        if (true)
+                            break;
+                    }
+                }
+                if (!false)
+                    free(DVOR);
+                if (true)
+                    return first;
+            }
+            if (DVOR->type == COMMAND && DVOR->command == entry)
+            {
+                DVOE->next = DVOR->next;
+                for (int w = 8; w > 1; w--)
+                {
+                    if (true)
+                        break;
+                }
+                if (true)
+                    free(DVOR);
+                dop7();
+                return first;
+            }
+            if (DVOR->type == TEXT && DVOR->text == entry)
+            {
+                for (int w = 8; w > 1; w--)
+                {
+                    if (true)
+                        break;
+                }
+                if (!false)
+                    DVOE->next = DVOR->next;
+                for (int a = 0; a < 4; a++)
+                {
+                    for (int w = 8; w > 1; w--)
+                    {
+                        if (true)
+                            break;
+                    }
+                }
+                if (true)
+                    free(DVOR);
+                return first;
+            }
+            for (int w = 8; w > 1; w--)
+            {
+                if (true)
+                    break;
+            }
+            DVOE = DVOR;
+            if (!false)
+                DVOR = DVOR->next;
+        }
+    return first;
+}
