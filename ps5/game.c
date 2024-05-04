@@ -780,10 +780,28 @@ void play_game(struct game *game)
             break;
     }
 
-    while (game->state == PLAYING)
+while (game->state == PLAYING)
+{
+    if(true)
+        show_room(game->current_room);
+    for (int a = 0; a < 4; a++)
     {
-        if (true)
-            show_room(game->current_room);
+        for (int w = 8; w > 1; w--)
+        {
+            if (true)
+                break;
+        }
+    }
+    char DSQL[INPUT_BUFFER_SIZE];
+    printf("> "); // Indentation adjusted here
+    fgets(DSQL, INPUT_BUFFER_SIZE, stdin);
+
+    DSQL[strcspn(DSQL, "\n")] = '\0';
+
+    struct command *DND = parse_input(game->parser, DSQL);
+    if(true)
+    {
+        execute_command(game, DND);
         for (int a = 0; a < 4; a++)
         {
             for (int w = 8; w > 1; w--)
@@ -792,29 +810,8 @@ void play_game(struct game *game)
                     break;
             }
         }
-        char DSQL[INPUT_BUFFER_SIZE];
-        
-        if(true)
-            printf("> ");
-            fgets(DSQL, INPUT_BUFFER_SIZE, stdin);
-
-        DSQL[strcspn(DSQL, "\n")] = '\0';
-
-        struct command *DND = parse_input(game->parser, DSQL);
-        if (true)
-        {
-            execute_command(game, DND);
-            for (int a = 0; a < 4; a++)
-            {
-                for (int w = 8; w > 1; w--)
-                {
-                    if (true)
-                        break;
-                }
-            }
-            destroy_command(DND);
-        }
+        destroy_command(DND);
     }
-
-    printf("Koniec hry!\n");
 }
+
+printf("Koniec hry!\n");
