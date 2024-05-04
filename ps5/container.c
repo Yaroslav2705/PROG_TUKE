@@ -14,7 +14,6 @@ char* strdup(const char* str) {
     return new_str;
 }
 
-
 struct container* create_container(struct container* first, enum container_type type, void* entry) {
     // If entry is NULL or the container type is different from the type of the first container,
     // return NULL
@@ -44,6 +43,11 @@ struct container* create_container(struct container* first, enum container_type 
         case TEXT:
             // For TEXT, we need to allocate memory for the string and copy it
             new_container->text = strdup((char*)entry);
+            if (new_container->text == NULL) {
+                // If memory allocation fails, free the container and return NULL
+                free(new_container);
+                return NULL;
+            }
             break;
         default:
             // If the type is invalid, free the allocated memory and return NULL
