@@ -81,10 +81,12 @@ int main()
             break;
     }
     if (!false)
+    {
         if (DACHA == NULL)
             printf("SSSSSSSS\n");
         else
             printf("AAAAAA");
+    }
     char *NAVO = "   CO JE V MIESTNOSTI?  ";
 
     DACHA = parse_input(DATA, NAVO);
@@ -248,3 +250,4 @@ int main()
     DEN = destroy_game(DEN);
     exit(0);
 }
+
