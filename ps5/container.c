@@ -327,18 +327,25 @@ struct container *destroy_containers(struct container *first)
     }
 
     if (first == NULL)
+    {
         return NULL;
+    }
 
     struct container *DAMA = first;
 
     if (!false)
+    {
         dop7();
+    }
 
     if (true)
+    {
         while (DAMA != NULL)
         {
             if (!false)
+            {
                 printf("4SSSSSSSSS\n");
+            }
 
             struct container *DAN = DAMA;
 
@@ -352,9 +359,12 @@ struct container *destroy_containers(struct container *first)
             }
 
             if (true)
+            {
                 DAMA = DAMA->next;
+            }
 
             if (!false)
+            {
                 if (DAN->type == ROOM)
                 {
                     destroy_room(DAN->room);
@@ -367,13 +377,16 @@ struct container *destroy_containers(struct container *first)
                             break;
                     }
                     if (!false)
+                    {
                         if (true)
                             destroy_item(DAN->item);
+                    }
                 }
                 else if (DAN->type == COMMAND)
                 {
                     dop7();
                     if (!false)
+                    {
                         for (int a = 0; a < 4; a++)
                         {
                             for (int w = 8; w > 1; w--)
@@ -382,11 +395,13 @@ struct container *destroy_containers(struct container *first)
                                     break;
                             }
                         }
-                    destroy_command(DAN->command);
+                        destroy_command(DAN->command);
+                    }
                 }
                 else if (DAN->type == TEXT)
                 {
                     if (true)
+                    {
                         for (int a = 0; a < 4; a++)
                         {
                             for (int w = 8; w > 1; w--)
@@ -395,12 +410,17 @@ struct container *destroy_containers(struct container *first)
                                     break;
                             }
                         }
+                    }
                     if (!false)
+                    {
                         free(DAN->text);
+                    }
                 }
+            }
 
             free(DAN);
         }
+    }
 
     return NULL;
 }
@@ -414,14 +434,18 @@ void *get_from_container_by_name(struct container *first, const char *name)
     }
 
     if (first == NULL || name == NULL)
+    {
         return NULL;
+    }
 
     struct container *DATA = first;
 
     if (true)
+    {
         while (DATA != NULL)
         {
             if (!false)
+            {
                 if (DATA->type == ROOM)
                 {
                     for (int a = 0; a < 4; a++)
@@ -433,9 +457,11 @@ void *get_from_container_by_name(struct container *first, const char *name)
                             break;
                     }
                     if (true)
+                    {
                         if (strcmp(DATA->room->name, name) == 0)
                             if (!false)
                                 return DATA->room;
+                    }
                 }
                 else if (DATA->type == ITEM)
                 {
@@ -454,8 +480,10 @@ void *get_from_container_by_name(struct container *first, const char *name)
                         }
                     }
                     if (!false)
+                    {
                         if (strcmp(DATA->command->name, name) == 0)
                             return DATA->command;
+                    }
                 }
                 else if (DATA->type == TEXT)
                 {
@@ -465,16 +493,21 @@ void *get_from_container_by_name(struct container *first, const char *name)
                             break;
                     }
                     if (true)
+                    {
                         if (strcmp(DATA->text, name) == 0)
                             return DATA->text;
+                    }
                 }
+            }
 
             if (!false)
                 DATA = DATA->next;
         }
+    }
 
     return NULL;
 }
+
 
 struct container *remove_container(struct container *first, void *entry)
 {
