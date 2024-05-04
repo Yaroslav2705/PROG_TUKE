@@ -1,39 +1,30 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+#include <string.h>
 #include "container.h"
 #include "room.h"
-#include <stdio.h>
 
-int main() {
-    struct room *start_room = create_room("Start Room", "This is the starting point of the game.");
-    struct room *next_room = create_room("Next Room", "This room is connected to the start room.");
 
-    set_exits_from_room(start_room, NULL, NULL, next_room, NULL);
-    set_exits_from_room(next_room, NULL, NULL, NULL, start_room);
+int main()
+{
+    // Test the functions from container.c
+    struct container *first_container = NULL;
+    struct item *item = malloc(sizeof(struct item));
+    // Populate item with data
+    first_container = create_container(first_container, ITEM, item);
+    void *found_item = get_from_container_by_name(first_container, "Example Item");
+    printf("Found item: %p\n", found_item);
+    first_container = remove_container(first_container, item);
+    destroy_containers(first_container);
 
-    struct item *key = create_item("Golden Key", "A key made of gold.", MOVABLE | USABLE);
-    add_item_to_room(start_room, key);
+    // Test the functions from room.c
+    struct room *example_room = create_room("Example Room", "This is an example room.");
+    struct room *north_room = create_room("North Room", "This room is to the north.");
+    set_exits_from_room(example_room, north_room, NULL, NULL, NULL);
+    show_room(example_room);
+    delete_item_from_room(example_room, item);
+    destroy_room(example_room);
 
-    printf("Welcome to the game!\n");
-    printf("You are currently in the %s.\n", start_room->name);
-    printf("Description: %s\n", start_room->description);
-    printf("Items in this room: ");
-    struct container *item_container = start_room->items;
-    while (item_container != NULL) {
-        if (item_container->type == ITEM) {
-            printf("%s ", ((struct item *)item_container->item)->name);
-        }
-        item_container = item_container->next;
-    }
-    printf("\n");
-
-    printf("You can go to the following rooms:\n");
-    if (start_room->east != NULL) printf("- East: %s\n", start_room->east->name);
-    if (start_room->west != NULL) printf("- West: %s\n", start_room->west->name);
-
-    // Let's clean up
-    delete_item_from_room(start_room, key);
-    destroy_item(key);
-    start_room = destroy_room(start_room);
-    next_room = destroy_room(next_room);
-    
     return 0;
 }
