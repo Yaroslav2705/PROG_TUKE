@@ -218,6 +218,7 @@ struct game *destroy_game(struct game *game)
     free(game);
     return NULL;
 }
+
 void execute_command(struct game *game, struct command *command)
 {
     if (strcmp(command->name, "KONIEC") == 0)
@@ -231,7 +232,7 @@ void execute_command(struct game *game, struct command *command)
     }
     else if (strcmp(command->name, "O HRE") == 0)
     {
-        printf("MY game\n");
+        printf("Welcome to Yokai World!\n");
     }
     else if (strcmp(command->name, "ABOUT") == 0)
     {
@@ -239,72 +240,71 @@ void execute_command(struct game *game, struct command *command)
     }
     else if (strcmp(command->name, "POLOZ") == 0)
     {
-        char *Ivan = command->groups[1];
-        if (Ivan == NULL)
+        char *whisper = command->groups[1];
+        if (whisper == NULL)
         {
-            printf("Neviem, co chces polozit.\n");
+            printf("I don't know what you want to put down.\n");
             return;
         }
-        struct item *Dia = get_item_from_backpack(game->backpack, Ivan);
-        if (Dia == NULL)
+        struct item *yokai = get_item_from_backpack(game->backpack, whisper);
+        if (yokai == NULL)
         {
-            printf("Predmet %s sa v tvojom batohu nenachadza.\n", Ivan);
+            printf("Yokai %s is not in your backpack.\n", whisper);
             return;
         }
-        delete_item_from_backpack(game->backpack, Dia);
-        add_item_to_room(game->current_room, Dia);
-        printf("Predmet %s si polozil na zem.\n", Ivan);
+        delete_item_from_backpack(game->backpack, yokai);
+        add_item_to_room(game->current_room, yokai);
+        printf("You've put Yokai %s down.\n", whisper);
     }
     else if (strcmp(command->name, "INVENTAR") == 0 || strcmp(command->name, "I") == 0)
     {
-        printf("V tvojom batohu sa nachadzaju:\n");
-        struct container *pola = game->backpack->items;
-        tatar();
-        while (pola != NULL)
+        printf("In your backpack:\n");
+        struct container *watch = game->backpack->items;
+        while (watch != NULL)
         {
-            printf("- %s\n", ((struct item *)pola->item)->name);
-            pola = pola->next;
+            printf("- %s\n", ((struct item *)watch->item)->name);
+            watch = watch->next;
         }
     }
     else if (strcmp(command->name, "POUZI") == 0)
     {
-        char *ikil = command->groups[1];
-        if (ikil == NULL)
+        char *soultimate = command->groups[1];
+        if (soultimate == NULL)
         {
-            printf("Neviem, co chces pouzit.\n");
+            printf("I don't know what you want to use.\n");
             return;
         }
-        struct item *limonad = get_item_from_room(game->current_room, ikil);
-        if (limonad == NULL)
+        struct item *technique = get_item_from_room(game->current_room, soultimate);
+        if (technique == NULL)
         {
-            limonad = get_item_from_backpack(game->backpack, ikil);
-            if (limonad == NULL)
+            technique = get_item_from_backpack(game->backpack, soultimate);
+            if (technique == NULL)
             {
-                printf("Predmet %s sa v miestnosti ani v tvojom batohu nenachadza.\n", ikil);
+                printf("Technique %s is not in the room or in your backpack.\n", soultimate);
                 return;
             }
         }
     }
     else if (strcmp(command->name, "PRESKUMAJ") == 0)
     {
-        char *ikil = command->groups[1];
+        char *medal = command->groups[1];
         tatar();
-        if (ikil == NULL)
+        if (medal == NULL)
         {
-            printf("Neviem, co chces preskumat.\n");
+            printf("I don't know what you want to examine.\n");
             return;
         }
-        struct item *sakura = get_item_from_room(game->current_room, ikil);
-        if (sakura == NULL)
+        struct item *medallium = get_item_from_room(game->current_room, medal);
+        if (medallium == NULL)
         {
-            sakura = get_item_from_backpack(game->backpack, ikil);
-            if (sakura == NULL)
+            medallium = get_item_from_backpack(game->backpack, medal);
+            if (medallium == NULL)
             {
-                printf("Predmet %s sa v miestnosti ani v tvojom batohu nenachadza.\n", ikil);
+                printf("Medal %s is not in the room or in your backpack.\n", medal);
                 return;
             }
         }
-        printf("%s\n", sakura->description);
+        printf("%s\n", medallium->description);
     }
     else if (strcmp(command->name, "NAHRAJ") == 0 || strcmp(command->name, "LOAD") == 0)
     {
@@ -342,19 +342,19 @@ void execute_command(struct game *game, struct command *command)
     else if (strcmp(command->name, "PRIKAZY") == 0 || strcmp(command->name, "HELP") == 0 ||
              strcmp(command->name, "POMOC") == 0)
     {
-        struct container *makil = game->parser->commands;
-        while (makil != NULL)
+        struct container *yo_kai_watch = game->parser->commands;
+        while (yo_kai_watch != NULL)
         {
-            if (makil->type == COMMAND)
+            if (yo_kai_watch->type == COMMAND)
             {
-                printf("%s - %s\n", makil->command->name, makil->command->description);
+                printf("%s - %s\n", yo_kai_watch->command->name, yo_kai_watch->command->description);
             }
-            makil = makil->next;
+            yo_kai_watch = yo_kai_watch->next;
         }
     }
     else if (strcmp(command->name, "VERZIA") == 0)
     {
-        printf("Verzia hry: 1.0\nAutor: Yaroslab=v Shyshmylo\nKontakt: yaroslav.shyshmylo@student.tuke.sk\n");
+        printf("Game version: 1.0\nAuthor: [Author's Name]\nContact: [Author's Contact Information]\n");
     }
     else if (strcmp(command->name, "RESTART") == 0)
     {
@@ -363,25 +363,27 @@ void execute_command(struct game *game, struct command *command)
     }
     else if (strcmp(command->name, "VEZMI") == 0)
     {
-        char *olkun = command->groups[1];
+        char *y_money = command->groups[1];
         tatar();
-        struct item *brat2 = get_item_from_room(game->current_room, olkun);
-        if (brat2 == NULL)
+        struct item *medallium2 = get_item_from_room(game->current_room, y_money);
+        if (medallium2 == NULL)
         {
-            printf("Tento predmet sa tu nenachadza.\n");
+            printf("This Yokai is not here.\n");
         }
         else
         {
-            add_item_to_backpack(game->backpack, brat2);
-            delete_item_from_room(game->current_room, brat2);
-            printf("Predmet '%s' bol pridany do tvojho rukzaku.\n", brat2->name);
+            add_item_to_backpack(game->backpack, medallium2);
+            delete_item_from_room(game->current_room, medallium2);
+            printf("Yokai '%s' has been added to your Yokai Watch.\n", medallium2->name);
         }
     }
     else
     {
-        printf("Neznama prikaz: %s\n", command->name);
+        printf("Unknown command: %s\n", command->name);
     }
 }
+
+
 void play_game(struct game *game)
 {
     printf("Vitaj v hre!\n");
