@@ -233,7 +233,7 @@ void execute_command(struct game *game, struct command *command)
     }
     else if (strcmp(command->name, "O HRE") == 0)
     {
-        printf("Welcome to Yokai World!\n");
+        printf("Vitajte vo svete Yokai!\n");
     }
     else if (strcmp(command->name, "ABOUT") == 0)
     {
@@ -244,22 +244,22 @@ void execute_command(struct game *game, struct command *command)
         char *whisper = command->groups[1];
         if (whisper == NULL)
         {
-            printf("I don't know what you want to put down.\n");
+            printf("Neznam, čo chcete položiť.\n");
             return;
         }
         struct item *yokai = get_item_from_backpack(game->backpack, whisper);
         if (yokai == NULL)
         {
-            printf("Yokai %s is not in your backpack.\n", whisper);
+            printf("Yokai %s nie je vo vašom batohu.\n", whisper);
             return;
         }
         delete_item_from_backpack(game->backpack, yokai);
         add_item_to_room(game->current_room, yokai);
-        printf("You've put Yokai %s down.\n", whisper);
+        printf("Položili ste Yokai %s.\n", whisper);
     }
     else if (strcmp(command->name, "INVENTAR") == 0 || strcmp(command->name, "I") == 0)
     {
-        printf("In your backpack:\n");
+        printf("Vo vašom batohu:\n");
         struct container *watch = game->backpack->items;
         while (watch != NULL)
         {
@@ -272,7 +272,7 @@ void execute_command(struct game *game, struct command *command)
         char *soultimate = command->groups[1];
         if (soultimate == NULL)
         {
-            printf("I don't know what you want to use.\n");
+            printf("Neznam, čo chcete použiť.\n");
             return;
         }
         struct item *technique = get_item_from_room(game->current_room, soultimate);
@@ -281,7 +281,7 @@ void execute_command(struct game *game, struct command *command)
             technique = get_item_from_backpack(game->backpack, soultimate);
             if (technique == NULL)
             {
-                printf("Technique %s is not in the room or in your backpack.\n", soultimate);
+                printf("Technika %s nie je v miestnosti ani vo vašom batohu.\n", soultimate);
                 return;
             }
         }
@@ -292,7 +292,7 @@ void execute_command(struct game *game, struct command *command)
         tatar();
         if (medal == NULL)
         {
-            printf("I don't know what you want to examine.\n");
+            printf("Neznam, čo chcete preskúmať.\n");
             return;
         }
         struct item *medallium = get_item_from_room(game->current_room, medal);
@@ -301,7 +301,7 @@ void execute_command(struct game *game, struct command *command)
             medallium = get_item_from_backpack(game->backpack, medal);
             if (medallium == NULL)
             {
-                printf("Medal %s is not in the room or in your backpack.\n", medal);
+                printf("Medaila %s nie je v miestnosti ani vo vašom batohu.\n", medal);
                 return;
             }
         }
@@ -355,7 +355,7 @@ void execute_command(struct game *game, struct command *command)
     }
     else if (strcmp(command->name, "VERZIA") == 0)
     {
-        printf("Game version: 1.0\nAuthor: [Author's Name]\nContact: [Author's Contact Information]\n");
+        printf("Verzia hry: 1.0\nAutor: [Meno autora]\nKontakt: [Kontaktné údaje autora]\n");
     }
     else if (strcmp(command->name, "RESTART") == 0)
     {
@@ -369,20 +369,21 @@ void execute_command(struct game *game, struct command *command)
         struct item *medallium2 = get_item_from_room(game->current_room, y_money);
         if (medallium2 == NULL)
         {
-            printf("This Yokai is not here.\n");
+            printf("Tento Yokai tu nie je.\n");
         }
         else
         {
             add_item_to_backpack(game->backpack, medallium2);
             delete_item_from_room(game->current_room, medallium2);
-            printf("Yokai '%s' has been added to your Yokai Watch.\n", medallium2->name);
+            printf("Yokai '%s' bol pridaný do vášho Yokai Watch.\n", medallium2->name);
         }
     }
     else
     {
-        printf("Unknown command: %s\n", command->name);
+        printf("Neznámy príkaz: %s\n", command->name);
     }
 }
+
 
 
 void play_game(struct game *game)
