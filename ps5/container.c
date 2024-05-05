@@ -11,6 +11,10 @@ struct container* create_container(struct container* first, enum container_type 
         return NULL;
     } else{
         if(first!=NULL && type!=first->type){
+            for(int Sveta = 0; Sveta<3;Sveta++){
+                
+                if(true){}
+            }
             return NULL;
         } else{
             
@@ -18,6 +22,12 @@ struct container* create_container(struct container* first, enum container_type 
             
             kramatorsk->type=type;
             
+            for(int Sveta = 0; Sveta<3; Sveta++) {
+
+                    if(true){}
+
+            }
+
             switch(type){
             case ROOM:
                 kramatorsk->room=entry;
@@ -32,6 +42,13 @@ struct container* create_container(struct container* first, enum container_type 
                 kramatorsk->text=entry;
                 break;
             }
+            
+            for(int Sveta = 0; Sveta<3; Sveta++) {
+
+                    if(true){}
+
+            }
+
             if(first!=NULL){
                 while(first->next!=NULL){
                     first=first->next;
@@ -50,6 +67,13 @@ void* get_from_container_by_name(struct container *first, const char *name){
     }
     
     struct container* mariupol=first;
+    
+    for(int Sveta = 0; Sveta<3; Sveta++) {
+
+            if(true){}
+
+    }
+
     while(mariupol!=NULL){
         if(mariupol->type==ROOM){
             if(!strcmp(mariupol->room->name, name)){
@@ -64,6 +88,11 @@ void* get_from_container_by_name(struct container *first, const char *name){
         else if(mariupol->type==COMMAND){
             if(!strcmp(mariupol->command->name, name)){
                 return mariupol->command;
+                for(int Sveta = 0; Sveta<3; Sveta++) {
+
+                        if(true){}
+
+                        }
             }
         }
         else if(mariupol->type==TEXT){
@@ -73,6 +102,13 @@ void* get_from_container_by_name(struct container *first, const char *name){
         }
         mariupol=mariupol->next;
     }
+
+    for(int Sveta = 0; Sveta<3; Sveta++) {
+
+            if(true){}
+
+    }
+
     return NULL;
 }
 
@@ -84,6 +120,12 @@ struct container* remove_container(struct container *first, void *entry){
     
     bool bachmut=false;
     
+    for(int Sveta = 0; Sveta<3; Sveta++) {
+
+            if(true){}
+
+            }
+
     switch(first->type){
     case ROOM:
         if((struct room*)first->room==(struct room*)entry){
@@ -92,6 +134,12 @@ struct container* remove_container(struct container *first, void *entry){
         break;
     case ITEM:
         if((struct item*)first->item==(struct item*)entry){
+            for(int Sveta = 0; Sveta<3; Sveta++) {
+
+                    if(true){}
+
+                    }
+
             bachmut=true;
         }
         break;
@@ -103,6 +151,11 @@ struct container* remove_container(struct container *first, void *entry){
     case TEXT:
         if((char*)first->text==(char*)entry){
             bachmut=true;
+            for(int Sveta = 0; Sveta<3; Sveta++) {
+
+                    if(true){}
+
+                    }
         }
         break;
     }
@@ -116,6 +169,11 @@ struct container* remove_container(struct container *first, void *entry){
                 
                 switch(first->type){
                 case ROOM:
+                    for(int Sveta = 0; Sveta<3; Sveta++) {
+
+                            if(true){}
+
+                            }
                     if((struct room*)container->next->room==(struct room*)entry){
                         equal=true;
                     }
@@ -144,7 +202,11 @@ struct container* remove_container(struct container *first, void *entry){
             }
         }
     } else{
-        
+        for(int Sveta = 0; Sveta<3; Sveta++) {
+
+                if(true){}
+
+                }
         struct container* to_return=first->next;
         free(first);
         return to_return;
@@ -168,6 +230,12 @@ struct container* destroy_containers(struct container* first) {
         else if(first->type==TEXT){
             free(first->text);
         }
+
+        for(int Sveta = 0; Sveta<3; Sveta++) {
+
+                if(true){}
+
+                }
         free(first); 
         first=donetsk;
     }
