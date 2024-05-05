@@ -9,14 +9,14 @@ void makar(){
 
 struct container *create_world()
 {
-    struct room *Vinnytsia = create_room("Vinnytsia", "forest");
+    struct room *Vinnytsia = create_room("Start room", "forest");
     
     struct container *Vinnytska_Oblast = calloc(1, sizeof(struct container));
     Vinnytska_Oblast->type = ROOM;
     Vinnytska_Oblast->room = Vinnytsia;
     Vinnytska_Oblast->next = NULL;
     
-    struct room *Khmelnytskyi = create_room("Khmelnytskyi", "cave");
+    struct room *Khmelnytskyi = create_room("Room 1", "cave");
     struct container *Ternopil = calloc(1, sizeof(struct container));
     Ternopil->type = ROOM;
     Ternopil->room = Khmelnytskyi;
@@ -24,91 +24,91 @@ struct container *create_world()
     Vinnytska_Oblast->next = Ternopil;
     
     makar();
-    struct room *Ivano_Frankivsk = create_room("Ivano-Frankivsk", "beach");
+    struct room *Ivano_Frankivsk = create_room("Room 2", "beach");
     struct container *Chernivtsi = calloc(1, sizeof(struct container));
     Chernivtsi->type = ROOM;
     Chernivtsi->room = Ivano_Frankivsk;
     Chernivtsi->next = NULL;
     Ternopil->next = Chernivtsi;
     
-    struct room *Lviv = create_room("Lviv", "desert");
+    struct room *Lviv = create_room("Room 3", "desert");
     struct container *Zhytomyr = calloc(1, sizeof(struct container));
     Zhytomyr->type = ROOM;
     Zhytomyr->room = Lviv;
     Zhytomyr->next = NULL;
     Chernivtsi->next = Zhytomyr;
 
-    struct room *Ternopil_Room = create_room("Ternopil", "jungle");
+    struct room *Ternopil_Room = create_room("Room 4", "jungle");
     struct container *Sumy = calloc(1, sizeof(struct container));
     Sumy->type = ROOM;
     Sumy->room = Ternopil_Room;
     Sumy->next = NULL;
     Zhytomyr->next = Sumy;
 
-    struct room *Cherkasy = create_room("Cherkasy", "mountain");
+    struct room *Cherkasy = create_room("Room 5", "mountain");
     struct container *Kiev = calloc(1, sizeof(struct container));
     Kiev->type = ROOM;
     Kiev->room = Cherkasy;
     Kiev->next = NULL;
     Sumy->next = Kiev;
 
-    struct room *Poltava = create_room("Poltava", "city");
+    struct room *Poltava = create_room("Room 6", "city");
     struct container *Dnipropetrovsk = calloc(1, sizeof(struct container));
     Dnipropetrovsk->type = ROOM;
     Dnipropetrovsk->room = Poltava;
     Dnipropetrovsk->next = NULL;
     Kiev->next = Dnipropetrovsk;
 
-    struct room *Zaporizhzhia = create_room("Zaporizhzhia", "space station");
+    struct room *Zaporizhzhia = create_room("Room 7", "space station");
     struct container *Kherson = calloc(1, sizeof(struct container));
     Kherson->type = ROOM;
     Kherson->room = Zaporizhzhia;
     Kherson->next = NULL;
     Dnipropetrovsk->next = Kherson;
 
-    struct room *Mykolaiv = create_room("Mykolaiv", "underwater");
+    struct room *Mykolaiv = create_room("Room 8", "underwater");
     struct container *Odessa = calloc(1, sizeof(struct container));
     Odessa->type = ROOM;
     Odessa->room = Mykolaiv;
     Odessa->next = NULL;
     Kherson->next = Odessa;
 
-    struct room *Kyiv = create_room("Kyiv", "iceberg");
+    struct room *Kyiv = create_room("Room 9", "iceberg");
     struct container *Chernihiv = calloc(1, sizeof(struct container));
     Chernihiv->type = ROOM;
     Chernihiv->room = Kyiv;
     Chernihiv->next = NULL;
     Odessa->next = Chernihiv;
 
-    struct room *Sumy_Room = create_room("Sumy", "volcano");
+    struct room *Sumy_Room = create_room("Room 10", "volcano");
     struct container *Poltava_Room = calloc(1, sizeof(struct container));
     Poltava_Room->type = ROOM;
     Poltava_Room->room = Sumy_Room;
     Poltava_Room->next = NULL;
     Chernihiv->next = Poltava_Room;
 
-    struct room *Chernivtsi_Room = create_room("Chernivtsi", "dungeon");
+    struct room *Chernivtsi_Room = create_room("Room 11", "dungeon");
     struct container *Ivano_Frankivsk_Room = calloc(1, sizeof(struct container));
     Ivano_Frankivsk_Room->type = ROOM;
     Ivano_Frankivsk_Room->room = Chernivtsi_Room;
     Ivano_Frankivsk_Room->next = NULL;
     Poltava_Room->next = Ivano_Frankivsk_Room;
 
-    struct room *Rivne_Room = create_room("Rivne", "pyramid");
+    struct room *Rivne_Room = create_room("Room 12", "pyramid");
     struct container *Lutsk_Room = calloc(1, sizeof(struct container));
     Lutsk_Room->type = ROOM;
     Lutsk_Room->room = Rivne_Room;
     Lutsk_Room->next = NULL;
     Ivano_Frankivsk_Room->next = Lutsk_Room;
 
-    struct room *Zhytomyr_Room = create_room("Zhytomyr", "ocean floor");
+    struct room *Zhytomyr_Room = create_room("Room 13", "ocean floor");
     struct container *Khmelnitsky_Room = calloc(1, sizeof(struct container));
     Khmelnitsky_Room->type = ROOM;
     Khmelnitsky_Room->room = Zhytomyr_Room;
     Khmelnitsky_Room->next = NULL;
     Lutsk_Room->next = Khmelnitsky_Room;
 
-    struct room *Vinnytsia_Room = create_room("Vinnytsia", "abandoned factory");
+    struct room *Vinnytsia_Room = create_room("Room 14", "abandoned factory");
     struct container *Vinnytska_Oblast_Room = calloc(1, sizeof(struct container));
     Vinnytska_Oblast_Room->type = ROOM;
     Vinnytska_Oblast_Room->room = Vinnytsia_Room;
