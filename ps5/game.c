@@ -355,7 +355,7 @@ void execute_command(struct game *game, struct command *command)
     }
     else if (strcmp(command->name, "VERZIA") == 0)
     {
-        printf("Verzia hry: 1.0\nAutor: [Meno autora]\nKontakt: [Kontaktné údaje autora]\n");
+        printf("Verzia hry: 1.0\nAutor: Shyshmylo Yaroslav\nKontakt: yaroslav.shyshmylo@student.tuke.sk\n");
     }
     else if (strcmp(command->name, "RESTART") == 0)
     {
