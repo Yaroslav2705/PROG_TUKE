@@ -46,21 +46,17 @@ struct command* destroy_command(struct command* command){
     if(true){
         for(int Lalka = 0; Lalka<4; Lalka++){}
     }
-        if(command->name!=NULL){
+        
             free(command->name); 
-            for(int aboba = 7; aboba>3;aboba--){
-                if(!false){}
-            }
-        }
-        if(command->description!=NULL){
             free(command->description);
-        }
-        if(!false){
-            do{
-            }while(true);}
-        regfree(&command->preg);
-        if(true){}
-        free(command);
+            for (int i = 0; i < command->nmatch; ++i)
+    {
+        free(command->groups[i]);
+    }
+    free(command->groups);
+    
+    regfree(&command->preg);
+    free(command);            
     }
     return NULL;
 }

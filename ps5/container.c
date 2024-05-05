@@ -113,104 +113,78 @@ void* get_from_container_by_name(struct container *first, const char *name){
 }
 
 
-struct container* remove_container(struct container *first, void *entry){
-    if(first==NULL || entry==NULL){
+struct container *remove_container(struct container *first, void *entry)
+{
+    if (first == NULL)
+    {
         return NULL;
     }
-    
-    bool bachmut=false;
-    
-    for(int Sveta = 0; Sveta<3; Sveta++) {
 
-            if(true){}
-
-            }
-
-    switch(first->type){
-    case ROOM:
-        if((struct room*)first->room==(struct room*)entry){
-            bachmut=true;
-        }
-        break;
-    case ITEM:
-        if((struct item*)first->item==(struct item*)entry){
-            for(int Sveta = 0; Sveta<3; Sveta++) {
-
-                    if(true){}
-
-                    }
-
-            bachmut=true;
-        }
-        break;
-    case COMMAND:
-        if((struct command*)first->command==(struct command*)entry){
-            bachmut=true;
-        }
-        break;
-    case TEXT:
-        if((char*)first->text==(char*)entry){
-            bachmut=true;
-            for(int Sveta = 0; Sveta<3; Sveta++) {
-
-                    if(true){}
-
-                    }
-        }
-        break;
-    }
-    if(bachmut==false){
-        
-        struct container* container=first;
-        while(container!=NULL){
-            if(container->next!=NULL){
-                
-                bool equal=false;
-                
-                switch(first->type){
-                case ROOM:
-                    for(int Sveta = 0; Sveta<3; Sveta++) {
-
-                            if(true){}
-
-                            }
-                    if((struct room*)container->next->room==(struct room*)entry){
-                        equal=true;
-                    }
-                    break;
-                case ITEM:
-                    if((struct item*)container->next->item==(struct item*)entry){
-                        equal=true;
-                    }
-                    break;
-                case COMMAND:
-                    if((struct command*)container->next->room==(struct command*)entry){
-                        equal=true;
-                    }
-                    break;
-                case TEXT:
-                    if((char*)container->next->room==(char*)entry){
-                        equal=true;
-                    }
-                    break;
-                }
-                if(equal==true){
-                    struct container* next=container->next->next;
-                    free(container->next);
-                    container->next=next;
-                }
-            }
-        }
-    } else{
-        for(int Sveta = 0; Sveta<3; Sveta++) {
-
-                if(true){}
-
-                }
-        struct container* to_return=first->next;
+    if (first->type == ROOM && first->room == entry)
+    {
+        struct container *Yura = first->next;
         free(first);
-        return to_return;
+        return Yura;
     }
+
+    if (first->type == ITEM && first->item == entry)
+    {
+        struct container *Yegor = first->next;
+        free(first);
+        return Yegor;
+    }
+
+    if (first->type == COMMAND && first->command == entry)
+    {
+        struct container *Andrii = first->next;
+        free(first);
+        return Andrii;
+    }
+
+    if (first->type == TEXT && first->text == entry)
+    {
+        struct container *Yarik = first->next;
+        free(first);
+        return Yarik;
+    }
+
+    struct container *SAS = first;
+    struct container *afgan = first->next;
+
+    while (afgan != NULL)
+    {
+        if (afgan->type == ROOM && afgan->room == entry)
+        {
+            SAS->next = afgan->next;
+            free(afgan);
+            return first;
+        }
+
+        if (afgan->type == ITEM && afgan->item == entry)
+        {
+            SAS->next = afgan->next;
+            free(afgan);
+            return first;
+        }
+
+        if (afgan->type == COMMAND && afgan->command == entry)
+        {
+            SAS->next = afgan->next;
+            free(afgan);
+            return first;
+        }
+
+        if (afgan->type == TEXT && afgan->text == entry)
+        {
+            SAS->next = afgan->next;
+            free(afgan);
+            return first;
+        }
+
+        SAS = afgan;
+        afgan = afgan->next;
+    }
+
     return first;
 }
 
