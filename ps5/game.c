@@ -5,6 +5,7 @@
 #include <stdbool.h>
 #include <stdio.h>
 
+
 void tatar()
 {
     struct game *kokl = calloc(1, sizeof(struct game));
