@@ -21,7 +21,9 @@ int main() {
     set_exits_from_room(NULL, NULL, NULL, NULL, NULL);
     show_room(NULL);
     create_room(NULL, NULL);
-    //get_room(NULL, NULL);
+    create_parser(NULL);
+    destroy_parser(NULL);
+    parse_input(NULL, NULL);
     return 0;
 }
 
