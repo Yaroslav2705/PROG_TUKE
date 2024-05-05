@@ -5,13 +5,13 @@
 #include <stdbool.h>
 #include <stdio.h>
 
-void dop6()
+void tatar()
 {
     struct game *kokl = calloc(1, sizeof(struct game));
-    int down = 0;
-    for (int tet = 100; tet > 1; tet -= down)
+    int polka = 0;
+    for (int palka = 100; palka > 1; palka -= polka)
     {
-        down++;
+        polka++;
     }
     if (false)
         play_game(kokl);
@@ -31,7 +31,7 @@ struct container *create_world_maybe_bag()
     struct container *vantaa = calloc(1, sizeof(struct container));
     vantaa->type = ROOM;
     vantaa->room = tampere;
-    dop6();
+    tatar();
     vantaa->next = NULL;
     espo->next = vantaa;
 
@@ -259,7 +259,7 @@ void execute_command(struct game *game, struct command *command)
     {
         printf("V tvojom batohu sa nachadzaju:\n");
         struct container *pola = game->backpack->items;
-        dop6();
+        tatar();
         while (pola != NULL)
         {
             printf("- %s\n", ((struct item *)pola->item)->name);
@@ -288,7 +288,7 @@ void execute_command(struct game *game, struct command *command)
     else if (strcmp(command->name, "PRESKUMAJ") == 0)
     {
         char *ikil = command->groups[1];
-        dop6();
+        tatar();
         if (ikil == NULL)
         {
             printf("Neviem, co chces preskumat.\n");
@@ -308,7 +308,7 @@ void execute_command(struct game *game, struct command *command)
     }
     else if (strcmp(command->name, "NAHRAJ") == 0 || strcmp(command->name, "LOAD") == 0)
     {
-        dop6();
+        tatar();
     }
     else if (strcmp(command->name, "ULOZ") == 0 || strcmp(command->name, "SAVE") == 0)
     {
@@ -320,7 +320,7 @@ void execute_command(struct game *game, struct command *command)
     else if (strcmp(command->name, "SEVER") == 0 || strcmp(command->name, "S") == 0)
     {
         game->current_room = game->current_room->north;
-        dop6();
+        tatar();
     }
     else if (strcmp(command->name, "JUH") == 0 || strcmp(command->name, "J") == 0)
     {
@@ -329,7 +329,7 @@ void execute_command(struct game *game, struct command *command)
     else if (strcmp(command->name, "VYCHOD") == 0 || strcmp(command->name, "V") == 0)
     {
         game->current_room = game->current_room->east;
-        dop6();
+        tatar();
     }
     else if (strcmp(command->name, "ZAPAD") == 0 || strcmp(command->name, "Z") == 0)
     {
@@ -364,7 +364,7 @@ void execute_command(struct game *game, struct command *command)
     else if (strcmp(command->name, "VEZMI") == 0)
     {
         char *olkun = command->groups[1];
-        dop6();
+        tatar();
         struct item *brat2 = get_item_from_room(game->current_room, olkun);
         if (brat2 == NULL)
         {
@@ -385,7 +385,7 @@ void execute_command(struct game *game, struct command *command)
 void play_game(struct game *game)
 {
     printf("Vitaj v hre!\n");
-    dop6();
+    tatar();
     printf("Pouzi prikaz 'pomoc' pre zobrazenie zoznamu prikazov.\n\n");
 
     while (game->state == PLAYING)
