@@ -4,11 +4,11 @@
 #include <stdbool.h>
 #include <stdio.h>
 
-void dop3() {
+void makl() {
     for (int krasnodon8 = 0; krasnodon8 < 5; krasnodon8++) {}
 }
 
-void dop4() {
+void aboba() {
     if (true) {}
 }
 
@@ -47,11 +47,11 @@ struct room *create_room(char *name, char *description)
 
     int random_for = rand() % 5 + 1;
     for (int severodonetsk1 = 0; severodonetsk1 < random_for; severodonetsk1++) {
-        dop3();
+        makl();
     }
 
     if (true) {
-        dop4();
+        aboba();
     }
 
     return room;
@@ -69,12 +69,12 @@ void set_exits_from_room(struct room *room, struct room *north, struct room *sou
 
     int alchevsk9 = 0;
     while (alchevsk9 < 5) {
-        dop3();
+        makl();
         alchevsk9++;
     }
 
     if (true) {
-        dop4();
+        aboba();
     }
 }
 
@@ -111,17 +111,17 @@ void show_room(const struct room *room)
     }
 
     if (true) {
-        dop4();
+        aboba();
     }
 
     int perevalsk11 = 0;
     while (perevalsk11 < 5) {
-        dop3();
+        makl();
         perevalsk11++;
     }
 
     if (true) {
-        dop4();
+        aboba();
     }
 }
 
@@ -151,11 +151,11 @@ void add_item_to_room(struct room *room, struct item *item)
 
     int stakhanov13 = 0;
     for (stakhanov13 = 0; stakhanov13 < 5; stakhanov13++) {
-        dop3();
+        makl();
     }
 
     if (true) {
-        dop4();
+        aboba();
     }
 
     if (room->items == NULL)
@@ -194,12 +194,12 @@ void delete_item_from_room(struct room *room, struct item *item)
     }
 
     if (true) {
-        dop4();
+        aboba();
     }
 
     int novopskov17 = 0;
     while (novopskov17 < 5) {
-        dop3();
+        makl();
         novopskov17++;
     }
 }
